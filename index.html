@@ -1,0 +1,2534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CALIFICATED PC V9 by LUIS MM</title>
+<link rel="icon" type="image/png" href="icons/favicon-64.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f6feb">
+<style>
+  :root{--accink:#fff;--bg:#f4f6f8;--card:#fff;--ink:#1c2733;--mut:#6b7a89;--acc:#1f6feb;--ok:#1a7f37;--bad:#cf222e;--line:#d8dee4}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
+  header{background:var(--acc);color:var(--accink);padding:12px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  header h1{font-size:18px;margin:0;flex:1}
+  main{padding:14px;max-width:1300px;margin:auto}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  button,select,input,textarea{font:inherit}
+  button{background:var(--acc);color:var(--accink);border:0;border-radius:7px;padding:8px 12px;cursor:pointer}
+  button.sec{background:#fff;color:var(--acc);border:1px solid var(--acc)}
+  button.danger{background:#fff;color:var(--bad);border:1px solid var(--bad)}
+  select,input[type=text],input[type=date],textarea{border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:#fff}
+  textarea{width:100%;min-height:140px}
+  .tabs{display:flex;gap:6px;margin-bottom:12px}
+  .tabs button{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .wrap{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:900px}
+  th,td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;white-space:nowrap}
+  th{background:#eef2f6;position:sticky;top:0;font-size:13px}
+  td.n{font-weight:600;min-width:180px;white-space:normal}
+  td select{width:100%}
+  td input[type=text]{width:100%;min-width:140px}
+  .hide{display:none}
+  .mut{color:var(--mut);font-size:13px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;background:#eef2f6}
+  .warn{color:var(--bad)}
+  .cfgw{display:flex;flex-direction:column;font-size:12px;color:var(--mut)}
+  .cfgw input{width:70px}
+  td.fin{font-weight:700;font-size:16px}
+  .ok{color:var(--ok)}
+  .btnmas,.btnmenos{font-size:20px;font-weight:700;padding:8px 18px;min-width:70px;color:#fff;border:0}
+  .btnmas{background:#1a7f37}.btnmenos{background:#cf222e}
+  .bal{font-size:20px;font-weight:700}
+  #fx{position:fixed;inset:0;z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;cursor:pointer}
+  #fx.mas{background:rgba(26,127,55,.93)} #fx.menos{background:rgba(207,34,46,.93)}
+  #fx.show{display:flex;animation:fxIn .25s ease-out}
+  #fx .big{font-size:min(28vw,180px);font-weight:800;line-height:1}
+  #fx .msg{font-size:min(7vw,36px);margin-top:10px;padding:0 20px}
+  @keyframes fxIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+  select.asA,select.asF,select.asR,select.asJ{font-weight:700;border:2px solid transparent}
+  select.asA{background:#16c04f;color:#fff;border-color:#0e9a3c}
+  select.asF{background:#ff2d3d;color:#fff;border-color:#c8101f}
+  select.asR{background:#ffd60a;color:#4a3b00;border-color:#d1ae00}
+  select.asJ{background:#2f7bff;color:#fff;border-color:#1456cc}
+  .marca{position:fixed;right:14px;bottom:10px;text-align:right;line-height:1.1;user-select:none;pointer-events:none;color:var(--ink);opacity:.6;z-index:9500}
+  .marca b{display:block;font-size:18px;font-weight:800;letter-spacing:2px}
+  .marca span{font-size:11px;letter-spacing:1px}
+  .pbar{display:flex;gap:6px;flex-wrap:wrap}
+  .pbar button{background:transparent;color:var(--accink);border:1.5px solid var(--accink);font-weight:700;padding:6px 14px;opacity:.8}
+  .pbar button.on{background:var(--accink);color:var(--acc);opacity:1}
+  .solo-imp{display:none}
+  @media print{.solo-imp{display:block!important;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #000}}
+  #parcialTag{margin:0 0 10px;font-weight:700;font-size:15px}
+  .ea table{min-width:0}
+  .ea td{white-space:normal}
+  .ea h4{margin:16px 0 6px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  .ea th{position:static}
+  #reloj{position:fixed;top:5px;left:50%;transform:translateX(-50%);z-index:60;background:rgba(0,0,0,.4);color:#fff;border-radius:99px;padding:2px 12px;font-weight:700;font-size:13px;letter-spacing:1px;font-variant-numeric:tabular-nums;pointer-events:none}
+  .hor td{white-space:normal;min-width:140px;vertical-align:top}
+  .hor td input{width:100%;min-width:0;margin-bottom:3px}
+  .hor th:first-child{white-space:nowrap;background:#eef2f6}
+  .hor td.rec{background:#fff4d6;text-align:center;font-weight:700;letter-spacing:2px}
+  .hor tr.ahora th,.hor tr.ahora td{background:#dcecff}
+  .hor tr.ahora td.rec{background:#ffe9a8}
+  #avisoHora{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:16px}
+  #avisoHora.hide{display:none}
+  .aviso-caja{background:#fff;color:var(--ink);border-radius:16px;padding:28px 30px;max-width:560px;width:100%;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.4);animation:fxIn .25s ease-out}
+  .aviso-tit{font-size:15px;color:var(--mut);margin-bottom:6px;font-weight:600}
+  .aviso-main{font-size:clamp(26px,6vw,40px);font-weight:800;line-height:1.1;margin:6px 0}
+  .aviso-sub{font-size:18px;margin-bottom:16px}
+  @media print{#reloj,#avisoHora{display:none!important}}
+  @media print{header,.tabs,button,#calConfig,.noprint{display:none!important} .card{border:0}}
+  /* ===== Hojas de respuestas (examen de bolitas) ===== */
+  #tab-hojas details.hj{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:#fff}
+  #tab-hojas details.hj>summary{cursor:pointer;font-weight:700;padding:10px 12px;font-size:15px}
+  #tab-hojas details.hj>.hjc{padding:4px 12px 14px}
+  .hjfile{display:inline-block;background:var(--acc);color:var(--accink);border-radius:7px;padding:8px 12px;cursor:pointer}
+  .hjfile.sec{background:#fff;color:var(--acc);border:1px solid var(--acc)}
+  .hjtipos button{min-width:46px;background:#fff;color:var(--ink);border:1px solid var(--line);font-weight:700}
+  .hjtipos button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .hjgrid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;max-width:620px;margin:10px 0}
+  .hjgrid .hc{display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--mut)}
+  .hjgrid .hc button{width:100%;min-width:0;padding:8px 0;font-weight:800;font-size:16px;background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .hjgrid .hc button.set{background:#eaf2ff;border-color:var(--acc);color:var(--acc)}
+  .hjgrid .hc button.anu{background:#fff4d6;border-color:#d1ae00;color:#7a5d00}
+  #hjCard{border:2px solid var(--acc);border-radius:10px;padding:12px;margin-top:10px;background:#fbfcfe}
+  #hjCard select{max-width:100%}
+  #hjCard label.hjal{display:block;width:100%}
+  #hjCard label.hjal select{width:100%}
+  #hjCard .hjsum{font-size:20px;font-weight:800;margin:6px 0}
+  #hjCard .hjmsg{padding:6px 10px;border-radius:7px;margin:6px 0;font-size:14px}
+  #hjCard .hjmsg.ok{background:#e6f6ea;color:#14562a}
+  #hjCard .hjmsg.mal{background:#fde7ea;color:#8e1420}
+  #hjCard .hjmsg.av{background:#fff4d6;color:#6b5200}
+  .hjqs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;margin:10px 0}
+  .hjq{display:flex;align-items:center;gap:4px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;background:#fff}
+  .hjq.rev{border-color:#e8a100;background:#fff8e1}
+  .hjq b{width:22px;text-align:right;font-size:13px}
+  .hjq button{min-width:0;flex:1;padding:8px 0;font-weight:800;background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .hjq button.sel{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+  .hjq button.sel.si{background:#1a7f37;border-color:#1a7f37;color:#fff}
+  .hjq button.sel.no{background:#cf222e;border-color:#cf222e;color:#fff}
+  .hjq button.key{box-shadow:inset 0 0 0 2px #1f6feb}
+  .hjq .hjm{width:18px;text-align:center;font-weight:800}
+  #hjCanvasWrap canvas{width:100%;max-width:560px;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:#fff}
+  #hjLog{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--mut)}
+  /* vista de impresión de hojas */
+  #hojasImp{position:fixed;inset:0;z-index:9000;background:#6b7a89;overflow:auto;padding:10px}
+  #hojasImp.hide{display:none}
+  .hi-bar{background:#fff;padding:10px 12px;border-radius:8px;margin:0 auto 10px;max-width:215.9mm;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .hoja{background:#fff;margin:0 auto 10px;width:100%;max-width:215.9mm;aspect-ratio:215.9/279.4;page:hoja}
+  .hoja svg{display:block;width:100%;height:100%}
+  @page hoja{size:letter;margin:0}
+  @media print{
+    body.imp-hojas>*:not(#hojasImp){display:none!important}
+    body.imp-hojas #hojasImp{position:static;background:#fff;padding:0;overflow:visible;display:block!important}
+    body.imp-hojas .hi-bar{display:none!important}
+    body.imp-hojas .hoja{width:215.9mm;max-width:none;height:279mm;margin:0;overflow:hidden;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body.imp-hojas .hoja:last-child{break-after:auto;page-break-after:auto}
+  }
+  button.sello{min-width:84px;white-space:nowrap;font-weight:800;background:#e3e6ea;color:#5a6270;border:1px solid #c5cad1}
+  button.sello.ok{background:#1a7f37;color:#fff;border-color:#1a7f37}
+  button.sello.ret{background:#ffd60a;color:#4a3b00;border-color:#d1ae00}
+  button.sello.jus{background:#2f7bff;color:#fff;border-color:#1456cc}
+  button.sello.bad{background:#cf222e;color:#fff;border-color:#cf222e}
+  .menuBtn{background:#fff;color:var(--acc);font-weight:800;font-size:17px;padding:10px 18px;border:0;border-radius:10px}
+  #menuPantalla{position:fixed;inset:0;z-index:8500;background:var(--bg);overflow:auto;padding:18px}
+  #menuPantalla.hide{display:none}
+  #menuPantalla .mp-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1000px;margin:0 auto 14px}
+  #menuPantalla h2{margin:0;flex:1;min-width:220px}
+  #menuGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;max-width:1000px;margin:0 auto}
+  #menuGrid button{min-height:130px;font-size:30px;font-weight:800;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;word-break:break-word}
+  #menuGrid button small{font-size:14px;font-weight:600;opacity:.85}
+  #menuGrid button.act{outline:4px solid #1a7f37}
+  #menuAcc{max-width:1000px;margin:26px auto 0}
+  #menuAcc h3{margin:0 0 10px}
+  #menuAcc .ma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  #menuAcc button{min-height:70px;font-size:18px;font-weight:700;border-radius:12px;padding:10px 14px}
+  .pendBtn{position:relative;background:#fff;color:var(--acc);font-weight:800;font-size:17px;padding:10px 18px;border:0;border-radius:10px}
+  .pbadge{display:inline-block;min-width:22px;padding:1px 7px;margin-left:6px;border-radius:12px;background:#1a7f37;color:#fff;font-size:13px;font-weight:800;text-align:center}
+  .pbadge.venc{background:#c62828;animation:pbl 1s infinite}
+  .pbadge.cero{display:none}
+  @keyframes pbl{50%{opacity:.35}}
+  #dlgPend{border:1px solid var(--line);border-radius:12px;padding:18px;max-width:760px;width:96%;max-height:92vh}
+  #dlgPend .pf{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:10px}
+  #dlgPend textarea{width:100%;min-height:70px;font:inherit;padding:8px;border:1px solid var(--line);border-radius:8px;box-sizing:border-box}
+  .pn{border:1px solid var(--line);border-left:6px solid #1a7f37;border-radius:10px;padding:10px 12px;margin:8px 0;background:#fff}
+  .pn.venc{border-left-color:#c62828;background:#fff4f4}
+  .pn.hecho{border-left-color:#9aa5b1;opacity:.65}
+  .pn.hecho .pt{text-decoration:line-through}
+  .pn .pt{font-size:16px;white-space:pre-wrap;word-break:break-word;margin-bottom:6px}
+  .pn .pm{font-size:13px;color:var(--mut);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .pn .pm b{color:var(--ink)}
+  .pn .row button{padding:4px 10px;font-size:14px}
+  #dlgAlarma{border:4px solid #c62828;border-radius:16px;padding:26px 30px;max-width:520px;width:92%;text-align:center;animation:pbl 1s infinite}
+  #dlgAlarma::backdrop{background:rgba(0,0,0,.7)}
+  #dlgAlarma .al-ic{font-size:54px}
+  #dlgAlarma .al-t{font-size:26px;font-weight:800;margin:6px 0;white-space:pre-wrap;word-break:break-word}
+  @media print{.pendBtn{display:none!important}}
+  /* ===== Tamaños para pantalla de PC ===== */
+  .tabs{flex-wrap:wrap}
+  main{padding-bottom:80px}
+  @media (min-width:1100px){
+    body{font-size:17px}
+    header{padding:14px 24px}
+    header h1{font-size:23px}
+    main{padding:18px 24px 80px;max-width:1760px}
+    .card{padding:18px}
+    button{padding:10px 16px;border-radius:8px}
+    .tabs button{font-size:16px;padding:11px 18px}
+    select,input[type=text],input[type=date],input[type=number],textarea{padding:8px 10px;font-size:16px}
+    th{font-size:15px;padding:10px 8px}
+    td{padding:9px 8px}
+    td.n{min-width:230px;font-size:17px}
+    td.fin{font-size:18px}
+    .mut{font-size:15px}
+    .cfgw{font-size:14px}
+    .cfgw input{width:84px}
+    .pill{font-size:14px}
+    button.sello{min-width:104px;font-size:16px;padding:10px 8px}
+    #menuGrid button{min-height:150px;font-size:34px}
+    .pbar button{font-size:16px;padding:9px 16px}
+    .marca b{font-size:20px} .marca span{font-size:13px}
+  }
+  @media (min-width:1600px){
+    body{font-size:18px}
+    th{font-size:16px}
+    td.n{min-width:260px;font-size:18px}
+  }
+</style>
+</head>
+<body>
+<div id="reloj">--:--:--</div>
+<div id="avisoHora" class="hide"><div class="aviso-caja"><div class="aviso-tit" id="avTit"></div><div class="aviso-main" id="avMain"></div><div class="aviso-sub" id="avSub"></div><div class="row" style="justify-content:center"><button id="btnAvAbrir" class="hide">Abrir El Grupo</button><button class="sec" id="btnAvCerrar">Entendido</button></div></div></div>
+<header>
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><button type="button" id="btnMenu" class="menuBtn">☰ Menú</button><button type="button" id="btnPend" class="pendBtn">📌 Pendientes<span class="pbadge cero" id="pendBadge">0</span></button>
+  <h1>📋 Sistema de Calificaciones CECYTED 12 Monreal</h1></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+    <small id="verNota" style="font-size:11px;opacity:.85;letter-spacing:.3px">CALIFICATED PC V12 by LUIS MM · con 3 Parciales, Ajustes de calificaciones y Ponderación, Horario, Hojas de respuestas, Pendientes con alarma y GRUPO MUESTRA · actualizada el 13 de noviembre de 2026</small>
+    <small id="verProf" style="font-size:12px;font-weight:600"></small>
+    <small id="verSrv" style="font-size:11px;opacity:.85">Modo navegador: sin respaldo automático en carpeta</small>
+    <div class="pbar" id="parcialBar"></div>
+    <label>Grupo:
+      <select id="grupoSel"></select>
+    </label>
+  </div>
+</header>
+<main>
+  <div id="docHead" class="solo-imp"></div>
+  <div id="parcialTag"></div>
+  <div class="tabs" id="tabsBar"></div>
+
+  <section id="tab-horario" class="card hide">
+    <h3 style="margin-top:0">🕗 Horario de clases</h3>
+    <p class="mut">De lunes a viernes, de 8:00 a 15:10, con clases de 50 minutos. Escribe la materia y el grupo de cada hora. Al cumplirse cada hora, el reloj de arriba avisa con un mensaje cuál es la clase que sigue.</p>
+    <div class="row noprint" style="margin-bottom:10px">
+      <label>Receso inicia <input type="time" id="hrRecIni"></label>
+      <label>dura <input type="number" id="hrRecDur" min="0" max="90" style="width:70px"> min</label>
+      <label><input type="checkbox" id="hrAviso"> Avisar al cambiar de clase</label>
+      <label><input type="checkbox" id="hrSonido"> Con sonido</label>
+      <button class="sec" id="btnHrProbar">Probar Aviso</button>
+      <button class="danger" id="btnHrLimpiar">Vaciar Horario</button>
+    </div>
+    <datalist id="hrGrupos"></datalist>
+    <div class="wrap"><table class="hor" id="tablaHorario"></table></div>
+  </section>
+  <section id="tab-captura" class="card">
+    <div class="row" style="margin-bottom:10px">
+      <label>Fecha: <input type="date" id="fecha"></label>
+      <button class="sec" id="btnTodosOk">Restablecer Valores Por Defecto</button>
+      <button class="sec" id="btnTodosAsis">✓ Marcar Asistencia A Todos Los Que Estén En Gris</button>
+      <button class="sec" id="btnSinClase">Día Sin Clase (Limpiar)</button>
+      <span class="mut" id="estado"></span>
+    </div>
+    <div class="wrap"><table id="tablaCaptura"></table></div>
+    <p class="mut">Cada día nuevo se abre con valores por defecto: <b>todo en gris (neutro)</b>. Asistencia: un clic = ✓ asistió (verde, suma), dos = ✗ falta (rojo, resta), tres = RETARDO (amarillo, vale la mitad), cuatro = JUSTIFICADA (azul, no resta) y cinco = gris. Comportamiento, Participación, Tarea, Trabajo y Sello: un clic = <b>OK</b> (verde, suma), dos clics = <b>BAD</b> (rojo, resta), tres = gris. Si marcas Falta o Justificada, se limpian comportamiento, participación, tarea y trabajo de ese alumno y se habilita la columna Justificación para anotar el motivo. La Falta resta a la asistencia; la Justificada no. Se guarda automáticamente; los campos vacíos se consideran "no registrado".</p>
+  </section>
+
+  <section id="tab-cuad" class="card hide">
+    <h3 style="margin-top:0">Cuadernillo (entrega única)</h3>
+    <div class="row" style="margin-bottom:10px">
+      <label>Fecha límite de entrega: <input type="date" id="cuadLimite"></label>
+    </div>
+    <p class="mut">Captura la fecha en que cada alumno entregó (botón "Hoy" para el día actual). Déjala vacía si aún no entrega. Entregar en la fecha límite o antes cuenta como a tiempo; después, la calificación baja según los días de retraso.</p>
+    <p class="mut">Al pulsar <b>Entregó hoy</b> (o <b>Evaluar</b>) se abre la revisión: marca lo que cumple y se calcula una nota de 0 a 10 que entra a la calificación en el rubro Cuadernillo (si hay retraso, se descuenta la penalización). Puntos de cada criterio (editables):</p>
+    <div id="cuadPesos" class="row" style="margin-bottom:10px"></div>
+    <div class="wrap"><table id="tablaCuad"></table></div>
+    <dialog id="dlgEval" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:380px;width:92%">
+      <h3 style="margin:0 0 4px">Revisión del cuadernillo</h3>
+      <div id="evalNombre" class="mut" style="margin-bottom:8px"></div>
+      <div id="evalChecks"></div>
+      <div style="margin:12px 0;font-size:18px">Calificación: <b id="evalNota">0.0</b> / 10</div>
+      <div class="row">
+        <button id="btnEvalGuardar">Guardar</button>
+        <button class="sec" id="btnEvalCancelar">Cancelar</button>
+        <button class="danger" id="btnEvalBorrar">Quitar Revisión</button>
+      </div>
+    </dialog>
+  </section>
+
+  <section id="tab-cal" class="card hide">
+    <h3 style="margin-top:0" id="calTitulo">Calificación aproximada (0 a 10)</h3>
+    <div id="calConfig" class="row"></div>
+    <p class="mut noprint">Pesos en %, editables (se normalizan si no suman 100). Se calcula con los registros acumulados; los rubros sin datos (por ejemplo, el cuadernillo antes de su fecha límite) no se toman en cuenta. Equivalencias: Comportamiento Excelente 100, Bueno 85, Regular 65, Malo 40. Participación Alta 100, Media 80, Baja 60, Nula 30. Tarea y trabajo: Entregó 100, Incompleto 50, No entregó 0. Asistencia: faltas injustificadas restan; las justificadas no cuentan. Puntualidad: retardos restan. Es una calificación aproximada; la decisión final es tuya.</p>
+    <div class="row noprint" style="margin:6px 0 10px"><button id="btnExtOrd" class="sec">📝 Examen Extraordinario</button></div>
+    <div id="panelExt" class="hide noprint" style="border:2px solid var(--acc);border-radius:10px;padding:12px;margin:0 0 14px">
+      <h3 style="margin:0 0 4px">📝 Examen extraordinario · <span id="extGrupo"></span></h3>
+      <p class="mut" style="margin-top:0">Segunda oportunidad para un Parcial reprobado (calificación menor a 6.00). Solo se puede capturar en los Parciales que el alumno reprobó. La calificación del extraordinario (0 a 10) sustituye a la del Parcial si es mayor, con el máximo que configures arriba. Sin redondeo.</p>
+      <div class="wrap"><table id="tablaExt"></table></div>
+      <div class="row" style="margin-top:10px">
+        <button class="sec" id="extExp">⬇ Exportar Lista De Captura (.csv)</button>
+        <label class="hjfile sec">📥 Subir Lista De Captura (.csv)<input type="file" id="extImp" accept=".csv,text/csv" hidden></label>
+        <button class="danger" id="extBorra">Borrar Extraordinarios De Este Grupo</button>
+      </div>
+      <p class="mut">La lista trae una columna “alumno” y, por cada Parcial, “parcial_N” (su calificación) y “extraordinario_parcial_N” para llenar. Al subirla se leen las columnas “extraordinario_parcial_1/2/3”; una celda vacía se deja como estaba.</p>
+    </div>
+    <div class="wrap"><table id="tablaCal"></table></div>
+    <div class="row noprint" style="margin-top:10px">
+      <button id="btnCalCSV">⬇ Descargar Calificaciones (.csv)</button>
+      <button class="sec" onclick="window.print()">🖨 Imprimir / Guardar Pdf</button>
+    </div>
+    <h3 style="margin:24px 0 6px">🏁 Calificación final · los 3 Parciales</h3>
+    <p class="mut">La calificación final es el <b>promedio de los Parciales que ya tienen datos</b> (Parcial 1, 2 y 3, con el mismo peso). Cada Parcial se calcula con sus propios registros, cuadernillo, examen, extraescolar, puntitos y calificaciones propias.</p>
+    <div class="wrap"><table id="tablaFinal"></table></div>
+    <div class="row noprint" style="margin-top:10px">
+      <button id="btnFinalCSV">⬇ Descargar Calificación Final (.csv)</button>
+    </div>
+  </section>
+
+  <section id="tab-extrae" class="card hide">
+    <h3 style="margin-top:0">🎭 Actividad extraescolar</h3>
+    <div class="row" style="margin-bottom:10px">
+      <label>Actividad: <input type="text" id="extraeNombre" placeholder="Ej. Torneo deportivo, Feria de ciencias" style="min-width:260px"></label>
+      <label>Fecha: <input type="date" id="extraeFecha"></label>
+      <span class="mut" id="extraeProm"></span>
+    </div>
+    <p class="mut">Captura la calificación de cada alumno de <b>0 a 10</b>. Entra a la calificación final en el rubro "Extraescolar" (su peso se ajusta en la pestaña Calificación). Si dejas el campo vacío, ese alumno no se toma en cuenta.</p>
+    <div class="wrap"><table id="tablaExtrae"></table></div>
+  </section>
+
+  <section id="tab-examen" class="card hide">
+    <h3 style="margin-top:0">📝 Examen interno</h3>
+    <div class="row" style="margin-bottom:10px">
+      <label>Valor total del examen (puntos o reactivos): <input type="number" id="examTotal" min="1" step="1" style="width:90px"></label>
+      <span class="mut" id="examProm"></span>
+    </div>
+    <p class="mut">Captura lo que sacó cada alumno (aciertos o puntos). Se convierte a calificación de 0 a 10 y entra a la calificación final y vale el 20 % de la calificación total. Deja vacío si aún no lo presenta: no se toma en cuenta. Con Enter pasas al siguiente alumno.</p>
+    <div class="wrap"><table id="tablaExamen"></table></div>
+    <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">
+      <b>Subir calificaciones desde un archivo .csv</b>
+      <p class="mut" style="margin:4px 0 8px"><b>Opción 1 · Lista de alumnos:</b> exporta la lista de este grupo y Parcial, llena la columna “puntos” (o “calificacion” de 0 a 10) en Excel y vuelve a importarla. Los nombres deben ser los de la lista (no importan mayúsculas ni acentos).<br><b>Opción 2 · Lecturas de hojas del celular:</b> carga el archivo .csv que enviaste por WhatsApp desde CALIFICATED CELULAR; el sistema identifica a cada alumno por el código de su hoja, usa tus claves y califica. Cargar el mismo archivo dos veces no duplica nada.</p>
+      <div class="row">
+        <button class="sec" id="exListaExp">⬇ Exportar Lista De Alumnos (.csv)</button>
+        <label class="hjfile sec">📥 Importar Lista De Calificaciones (.csv)<input type="file" id="exListaImp" accept=".csv,text/csv" hidden></label>
+        <label class="hjfile sec">📥 Cargar Lecturas De Hojas (.csv)<input type="file" id="exLecImp" accept=".csv,text/csv" hidden></label>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-hojas" class="card hide">
+    <h3 style="margin-top:0">📄 Hojas de respuestas (examen de bolitas)</h3>
+    <p class="mut">Hoja tamaño carta, 20 preguntas con opciones A, B, C y D, y 3 tipos de examen (1, 2 y 3) con su propia clave; <b>el alumno marca el tipo de su examen con una bolita</b> en la hoja. Pasos: 1) captura las claves, 2) imprime las hojas (con nombre o sin nombre) o genera un PDF de todo el grupo, 3) los alumnos las contestan y se leen con el celular (CALIFICATED CELULAR); el archivo .csv de lecturas se carga en “Examen interno”.</p>
+
+    <details class="hj" id="hjDetClaves" open>
+      <summary>1 · Claves de respuestas</summary>
+      <div class="hjc">
+        <div class="row"><b>Clave del tipo:</b><span class="hjtipos" id="hjTipos"></span><span class="mut" id="hjClaveInfo"></span></div>
+        <div class="hjgrid" id="hjGridClave"></div>
+        <p class="mut" style="margin-top:0">Haz clic en cada recuadro para cambiar la respuesta correcta: A → B → C → D → ★ → vacío. La estrella ★ es una pregunta anulada: a todos los alumnos se les cuenta como acierto. Las claves son del grupo y Parcial seleccionados arriba.</p>
+        <div class="row" style="margin-bottom:8px">
+          <input type="text" id="hjClaveTxt" placeholder="O pega aquí la clave completa, por ejemplo: ABCDDCBAABCDDCBAABCD" style="flex:1;min-width:230px" maxlength="60" autocomplete="off">
+          <button class="sec" id="hjClaveAplica">Aplicar Texto</button>
+          <button class="danger" id="hjClaveBorra">Borrar Esta Clave</button>
+        </div>
+        <div class="row">
+          <label class="mut">Copiar las 3 claves de: <select id="hjCopiaG"></select> <select id="hjCopiaP"></select></label>
+          <button class="sec" id="hjCopiaBtn">Copiar A Este Grupo Y Parcial</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="hj" id="hjDetImp" open>
+      <summary>2 · Imprimir hojas</summary>
+      <div class="hjc">
+        <p class="mut" style="margin-top:0">Grupo y Parcial: <b id="hjImpG"></b> (los seleccionados arriba).</p>
+        <div class="row" style="margin-bottom:8px">
+          <label class="mut">Hojas de: <select id="hjImpAl"></select></label>
+          <label class="mut hide" id="hjImpNw">Cantidad sin nombre: <input type="number" id="hjImpN" min="1" max="200" value="40" style="width:80px"></label>
+          <button id="hjImpBtn">🖨 Preparar Hojas Para Imprimir</button>
+        </div>
+        <p class="mut">Con nombre: cada hoja lleva el nombre del alumno y un código que la identifica; así la revisión sabe de quién es sin capturar nada. <b>Sin nombre</b>: hojas sin alumno impreso (el alumno escribe su nombre; al revisarlas eliges de quién es). Imprime en <b>tamaño Carta, escala 100 %, márgenes “Ninguno”</b>; en blanco y negro está bien.</p>
+      </div>
+    </details>
+
+    <details class="hj" id="hjDetPdf" open>
+      <summary>3 · PDF con todas las hojas de un grupo</summary>
+      <div class="hjc">
+        <div class="row" style="margin-bottom:8px">
+          <label class="mut">Grupo: <select id="hjPdfG"></select></label>
+          <label class="mut">Parcial: <select id="hjPdfP"></select></label>
+        </div>
+        <div class="row" style="margin-bottom:8px">
+          <label class="mut"><input type="checkbox" id="hjPdfSin"> Sin nombre</label>
+          <label class="mut hide" id="hjPdfNw">Cantidad: <input type="number" id="hjPdfN" min="1" max="200" value="40" style="width:80px"></label>
+          <button id="hjPdfBtn">⬇ Descargar Pdf</button>
+          <span class="mut" id="hjPdfCuenta"></span>
+        </div>
+        <p class="mut">Genera un solo archivo PDF tamaño Carta con una hoja por alumno del grupo elegido (o la cantidad que indiques si es “sin nombre”). Al imprimirlo elige <b>tamaño real / escala 100 %</b>, sin “ajustar a la página”. Si el grupo es grande tarda unos segundos.</p>
+      </div>
+    </details>
+  </section>
+
+
+  <section id="tab-extra" class="card hide">
+    <h3 style="margin-top:0">⭐ Puntito extra</h3>
+    <p class="mut">Botón verde: +1 punto sobre 100 en la calificación final del alumno (premio). Botón rojo: −1 punto sobre 100 (mal comportamiento). Equivale a ±0.1 en la escala de 0 a 10. Aparece una pantalla con sonido; toca la pantalla para cerrarla. "Deshacer" quita el último punto del alumno.</p>
+    <div class="wrap"><table id="tablaExtra"></table></div>
+  </section>
+
+  <section id="tab-datosal" class="card hide">
+    <h3 style="margin-top:0">📇 Datos de los alumnos</h3>
+    <div class="row" style="margin-bottom:10px">
+      <input type="text" id="daBuscar" placeholder="Buscar alumno, localidad o mamá…" style="min-width:260px">
+      <button class="sec" id="btnDaCSV">⬇ Descargar Datos (.csv)</button>
+      <span class="mut" id="daCuenta"></span>
+    </div>
+    <p class="mut">Captura el teléfono, la localidad y el nombre de la mamá de cada alumno. Los nombres vienen de la lista de alumnos. Se guarda automáticamente y se incluye en el respaldo (.json).</p>
+    <div class="wrap"><table id="tablaDatosAl"></table></div>
+  </section>
+
+  <section id="tab-custom" class="card hide">
+    <h3 style="margin-top:0" id="customTitulo"></h3>
+    <div class="row" style="margin-bottom:10px"><span class="mut" id="customProm"></span></div>
+    <p class="mut">Captura la calificación de cada alumno de <b>0 a 10</b>. Entra a la calificación final con el peso que definas en la pestaña Calificación. Si dejas el campo vacío, ese alumno no se toma en cuenta.</p>
+    <div class="wrap"><table id="tablaCustom"></table></div>
+  </section>
+
+  <div id="fx"><div class="big"></div><div class="msg"></div></div>
+
+  <section id="tab-reportes" class="card hide">
+    <h3 style="margin-top:0">🚩 Reportes</h3>
+    <div class="row" style="margin-bottom:10px">
+      <input type="text" id="repBuscar" placeholder="Buscar alumno…" style="min-width:260px">
+      <span class="mut" id="repCuenta"></span>
+    </div>
+    <p class="mut">Escribe el reporte del alumno en la columna <b>Reporte</b> y pulsa <b>Agregar</b> (o Enter). Cada reporte se guarda con la fecha de hoy y aparece también en la ficha del alumno (Expediente alumno). Puedes agregar varios reportes por alumno.</p>
+    <div class="wrap"><table id="tablaReportes"></table></div>
+  </section>
+
+  <section id="tab-datos" class="card hide">
+    <h3 style="margin-top:0">Exportar para calificar</h3>
+    <p>Descarga el CSV (incluye los 3 Parciales, con la columna <b>parcial</b>) y súbelo al chat de Claude para obtener la calificación ponderada.</p>
+    <div class="row">
+      <button id="btnCSVGrupo">⬇ Csv De Este Grupo</button>
+      <button class="sec" id="btnCSVTodos">⬇ Csv De Todos Los Grupos</button>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+    <h3>Importar datos desde CSV</h3>
+    <p class="mut">Elige un CSV con el mismo formato que exporta este sistema (columnas: grupo, fecha, alumno, asistencia, puntualidad, comportamiento, participacion, tarea, trabajo, observacion, cuadernillo_limite, cuadernillo_entrega, cuadernillo_revision_0a10, justificacion, parcial). La columna <b>parcial</b> (1, 2 o 3) es opcional: si el CSV no la trae, cada registro entra al Parcial cuya duración incluye su fecha (si ninguno, al Parcial activo). Los datos se <b>combinan</b> con los actuales: si el grupo o el alumno no existen se crean, y si ya hay un registro de ese alumno en esa fecha se reemplaza. Antes de importar se muestra un resumen para confirmar. El CSV solo trae la captura diaria y el cuadernillo; sellos, examen, extraescolar, puntitos, reportes y datos personales se respaldan con el .json.</p>
+    <div class="row">
+      <label class="mut">Importar CSV: <input type="file" id="fileImportCSV" accept=".csv,text/csv"></label>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+    <h3>Respaldo</h3>
+    <p class="mut">Los datos viven en el almacenamiento de este navegador. Si borras datos del navegador o cambias de computadora, se pierden. Descarga un respaldo cada semana. <b>Si abres el sistema con el programa CALIFICATED de la carpeta CALIFICATED</b>, además los datos se guardan dentro de esa carpeta (datos), el botón "Respaldo (.json)" guarda en la carpeta respaldos, y al cerrar el sistema se hace un respaldo automático.</p>
+    <div class="row">
+      <button class="sec" id="btnRespaldo">⬇ Respaldo (.json)</button>
+      <label class="mut">Restaurar respaldo: <input type="file" id="fileRestaurar" accept=".json"></label>
+    </div>
+  </section>
+  <footer class="noprint" style="text-align:center;margin:10px 0 24px">
+    <button class="sec" id="btnGrupos">🗂 Crear O Modificar Grupo</button>
+    <button class="sec" id="btnEditAlumnos">📁 Expediente Alumno</button>
+    <button class="sec" id="btnEditParciales">📅 Editar Parciales</button>
+    <button class="sec" id="btnHojas">📄 Hojas De Respuestas</button>
+    <button class="sec" id="btnDatos">⬇ Exportar / Respaldo</button>
+    <button class="sec" id="btnPersonalizar">🎨 Personalizar Título Y Color</button>
+    <button class="sec" id="btnEditTabs">⚖ Ajustes De Calificaciones</button>
+  </footer>
+  <dialog id="dlgPerfil" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:460px;width:94%">
+    <h3 style="margin:0 0 6px">👋 Bienvenido a CALIFICATED PC V9</h3>
+    <p class="mut" style="margin-top:0">Antes de empezar, captura estos datos. Aparecerán en el encabezado de los documentos: impresiones y archivos CSV. Después podrás cambiarlos en "Personalizar título y color".</p>
+    <label style="display:block;margin-bottom:12px">Nombre del profesor(a)<br><input type="text" id="pfProf" style="width:100%;font-size:16px" placeholder="Ej. Luis F. Monreal M."></label>
+    <label style="display:block;margin-bottom:12px">Nombre de la escuela<br><input type="text" id="pfEsc" style="width:100%;font-size:16px" placeholder="Ej. CECyTED Plantel Monreal"></label>
+    <div class="row"><button id="btnPfGuardar">Guardar Y Comenzar</button></div>
+  </dialog>
+  <dialog id="dlgParciales" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:520px;width:94%">
+    <h3 style="margin:0 0 6px">📅 Editar parciales · duración</h3>
+    <p class="mut" style="margin-top:0">El semestre se divide en 3 Parciales y cada uno dura distinto. Define aquí cuándo empieza y cuándo termina cada uno (es igual para todos los grupos). Dentro de cada Parcial eliges el grupo y luego las actividades a evaluar.</p>
+    <div id="parcialesLista"></div>
+    <div class="row" style="margin-top:14px"><button id="btnParGuardar">Guardar</button><button class="sec" id="btnParCancelar">Cancelar</button></div>
+  </dialog>
+  <dialog id="dlgTabs" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:640px;width:94%;max-height:92vh;overflow:auto">
+    <h3 style="margin:0 0 6px">⚖ Ajustes de calificaciones</h3>
+    <p class="mut" style="margin-top:0">Aquí está todo lo que afecta la calificación. Pesos y valores del grupo activo: <b id="cajGrupo"></b>.</p>
+    <div style="border:2px solid var(--acc);border-radius:10px;padding:10px;margin-bottom:12px">
+      <label style="display:flex;gap:8px;align-items:flex-start;font-weight:700"><input type="checkbox" id="cajPond" style="margin-top:3px"> Ponderar al alumno de mayor puntaje de cada grupo</label>
+      <span class="mut">Activada: en cada rubro (asistencia, puntualidad, tareas, examen…) el alumno con el puntaje más alto de su grupo pasa a 100 y los demás se escalan en proporción. Ej.: si Juanito de 5C tiene más asistencias, su asistencia se pone en 100 en el grupo 5C. Desactivada: todo se calcula como siempre.</span>
+    </div>
+    <h4 style="margin:0 0 6px">Pesos y valores</h4>
+    <div id="calAjCfg" class="row" style="margin-bottom:8px"></div>
+    <div class="row" style="margin-bottom:10px"><button type="button" class="sec" id="cajCopiar">Copiar Estos Ajustes A Todos Los Grupos</button></div>
+    <h4 style="margin:0 0 6px">Cuadernillo</h4>
+    <label class="cfgw" style="margin-bottom:10px">Fecha límite de entrega (grupo y Parcial activos)<input type="date" id="cajLimite"></label>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <h4 style="margin:0 0 6px">Pestañas</h4>
+    <p class="mut" style="margin-top:0">Renombra o quita pestañas. Al quitar una pestaña con calificación propia (Cuadernillo, Extraescolar, Examen interno), ese rubro deja de contar en la calificación final (sus datos se conservan). Las pestañas con candado no se pueden quitar.</p>
+    <div id="tabsLista"></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <h4 style="margin:0 0 6px">Tipos de calificación propios</h4>
+    <div id="customLista" style="margin-bottom:10px"></div>
+    <div class="row">
+      <input type="text" id="newCustomNombre" placeholder="Nombre (ej. Exposición, Bitácora)" style="flex:1;min-width:180px">
+      <label class="cfgw">Peso %<input type="number" id="newCustomPeso" min="0" max="100" value="10"></label>
+      <button id="btnAddCustom">+ Agregar</button>
+    </div>
+    <div class="row" style="margin-top:16px"><button id="btnTabsCerrar">Listo</button><button class="danger" id="btnTabsReset">Restablecer Pestañas</button></div>
+  </dialog>
+  <dialog id="dlgPersonalizar" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:420px;width:92%">
+    <h3 style="margin:0 0 10px">Personalizar el sistema</h3>
+    <label style="display:block;margin-bottom:12px">Título<br><input type="text" id="perTitulo" style="width:100%;font-size:16px"></label>
+    <label style="display:block;margin-bottom:12px">Nombre del profesor(a)<br><input type="text" id="perProf" style="width:100%;font-size:16px"></label>
+    <label style="display:block;margin-bottom:12px">Nombre de la escuela<br><input type="text" id="perEsc" style="width:100%;font-size:16px"></label>
+    <div style="margin-bottom:6px">Color</div>
+    <div id="perSwatches" class="row" style="margin-bottom:10px"></div>
+    <label class="row" style="margin-bottom:14px">Otro color: <input type="color" id="perColor" style="width:60px;height:36px;padding:0;border:1px solid var(--line)"></label>
+    <div class="row">
+      <button id="btnPerGuardar">Guardar</button>
+      <button class="sec" id="btnPerCancelar">Cancelar</button>
+      <button class="danger" id="btnPerReset">Restablecer</button>
+    </div>
+  </dialog>
+  <dialog id="dlgGrupo" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:640px;width:96%;max-height:92vh">
+    <h3 id="grTitulo" style="margin:0 0 10px">🗂 Crear o modificar grupo</h3>
+
+    <div id="gr_menu">
+      <p class="mut" style="margin-top:0">¿Qué quieres hacer?</p>
+      <div class="row">
+        <button data-gr="crear">➕ Crear Nuevo Grupo</button>
+        <button class="sec" data-gr="mod">✏️ Modificar Grupo</button>
+        <button class="danger" data-gr="del">🗑 Eliminar Grupo</button>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="sec" id="btnDatosAl">📇 Datos De Alumnos</button></div>
+    </div>
+
+    <div id="gr_crear" class="hide">
+      <label style="display:block;margin-bottom:10px">Nombre del grupo<br><input type="text" id="crNombre" placeholder="Ej. 4A Química Analítica" style="width:100%"></label>
+      <h4 style="margin:12px 0 6px">Alumnos</h4>
+      <div class="row" style="margin-bottom:8px;flex-wrap:nowrap"><input type="text" id="crManual" placeholder="Agregar un alumno: Apellidos y nombre" style="flex:1"><button class="sec" id="btnCrAdd">Agregar</button></div>
+      <p class="mut" style="margin:6px 0">También puedes pegar la lista completa aquí (un alumno por línea):</p>
+      <textarea id="crLista" placeholder="APELLIDO APELLIDO NOMBRE&#10;..."></textarea>
+      <div class="mut" id="crCuenta" style="margin:6px 0"></div>
+      <button id="btnCrCrear">Crear Grupo</button>
+    </div>
+
+    <div id="gr_mod" class="hide">
+      <div class="row" style="margin-bottom:10px">
+        <label>Grupo a modificar: <select id="moGrupo"></select></label>
+      </div>
+      <label style="display:block;margin-bottom:10px">Nombre del grupo<br><input type="text" id="moNombre" style="width:100%"></label>
+      <h4 style="margin:12px 0 6px">Valores del grupo <span class="mut" id="moParcialTxt"></span></h4>
+      <div class="row" style="margin-bottom:10px">
+        <label class="cfgw">Fecha límite del cuadernillo<input type="date" id="moLimite" style="width:auto"></label>
+        <label class="cfgw">Valor total del examen<input type="number" id="moExam" min="1" step="1"></label>
+      </div>
+      <h4 style="margin:12px 0 6px">Alumnos <span class="mut" id="moCuenta"></span></h4>
+      <p class="mut" style="margin:0 0 6px">Cambia un nombre para corregirlo (conserva todos sus registros). Con ✕ quitas al alumno y se borran sus registros.</p>
+      <div id="moAlumnos" style="max-height:260px;overflow:auto;margin-bottom:8px"></div>
+      <div class="row" style="margin-bottom:8px;flex-wrap:nowrap"><input type="text" id="moManual" placeholder="Agregar un alumno: Apellidos y nombre" style="flex:1"><button class="sec" id="btnMoAdd">Agregar</button></div>
+      <p class="mut" style="margin:6px 0">O pega varios alumnos (uno por línea):</p>
+      <textarea id="moPegar" style="min-height:70px"></textarea>
+      <div class="row" style="margin:8px 0"><button class="sec" id="btnMoPegar">Agregar Pegados</button></div>
+      <button id="btnMoGuardar">Guardar Cambios</button>
+    </div>
+
+    <div id="gr_del" class="hide">
+      <label style="display:block;margin-bottom:10px">Elige el grupo que quieres eliminar<br><select id="elGrupo" style="width:100%"></select></label>
+      <p class="warn" style="margin:6px 0">Se borrarán el grupo, sus alumnos y todos sus registros. No se puede deshacer.</p>
+      <div class="row">
+        <button class="danger" id="btnElEliminar">Eliminar Grupo</button>
+        <button class="sec" id="btnElRespaldo">⬇ Descargar Respaldo Antes</button>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:16px">
+      <button class="sec hide" id="btnGrAtras">← Atrás</button>
+      <button class="sec" id="btnGrCerrar">Cerrar</button>
+    </div>
+  </dialog>
+  <dialog id="dlgEditAl" style="border:1px solid var(--line);border-radius:12px;padding:18px;max-width:780px;width:96%;max-height:92vh">
+    <h3 style="margin:0 0 10px">📁 Expediente alumno</h3>
+    <div class="row" style="margin-bottom:10px">
+      <label>Grupo: <select id="eaGrupo"></select></label>
+      <label>Alumno: <select id="eaAlumno" style="min-width:260px"></select></label>
+    </div>
+    <div id="eaDetalle" class="ea"></div>
+    <div class="row" style="margin-top:16px">
+      <button id="btnEaCerrar">Cerrar</button>
+    </div>
+  </dialog>
+</main>
+<div class="marca"><b>CALIFICATED PC V9</b><span>by LUIS MM</span></div>
+
+<div id="hojasImp" class="hide"><div class="hi-bar"><button id="hiPrint">🖨 Imprimir</button><button class="sec" id="hiClose">Cerrar Vista Previa</button><span class="mut" id="hiInfo"></span></div><div id="hiPages"></div></div>
+<dialog id="dlgPend">
+  <h3 style="margin:0 0 4px">📌 Pendientes · Block de notas</h3>
+  <p class="mut" style="margin:0 0 10px">Anota lo que tienes que hacer. Se guarda la <b>fecha de registro</b> automáticamente; tú pones la <b>fecha de ejecución</b> (y la hora). Si activas la alarma, sonará y avisará en pantalla cuando llegue el momento.</p>
+  <div class="pf">
+    <textarea id="pnTexto" placeholder="Escribe aquí el pendiente o la nota…"></textarea>
+    <div class="row">
+      <label>Fecha de ejecución <input type="date" id="pnFecha"></label>
+      <label>Hora <input type="time" id="pnHora"></label>
+      <label><input type="checkbox" id="pnAlarma" checked> 🔔 Alarma</label>
+    </div>
+    <div class="row">
+      <button id="pnGuardar">➕ Agregar</button>
+      <button class="sec hide" id="pnCancelar">Cancelar Edición</button>
+      <span class="mut" id="pnInfo"></span>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom:6px">
+    <label>Mostrar: <select id="pnFiltro"><option value="pend">Pendientes</option><option value="hecho">Hechos</option><option value="todos">Todos</option></select></label>
+    <button class="sec" id="pnLimpiar">🧹 Borrar Los Hechos</button>
+    <button class="sec" id="pnPermiso">🔔 Permitir Avisos Del Navegador</button>
+  </div>
+  <div id="pnLista"></div>
+  <div class="row" style="margin-top:12px"><button id="pnCerrar">Cerrar</button></div>
+</dialog>
+<dialog id="dlgAlarma">
+  <div class="al-ic">⏰</div>
+  <div class="mut" id="alFecha"></div>
+  <div class="al-t" id="alTexto"></div>
+  <div class="mut" id="alRest" style="margin-bottom:12px"></div>
+  <div class="row" style="justify-content:center">
+    <button id="alHecho">✔ Hecho</button>
+    <button class="sec" id="alPosp">⏱ Posponer 10 Min</button>
+    <button class="sec" id="alOk">Entendido</button>
+  </div>
+</dialog>
+<div id="menuPantalla" class="hide noprint">
+  <div class="mp-top"><h2>☰ Menú · elige un grupo</h2><span class="mut" id="menuInfo"></span><button type="button" class="sec" id="menuCerrar">✕ Cerrar Menú</button></div>
+  <div id="menuGrid"></div>
+  <div id="menuAcc">
+    <h3>Herramientas</h3>
+    <div class="ma-grid">
+      <button type="button" class="sec" data-acc="btnPend">📌 Pendientes Y Notas</button>
+      <button type="button" class="sec" data-mu="cargar">🧪 Cargar Grupo Muestra (Datos De Ejemplo)</button>
+      <button type="button" class="sec" data-mu="quitar">🗑 Quitar Grupo Muestra</button>
+      <button type="button" class="sec" data-acc="btnGrupos">🗂 Crear O Modificar Grupo</button>
+      <button type="button" class="sec" data-acc="btnEditAlumnos">📁 Expediente Alumno</button>
+      <button type="button" class="sec" data-acc="btnEditParciales">📅 Editar Parciales</button>
+      <button type="button" class="sec" data-acc="btnHojas">📄 Hojas De Respuestas</button>
+      <button type="button" class="sec" data-acc="btnDatos">⬇ Exportar / Respaldo</button>
+      <button type="button" class="sec" data-acc="btnPersonalizar">🎨 Personalizar Título Y Color</button>
+      <button type="button" class="sec" data-acc="btnEditTabs">⚖ Ajustes De Calificaciones</button>
+    </div>
+  </div>
+</div>
+<script>
+const KEY = 'registro_alumnos_v1';
+// Valores por defecto al abrir un día nuevo (puedes cambiarlos aquí)
+const DEF = {asist:'', punt:'', comp:'', part:''};
+const CUAD_LIM = '2026-12-04'; // fecha límite del cuadernillo
+const CAMPOS = [
+  {k:'asist', t:'Asistencia', o:[['','—'],['P','Asistió'],['F','Falta'],['J','Justificada']]},
+  {k:'punt',  t:'Puntualidad', o:[['','—'],['T','A tiempo'],['R','Retardo']]},
+  {k:'comp',  t:'Comportamiento', o:[['','—'],['OK','OK'],['BAD','BAD']]},
+  {k:'part',  t:'Participación', o:[['','—'],['OK','OK'],['BAD','BAD']]},
+  {k:'tarea', t:'Tarea', o:[['','—'],['OK','OK'],['BAD','BAD']]},
+  {k:'trab',  t:'Trabajo en clase / proyecto', o:[['','—'],['OK','OK'],['BAD','BAD']]},
+];
+const ETQ = {};
+CAMPOS.forEach(c=>{ETQ[c.k]={};c.o.forEach(([v,l])=>ETQ[c.k][v]=l)});
+
+function init(){return {groups:{'AA1':{students:['JOSE','LUIS','FRANCISCO','FERNANDO','CLAUDIA'],records:{}}},current:'AA1'}}
+// Valida y repara un objeto de datos (carga, respaldo o servidor). Devuelve null si no sirve.
+// Formato anterior -> botones: Excelente/Bueno/Entregó/Alta = OK; Malo/No entregó/Baja/Nula = BAD; Regular/Media/Incompleto/No hubo = gris (neutro)
+const LEG={comp:{'4':'OK','3':'OK','2':'','1':'BAD'},part:{'3':'OK','2':'','1':'BAD','0':'BAD'},tarea:{'2':'OK','1':'','0':'BAD','NA':''},trab:{'2':'OK','1':'','0':'BAD','NA':''}};
+function migrarCampos(d){
+  Object.values(d.groups).forEach(g=>{[g].concat(Object.values(g.parciales||{})).forEach(pg=>{
+    if(!pg||!pg.records||typeof pg.records!=='object') return;
+    Object.values(pg.records).forEach(dia=>{if(!dia||typeof dia!=='object') return;
+      Object.values(dia).forEach(r=>{if(!r||typeof r!=='object') return;
+        Object.keys(LEG).forEach(k=>{const v=r[k]; if(v===undefined||v==='OK'||v==='BAD') return; const t=String(v); r[k]=Object.prototype.hasOwnProperty.call(LEG[k],t)?LEG[k][t]:''});
+      })})
+  })});
+}
+function sanear(d){
+  if(!d||typeof d!=='object'||!d.groups||typeof d.groups!=='object') return null;
+  const ks=Object.keys(d.groups).filter(k=>d.groups[k]&&typeof d.groups[k]==='object');
+  if(!ks.length) return null;
+  Object.keys(d.groups).forEach(k=>{if(!ks.includes(k)) delete d.groups[k]});
+  ks.forEach(k=>{const g=d.groups[k]; if(!Array.isArray(g.students)) g.students=[]; if(!g.records||typeof g.records!=='object') g.records={}});
+  if(!d.current||!Object.prototype.hasOwnProperty.call(d.groups,d.current)) d.current=ks[0];
+  migrarCampos(d);
+  return d;
+}
+let db, FRESH=false;
+try{db = sanear(JSON.parse(localStorage.getItem(KEY))) || (FRESH=true,init())}catch(e){FRESH=true;db=init()}
+let SRV=false, srvT=null; // SRV = conectado al servidor local de la carpeta CALIFICATED
+var _pmCache={k:'',m:null};
+function save(){
+  _pmCache={k:'',m:null}; db.ts=Date.now();
+  try{localStorage.setItem(KEY, JSON.stringify(db)); document.getElementById('estado').textContent='✔ Guardado '+new Date().toLocaleTimeString()}
+  catch(e){document.getElementById('estado').innerHTML='<span class="warn">No se pudo guardar. Descarga un respaldo.</span>'}
+  srvGuardar();
+}
+const $ = id => document.getElementById(id);
+// ===== 3 PARCIALES =====
+// El Parcial 1 vive en las claves originales del grupo (así los respaldos anteriores siguen funcionando tal cual);
+// los Parciales 2 y 3 viven en g.parciales[2] y g.parciales[3]. Alumnos, datos personales y reportes son del grupo (compartidos).
+const PKEYS=['records','cuad','sellos','examen','extrae','puntitos','custom','extraord'];
+const NPARC=3;
+function curP(){const p=+db.parcial; return (p===2||p===3)?p:1}
+function pStore(g,p){
+  if(p===1) return g;
+  if(!g.parciales) g.parciales={};
+  return g.parciales[p]||(g.parciales[p]={});
+}
+function vistaGrupo(g,p){
+  return new Proxy(g,{
+    get(t,k){
+      if(typeof k==='string'&&PKEYS.includes(k)){const s=pStore(t,p); if(k==='records'&&!s.records) s.records={}; return s[k]}
+      return t[k];
+    },
+    set(t,k,v){ if(typeof k==='string'&&PKEYS.includes(k)) pStore(t,p)[k]=v; else t[k]=v; return true },
+    deleteProperty(t,k){ if(typeof k==='string'&&PKEYS.includes(k)) delete pStore(t,p)[k]; else delete t[k]; return true }
+  });
+}
+const G = () => vistaGrupo(db.groups[db.current], curP());
+let forzarDia=null; // fecha de fin de semana que el profesor sí quiere registrar
+let creaAuto=true; // al cambiar de Parcial no se crea solo el registro del día (evita ensuciar otro Parcial)
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function hoy(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+
+function renderGrupos(){
+  $('grupoSel').innerHTML = Object.keys(db.groups).map(g=>`<option ${g===db.current?'selected':''}>${esc(g)}</option>`).join('');
+}
+function renderCaptura(){
+  const g=G(), f=$('fecha').value;
+  if(!g.students.length){
+    $('tablaCaptura').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';return;
+  }
+  const finSem=[0,6].includes(new Date(f+'T00:00:00').getDay());
+  if(g.records[f]===undefined){
+    if(!creaAuto||(finSem&&forzarDia!==f)){
+      $('tablaCaptura').innerHTML='<tr><td>'+(creaAuto?'Esta fecha es fin de semana: no se registró asistencia automáticamente.':'No hay registro de este día en el <b>Parcial '+curP()+'</b>.')+' <button id="btnCrearDia">Registrar Este Día En El Parcial '+curP()+'</button></td></tr>';
+      $('btnCrearDia').onclick=()=>{creaAuto=true; forzarDia=f; renderCaptura()};
+      return;
+    }
+    g.records[f]={};
+    g.students.forEach(s=>{g.records[f][s]=Object.assign({},DEF)});
+    save();
+  }
+  const rec=g.records[f];
+  let h='<tr><th>#</th><th>Alumno</th><th>Asistencia</th><th>Justificación</th>'+CAMPOS.filter(c=>c.k!=='asist'&&c.k!=='punt').map(c=>`<th>${c.t}</th>`).join('')+'<th>Sello</th><th>Observación</th></tr>';
+  g.students.forEach((s,i)=>{
+    const r=rec[s]||{};
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td>`;
+    // Asistencia + puntualidad fusionadas: A = asistió a tiempo, F = falta, R = retardo
+    const falta=(r.asist==='F'||r.asist==='J');
+    const av=r.asist==='F'?'F':(r.asist==='J'?'J':(r.asist==='P'?(r.punt==='R'?'R':'A'):''));
+    h+=`<td><button type="button" class="sello ${({A:'ok',F:'bad',R:'ret',J:'jus'})[av]||''}" data-asp="${esc(s)}" data-av="${av}" title="Clic: ✓ asistió (suma) · ✗ falta (resta) · RETARDO (vale la mitad) · JUSTIFICADA (neutra) · gris (sin registrar)">${({A:'✓',F:'✗',R:'RETARDO',J:'JUSTIF.'})[av]||'ASIST.'}</button></td>`;
+    h+=`<td><input type="text" data-s="${esc(s)}" data-k="just" value="${esc(r.just||'')}" placeholder="${falta?'Motivo de la falta':''}" ${falta?'':'disabled'}></td>`;
+    CAMPOS.filter(c=>c.k!=='asist'&&c.k!=='punt').forEach(c=>{
+      const v=r[c.k]||'', et={comp:'COMPORT.',part:'PARTIC.',tarea:'TAREA',trab:'TRABAJO'}[c.k];
+      h+=`<td><button type="button" class="sello ${v==='OK'?'ok':(v==='BAD'?'bad':'')}" data-tri="${c.k}" data-s="${esc(s)}" title="Un clic: OK (suma) · dos clics: BAD (resta) · tres: neutro">${v==='OK'?'OK':(v==='BAD'?'BAD':et)}</button></td>`;
+    });
+    h+=`<td><button type="button" class="sello ${r.sello==='OK'?'ok':(r.sello==='BAD'?'bad':'')}" data-sello="${esc(s)}" title="Un clic: OK (suma) · dos clics: BAD (resta) · tres: neutro">${r.sello==='OK'?'OK':(r.sello==='BAD'?'BAD':'SELLO')}</button></td>`;
+    h+=`<td><input type="text" data-s="${esc(s)}" data-k="nota" value="${esc(r.nota||'')}"></td></tr>`;
+  });
+  $('tablaCaptura').innerHTML=h;
+}
+function setVal(s,k,v){
+  const g=G(), f=$('fecha').value;
+  g.records[f]=g.records[f]||{};
+  const r=g.records[f][s]=g.records[f][s]||{};
+  if(k==='asp'){
+    // A = asistió a tiempo, R = retardo, F = falta (resta), J = falta justificada (no resta)
+    if(v==='A'||v==='R'){
+      r.asist='P'; r.punt=(v==='R'?'R':'T'); r.just='';
+      ['comp','part'].forEach(c=>{if(!r[c]) r[c]=DEF[c]});
+    }else if(v==='F'||v==='J'){
+      r.asist=v;
+      r.punt='';r.comp='';r.part='';r.tarea='';r.trab='';
+    }else{r.asist='';r.punt='';r.just='';}
+    save(); renderCaptura(); return;
+  }
+  r[k]=v;
+  save();
+}
+$('tablaCaptura').addEventListener('click',e=>{
+  const ba=e.target.closest&&e.target.closest('button[data-asp]');
+  if(ba){setVal(ba.dataset.asp,'asp',({'':'A',A:'F',F:'R',R:'J',J:''})[ba.dataset.av||'']); return}
+  const bt=e.target.closest&&e.target.closest('button[data-tri]');
+  if(bt){const g=G(), f=$('fecha').value, s=bt.dataset.s, k=bt.dataset.tri;
+    g.records[f]=g.records[f]||{}; const r=g.records[f][s]=g.records[f][s]||{};
+    r[k]=r[k]==='OK'?'BAD':(r[k]==='BAD'?'':'OK'); save(); renderCaptura(); return}
+  const b=e.target.closest&&e.target.closest('button[data-sello]'); if(!b) return;
+  const g=G(), f=$('fecha').value, s=b.dataset.sello;
+  g.records[f]=g.records[f]||{}; const r=g.records[f][s]=g.records[f][s]||{};
+  r.sello=r.sello==='OK'?'BAD':(r.sello==='BAD'?'':'OK');
+  save(); renderCaptura();
+});
+$('tablaCaptura').addEventListener('change',e=>{
+  const t=e.target; if(t.dataset.s!==undefined) setVal(t.dataset.s,t.dataset.k,t.value);
+});
+$('tablaCaptura').addEventListener('input',e=>{
+  const t=e.target; if(t.tagName==='INPUT' && t.dataset.s!==undefined) setVal(t.dataset.s,t.dataset.k,t.value);
+});
+$('btnTodosAsis').onclick=()=>{
+  const g=G(), f=$('fecha').value; g.records[f]=g.records[f]||{};
+  g.students.forEach(s=>{const r=g.records[f][s]=g.records[f][s]||{}; if(!r.asist){r.asist='P'; r.punt='T'}});
+  save(); renderCaptura();
+};
+$('btnTodosOk').onclick=()=>{
+  if(!confirm('¿Restablecer TODOS los alumnos de este día a los valores por defecto?')) return;
+  const g=G(), f=$('fecha').value;
+  g.records[f]={};
+  g.students.forEach(s=>{g.records[f][s]=Object.assign({},DEF)});
+  save(); renderCaptura();
+};
+$('btnSinClase').onclick=()=>{
+  if(!confirm('¿Limpiar el registro de este día (día sin clase)?')) return;
+  G().records[$('fecha').value]={};
+  save(); renderCaptura();
+};
+$('fecha').onchange=()=>{
+  creaAuto=true;
+  if(ajustaFecha()){creaAuto=false; alert('Esa fecha queda fuera del Parcial '+curP()+' ('+rangoP(curP())+'). Elige una fecha dentro de su duración o cambia de Parcial.')}
+  renderCaptura();
+};
+
+
+// Criterios de revisión del cuadernillo (pesos por defecto: suman 10 puntos)
+const CUAD_CRIT=[
+  ['baco','Tiene broche Baco',1],
+  ['present','Presentación',1.5],
+  ['contenido','Contenido',2],
+  ['completo','Completo',1.5],
+  ['carpeta','Carpeta',1],
+  ['portada','Portada',1],
+  ['correcto','Correcto',2]
+];
+function cuad(){
+  const g=G(); if(!g.cuad) g.cuad={limite:CUAD_LIM,entregas:{}};
+  const c=g.cuad;
+  if(!c.eval) c.eval={};
+  if(!c.pesos) c.pesos={};
+  if(!c.notaImp) c.notaImp={};
+  CUAD_CRIT.forEach(([k,,d])=>{if(c.pesos[k]===undefined) c.pesos[k]=d});
+  return c;
+}
+// Calificación 0-10 de la revisión (null si aún no se evalúa)
+function notaCuad(s){
+  const c=cuad(), e=c.eval[s];
+  if(!e){const v=c.notaImp[s]; return (v===undefined||v===null||isNaN(+v))?null:Math.min(10,Math.max(0,+v))} // nota importada de CSV
+  const tot=CUAD_CRIT.reduce((a,[k])=>a+(+c.pesos[k]||0),0);
+  if(!tot) return null;
+  const got=CUAD_CRIT.reduce((a,[k])=>a+(e[k]?(+c.pesos[k]||0):0),0);
+  return got/tot*10;
+}
+function diasDif(a,b){return Math.round((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/86400000)}
+function estadoCuad(ent,lim){
+  if(!ent) return (lim && hoy()>lim) ? '<span class="warn">Pendiente (vencido)</span>' : 'Pendiente';
+  const d=diasDif(ent,lim);
+  return d<=0 ? '<span style="color:var(--ok)">A tiempo</span>' : '<span class="warn">'+d+' día(s) tarde</span>';
+}
+function renderCuad(){
+  const c=cuad(), g=G();
+  $('cuadLimite').value=c.limite||'';
+  if(!g.students.length){$('tablaCuad').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';return}
+  let h='<tr><th>#</th><th>Alumno</th><th>Fecha de entrega</th><th></th><th>Estado</th><th>Revisión (0-10)</th><th></th></tr>';
+  g.students.forEach((s,i)=>{
+    const e=c.entregas[s]||'';
+    const n=notaCuad(s);
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td><td><input type="date" data-s="${esc(s)}" value="${e}"></td><td><button class="sec" data-hoy="${esc(s)}">Entregó Hoy</button></td><td>${estadoCuad(e,c.limite)}</td><td class="fin ${n===null?'':(n>=6?'ok':'warn')}">${n===null?'—':n.toFixed(1)}</td><td><button data-eval="${esc(s)}">${n===null?'Evaluar':'Editar'}</button></td></tr>`;
+  });
+  $('tablaCuad').innerHTML=h;
+  // pesos editables
+  $('cuadPesos').innerHTML=CUAD_CRIT.map(([k,n])=>`<label class="cfgw">${n}<input type="number" min="0" step="0.5" data-peso="${k}" value="${c.pesos[k]}"></label>`).join('')+`<span class="mut">Suma: ${CUAD_CRIT.reduce((a,[k])=>a+(+c.pesos[k]||0),0)} (se normaliza a 10)</span>`;
+}
+$('cuadPesos').addEventListener('change',e=>{
+  const k=e.target.dataset.peso; if(!k) return;
+  cuad().pesos[k]=Math.max(0,+e.target.value||0); save(); renderCuad();
+});
+// Diálogo de revisión
+let evalAlumno=null;
+function abrirEval(s){
+  evalAlumno=s; const c=cuad(), e=c.eval[s]||{};
+  $('evalNombre').textContent=s;
+  $('evalChecks').innerHTML=CUAD_CRIT.map(([k,n])=>`<label style="display:flex;gap:8px;align-items:center;padding:6px 0;font-size:16px"><input type="checkbox" data-k="${k}" ${e[k]?'checked':''} style="width:20px;height:20px"> ${n} <span class="mut">(${c.pesos[k]} pt)</span></label>`).join('');
+  actualizarNotaEval();
+  $('dlgEval').showModal();
+}
+function notaDesdeDialogo(){
+  const c=cuad(); const tot=CUAD_CRIT.reduce((a,[k])=>a+(+c.pesos[k]||0),0);
+  if(!tot) return 0;
+  let got=0; $('evalChecks').querySelectorAll('input').forEach(i=>{if(i.checked) got+=(+c.pesos[i.dataset.k]||0)});
+  return got/tot*10;
+}
+function actualizarNotaEval(){$('evalNota').textContent=notaDesdeDialogo().toFixed(1)}
+$('evalChecks').addEventListener('change',actualizarNotaEval);
+$('btnEvalGuardar').onclick=()=>{
+  const e={}; $('evalChecks').querySelectorAll('input').forEach(i=>e[i.dataset.k]=i.checked);
+  cuad().eval[evalAlumno]=e; save(); $('dlgEval').close(); renderCuad();
+};
+$('btnEvalCancelar').onclick=()=>$('dlgEval').close();
+$('btnEvalBorrar').onclick=()=>{
+  delete cuad().eval[evalAlumno]; delete cuad().notaImp[evalAlumno]; save(); $('dlgEval').close(); renderCuad();
+};
+$('cuadLimite').onchange=e=>{cuad().limite=e.target.value; save(); renderCuad()};
+$('tablaCuad').addEventListener('change',e=>{
+  const t=e.target; if(t.tagName==='INPUT' && t.dataset.s!==undefined){cuad().entregas[t.dataset.s]=t.value; save(); renderCuad()}
+});
+$('tablaCuad').addEventListener('click',e=>{
+  const d=e.target.dataset||{};
+  if(d.hoy!==undefined){cuad().entregas[d.hoy]=hoy(); save(); renderCuad(); abrirEval(d.hoy); return}
+  if(d.eval!==undefined) abrirEval(d.eval);
+});
+
+const RUB_BASE=[['asist','Asistencia',16],['punt','Puntualidad',8],['comp','Comportamiento',12],['part','Participación',12],['tarea','Tarea',16],['trab','Trabajos',16],['cuad','Cuadernillo',20],['extr','Extraescolar',5],['exam','Examen interno',20]];
+let RUB=RUB_BASE.slice();
+function customs(){if(!db.customs) db.customs=[]; return db.customs}
+function rebuildRUB(){RUB=RUB_BASE.concat(customs().map(c=>['x_'+c.id,c.nombre,c.peso]))}
+const TAB_RUBRO={cuad:'cuad',extrae:'extr',examen:'exam'};
+function tabsCfg(){if(!db.tabs) db.tabs={ocultas:[],nombres:{}}; if(!db.tabs.ocultas) db.tabs.ocultas=[]; if(!db.tabs.nombres) db.tabs.nombres={}; return db.tabs}
+const EXAM_PESO=20; // el examen interno vale 20 % fijo de la calificación total
+const MAPC={'4':100,'3':85,'2':65,'1':40}, MAPP={'3':100,'2':80,'1':60,'0':30}, MAPT={'2':100,'1':50,'0':0};
+function cfg(){
+  const g=G(); if(!g.config) g.config={w:{},pen:10};
+  RUB.forEach(([k,,d])=>{if(g.config.w[k]===undefined) g.config.w[k]=d});
+  if(g.config.pen===undefined) g.config.pen=10;
+  if(g.config.extMax===undefined) g.config.extMax=10;
+  if(g.config.selVal===undefined) g.config.selVal=1;
+  return g.config;
+}
+function puntajesRaw(s){
+  const g=G(), c=cfg(), cu=cuad();
+  let P=0,Pw=0,F=0,T=0,R=0; const cs=[],ps=[],ts=[],bs=[];
+  Object.keys(g.records).forEach(f=>{
+    const r=(g.records[f]||{})[s]; if(!r) return;
+    if(r.asist==='P'){P++; Pw+=(r.punt==='R'?0.5:1); if(r.punt==='T')T++; if(r.punt==='R')R++}
+    if(r.asist==='F')F++;
+    if(r.comp==='OK') cs.push(100); else if(r.comp==='BAD') cs.push(0);
+    if(r.part==='OK') ps.push(100); else if(r.part==='BAD') ps.push(0);
+    if(r.tarea==='OK') ts.push(100); else if(r.tarea==='BAD') ts.push(0);
+    if(r.trab==='OK') bs.push(100); else if(r.trab==='BAD') bs.push(0);
+  });
+  const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+  const out={asist:(P+F)?Pw/(P+F)*100:null, punt:(T+R)?T/(T+R)*100:null, comp:avg(cs), part:avg(ps), tarea:avg(ts), trab:avg(bs), cuad:null, exam:null, extr:null};
+  {const x=(extrae().reg[s]||{}).e; if(x!==undefined&&x!==''&&!isNaN(+x)) out.extr=Math.min(100,Math.max(0,+x*10));}
+  {const ex=examen(), v=ex.notas[s]; if(v!==undefined&&v!==''&&!isNaN(+v)&&ex.total>0) out.exam=Math.min(100,Math.max(0,+v/ex.total*100));}
+  customs().forEach(cc=>{const v=((G().custom||{})[cc.id]||{})[s]; out['x_'+cc.id]=(v!==undefined&&v!==''&&!isNaN(+v))?Math.min(100,Math.max(0,+v*10)):null});
+  const e=cu.entregas[s];
+  if(cu.limite){
+    const nc=notaCuad(s); const base=nc===null?100:nc*10; // revisión 0-10 → 0-100
+    if(e){const d=diasDif(e,cu.limite); out.cuad=d>0?Math.max(0,base-d*c.pen):base}
+    else if(hoy()>cu.limite){out.cuad=Math.max(0,100-diasDif(hoy(),cu.limite)*c.pen)}
+  } else if(e){const nc=notaCuad(s); out.cuad=nc===null?100:nc*10}
+  tabsCfg().ocultas.forEach(t=>{if(TAB_RUBRO[t]) out[TAB_RUBRO[t]]=null});
+  return out;
+}
+// ===== Ponderación al mejor del grupo (db.pondera) =====
+// Activada: en cada rubro, el alumno con el puntaje más alto de su grupo (en el Parcial activo) pasa a 100 y los demás se escalan en proporción.
+// Desactivada: se usa el puntaje tal cual (comportamiento de siempre).
+function pondMax(){
+  const g=G(), k=db.current+'|'+curP()+'|'+g.students.length+'|'+RUB.length;
+  if(_pmCache.k===k&&_pmCache.m) return _pmCache.m;
+  const m={}; g.students.forEach(s=>{const p=puntajesRaw(s); Object.keys(p).forEach(r=>{if(p[r]!==null&&(m[r]===undefined||p[r]>m[r])) m[r]=p[r]})});
+  _pmCache={k,m}; return m;
+}
+function puntajes(s){
+  const p=puntajesRaw(s); if(!db.pondera) return p;
+  const m=pondMax(), o={};
+  Object.keys(p).forEach(r=>{o[r]=(p[r]===null||!(m[r]>0))?p[r]:Math.min(100,p[r]*100/m[r])});
+  return o;
+}
+// ===== Actividad extraescolar =====
+const MAPX={'2':100,'1':50,'0':0};
+function extrae(){const g=G(); if(!g.extrae) g.extrae={nombre:'',fecha:'',reg:{}}; if(!g.extrae.reg) g.extrae.reg={}; return g.extrae}
+function renderExtrae(){
+  const g=G(), d=extrae();
+  $('extraeNombre').value=d.nombre||''; $('extraeFecha').value=d.fecha||'';
+  if(!g.students.length){$('tablaExtrae').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';$('extraeProm').textContent='';return}
+  let h='<tr><th>#</th><th>Alumno</th><th>Calificación (0-10)</th><th>Observación</th></tr>';
+  g.students.forEach((s,i)=>{
+    const r=d.reg[s]||{};
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td><td><input type="number" min="0" max="10" step="0.5" data-xs="${esc(s)}" value="${r.e??''}" style="width:90px"></td><td><input type="text" data-xn="${esc(s)}" value="${esc(r.n||'')}"></td></tr>`;
+  });
+  $('tablaExtrae').innerHTML=h; promExtrae();
+}
+function promExtrae(){
+  const d=extrae(), v=G().students.map(s=>(d.reg[s]||{}).e).filter(x=>x!==undefined&&x!==''&&!isNaN(+x)).map(x=>Math.min(10,Math.max(0,+x)));
+  $('extraeProm').textContent=v.length?('Capturados: '+v.length+'/'+G().students.length+' · Promedio: '+(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)):'';
+}
+$('extraeNombre').oninput=e=>{extrae().nombre=e.target.value; save()};
+$('extraeFecha').onchange=e=>{extrae().fecha=e.target.value; save()};
+$('tablaExtrae').addEventListener('input',e=>{
+  const s=e.target.dataset.xs; if(s===undefined) return;
+  const d=extrae(); d.reg[s]=d.reg[s]||{}; d.reg[s].e=e.target.value; save(); promExtrae();
+});
+$('tablaExtrae').addEventListener('input',e=>{
+  const s=e.target.dataset.xn; if(s===undefined) return;
+  const d=extrae(); d.reg[s]=d.reg[s]||{}; d.reg[s].n=e.target.value; save();
+});
+
+// ===== Examen interno =====
+function examen(){const g=G(); if(!g.examen) g.examen={total:10,notas:{}}; if(!g.examen.notas) g.examen.notas={}; if(!(g.examen.total>0)) g.examen.total=10; return g.examen}
+function notaEx(s){const e=examen(), v=e.notas[s]; return (v===undefined||v===''||isNaN(+v))?null:Math.min(10,Math.max(0,+v/e.total*10))}
+function promExamen(){
+  const g=G(); const n=g.students.map(notaEx).filter(x=>x!==null);
+  $('examProm').textContent=n.length?('Capturados: '+n.length+'/'+g.students.length+' · Promedio: '+(n.reduce((a,b)=>a+b,0)/n.length).toFixed(1)):'';
+}
+function renderExamen(){
+  const g=G(), e=examen();
+  $('examTotal').value=e.total;
+  if(!g.students.length){$('tablaExamen').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';$('examProm').textContent='';return}
+  let h='<tr><th>#</th><th>Alumno</th><th>Puntos obtenidos</th><th>Calificación (0-10)</th></tr>';
+  g.students.forEach((s,i)=>{
+    const n=notaEx(s);
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td><td><input type="number" class="exin" min="0" step="0.5" data-s="${esc(s)}" data-i="${i}" value="${e.notas[s]??''}" style="width:90px"></td><td class="fin ${n===null?'':(n>=6?'ok':'warn')}" id="exn_${i}">${n===null?'—':n.toFixed(1)}</td></tr>`;
+  });
+  $('tablaExamen').innerHTML=h; promExamen();
+}
+$('examTotal').onchange=e=>{examen().total=Math.max(1,+e.target.value||10); save(); renderExamen()};
+$('tablaExamen').addEventListener('input',e=>{
+  const t=e.target; if(!t.classList.contains('exin')) return;
+  examen().notas[t.dataset.s]=t.value; save();
+  const n=notaEx(t.dataset.s), c=$('exn_'+t.dataset.i);
+  c.textContent=n===null?'—':n.toFixed(1); c.className='fin '+(n===null?'':(n>=6?'ok':'warn'));
+  promExamen();
+});
+$('tablaExamen').addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||!e.target.classList.contains('exin')) return;
+  e.preventDefault(); const nx=document.querySelector('.exin[data-i="'+(+e.target.dataset.i+1)+'"]'); if(nx){nx.focus();nx.select()}
+});
+
+// ===== HOJAS DE RESPUESTAS (examen de bolitas) =====
+// Geometría de la hoja carta (milímetros). La usan tanto el impresor como el lector.
+const HX={W:215.9,H:279.4,MK:13,MS:11,HOLE:4,NQ:20,OP:['A','B','C','D'],
+  colX:[52,142],dx:12,y0:112,dy:13,R:3.4,RI:2.0,RA0:4.3,RA1:5.6,
+  idN:16,idS:7,idG:2,idY:66,S:4,TH_MARK:0.22,TH_WEAK:0.13};
+HX.tpX=[164.5,175,185.5]; HX.tpY=41.5;
+function hxTp(k){return {x:HX.tpX[k],y:HX.tpY}}
+HX.idX0=(HX.W-(HX.idN*HX.idS+(HX.idN-1)*HX.idG))/2;
+function hxBub(q,o){const c=q<10?0:1,r=q%10;return {x:HX.colX[c]+o*HX.dx,y:HX.y0+r*HX.dy}}
+function hxId(k){return {x:HX.idX0+k*(HX.idS+HX.idG)+HX.idS/2,y:HX.idY}}
+function hxCodeBits(c){const b=[];for(let i=13;i>=0;i--)b.push((c>>i)&1);const a=b.slice(0,7).reduce((x,y)=>x^y,0),d=b.slice(7).reduce((x,y)=>x^y,0);b.push(1^a,1^d);return b}
+function hxCodeOk(b){if(b.length!==16)return -1;let c=0;for(let i=0;i<14;i++)c=(c<<1)|b[i];const e=hxCodeBits(c);return(c>0&&e[14]===b[14]&&e[15]===b[15])?c:-1}
+const hxPad=c=>String(c).padStart(5,'0');
+
+// ---------- registro de hojas impresas (código -> grupo, parcial, alumno, tipo) ----------
+function hojasReg(){if(!db.hojas) db.hojas={}; return db.hojas}
+function hjCodigo(g,p,s,t){
+  const H=hojasReg();
+  if(s){for(const k in H){const h=H[k]; if(h.g===g&&h.p===p&&h.s===s) return +k}}
+  let c=+db.hojasSeq||0;
+  for(let i=0;i<16383;i++){c=c%16383+1; if(!H[c]) break}
+  db.hojasSeq=c; H[c]={g,p,s:s||'',t:0,f:hoy()}; return c;
+}
+
+// ---------- dibujo de la hoja (SVG) ----------
+function hojaSVG(d){
+  const P=[], W=HX.W, H=HX.H;
+  const fit=(txt,maxW,fs)=>Math.min(fs,maxW/(Math.max(1,String(txt).length)*0.54));
+  const T=(x,y,s,txt,o)=>{o=o||{};P.push(`<text x="${x}" y="${y}" font-size="${s}"${o.a?` text-anchor="${o.a}"`:''}${o.w?` font-weight="${o.w}"`:''}${o.f?` fill="${o.f}"`:''}>${esc(txt)}</text>`)};
+  const L=(x1,y1,x2,y2,w)=>P.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#000" stroke-width="${w||0.3}"/>`);
+  const mk=(cx,cy,hole)=>{const s=HX.MS;P.push(`<rect x="${cx-s/2}" y="${cy-s/2}" width="${s}" height="${s}" fill="#000"/>`);if(hole)P.push(`<rect x="${cx-HX.HOLE/2}" y="${cy-HX.HOLE/2}" width="${HX.HOLE}" height="${HX.HOLE}" fill="#fff"/>`)};
+  // marcas de las esquinas (la de abajo a la derecha lleva un hueco: indica la orientación)
+  mk(HX.MK,HX.MK,false); mk(W-HX.MK,HX.MK,false); mk(HX.MK,H-HX.MK,false); mk(W-HX.MK,H-HX.MK,true);
+  // encabezado
+  const esc1=d.escuela||'';
+  T(W/2,14,fit(esc1,160,4.6),esc1,{a:'middle',w:700});
+  T(W/2,22,5.2,'HOJA DE RESPUESTAS',{a:'middle',w:700});
+  P.push(`<rect x="158" y="25" width="34" height="24" fill="none" stroke="#000" stroke-width="0.5"/>`);
+  T(175,30,3,'TIPO DE EXAMEN',{a:'middle',w:700});
+  T(175,33.6,2.4,'(rellena una bolita)',{a:'middle',f:'#555'});
+  for(let k=0;k<3;k++){const b=hxTp(k);
+    P.push(`<circle cx="${b.x}" cy="${b.y}" r="${HX.R}" fill="#fff" stroke="#000" stroke-width="0.35"/>`);
+    T(b.x,b.y+1.5,4.2,String(k+1),{a:'middle',f:'#a8a8a8'});
+  }
+  T(24,33,3.6,'Alumno:'); T(42,33,fit(d.nombre||'',110,4.8),d.nombre||'',{w:700}); L(42,34.3,152,34.3);
+  T(24,42,3.6,'Grupo:'); T(37,42,fit(d.grupo||'',40,4),d.grupo||'',{w:700}); L(36,43.3,76,43.3);
+  T(80,42,3.6,'Parcial:'); T(94,42,4,String(d.parcial||''),{w:700}); L(93,43.3,102,43.3);
+  T(106,42,3.6,'Fecha:'); L(118,43.3,152,43.3);
+  T(24,51,3.6,'Materia:'); L(38,52.3,98,52.3);
+  T(102,51,3.6,'Profesor(a):'); T(124.5,51,fit(d.profesor||'',27.5,3.4),d.profesor||''); L(124,52.3,152,52.3);
+  // código de la hoja
+  T(W/2,59.5,2.6,'CÓDIGO DE LA HOJA (no rayar ni tapar)',{a:'middle',f:'#555'});
+  const bits=hxCodeBits(d.code), c=HX.idS;
+  bits.forEach((b,k)=>{const p=hxId(k);P.push(b?`<rect x="${p.x-c/2}" y="${p.y-c/2}" width="${c}" height="${c}" fill="#000"/>`:`<rect x="${p.x-c/2}" y="${p.y-c/2}" width="${c}" height="${c}" fill="none" stroke="#888" stroke-width="0.25"/>`)});
+  T(W/2,75.5,3,'Hoja No. '+hxPad(d.code),{a:'middle',f:'#333'});
+  // instrucciones
+  T(W/2,84,3.1,'Rellena por completo la bolita de tu respuesta con lápiz o pluma negra o azul oscuro. Una sola respuesta por pregunta.',{a:'middle'});
+  T(W/2,88.5,3.1,'Si te equivocas, borra por completo. No dobles ni manches la hoja.',{a:'middle'});
+  // ejemplos de marcado
+  T(34,99,3,'Así sí:',{w:700}); P.push(`<circle cx="52" cy="98" r="2.5" fill="#000"/>`);
+  T(62,99,3,'Así no:',{w:700});
+  [[80,'x'],[90,'dot'],[100,'line'],[110,'check']].forEach(([x,k])=>{
+    P.push(`<circle cx="${x}" cy="98" r="2.5" fill="#fff" stroke="#000" stroke-width="0.3"/>`);
+    if(k==='x'){L(x-1.6,96.4,x+1.6,99.6,0.35);L(x-1.6,99.6,x+1.6,96.4,0.35)}
+    if(k==='dot')P.push(`<circle cx="${x}" cy="98" r="0.7" fill="#000"/>`);
+    if(k==='line')L(x-1.8,98,x+1.8,98,0.35);
+    if(k==='check')P.push(`<path d="M${x-1.6} 98.2 L${x-0.4} 99.4 L${x+1.8} 96.6" fill="none" stroke="#000" stroke-width="0.35"/>`);
+  });
+  // bolitas
+  for(let q=0;q<HX.NQ;q++){
+    const b0=hxBub(q,0);
+    T(b0.x-9,b0.y+1.5,4.2,String(q+1),{a:'end',w:700});
+    for(let o=0;o<4;o++){const b=hxBub(q,o);
+      P.push(`<circle cx="${b.x}" cy="${b.y}" r="${HX.R}" fill="#fff" stroke="#000" stroke-width="0.35"/>`);
+      T(b.x,b.y+1.25,3.5,HX.OP[o],{a:'middle',f:'#a8a8a8'});
+    }
+  }
+  // resultado
+  P.push(`<rect x="34" y="240" width="148" height="14" fill="none" stroke="#000" stroke-width="0.4"/>`);
+  T(38,249,4,'Aciertos:'); L(56,250,80,250); T(82,249,4,'/ 20');
+  T(108,249,4,'Calificación:'); L(135,250,176,250);
+  T(W/2,258,2.6,[d.grupo?'Grupo '+d.grupo:'','Hoja '+hxPad(d.code)].filter(Boolean).join(' · '),{a:'middle',f:'#777'});
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="Arial,Helvetica,sans-serif" preserveAspectRatio="xMidYMid meet"><rect width="${W}" height="${H}" fill="#fff"/>${P.join('')}</svg>`;
+}
+
+// ---------- claves ----------
+let hjTipoSel=1;
+function claves(){const e=examen(); if(!e.claves) e.claves={}; return e.claves}
+function claveDe(t){let c=String(claves()[t]||''); c=(c+'_'.repeat(HX.NQ)).slice(0,HX.NQ); return c}
+function claveDeG(g,p,t){return conGrupo(g,()=>claveDe(t),p)}
+function setClave(t,str){claves()[t]=str; save()}
+function renderClaves(){
+  $('hjTipos').innerHTML=[1,2,3].map(t=>{const c=claveDe(t),n=c.split('').filter(x=>x!=='_').length;return `<button data-t="${t}" class="${t===hjTipoSel?'on':''}" title="${n}/20 respuestas">${t}${n===20?' ✔':''}</button>`}).join('');
+  const c=claveDe(hjTipoSel);
+  $('hjGridClave').innerHTML=c.split('').map((ch,i)=>`<div class="hc">${i+1}<button data-q="${i}" class="${ch==='_'?'':(ch==='*'?'anu':'set')}">${ch==='_'?'·':(ch==='*'?'★':ch)}</button></div>`).join('');
+  const n=c.split('').filter(x=>x!=='_').length;
+  $('hjClaveInfo').textContent=n===20?'Clave completa':(n+' de 20 capturadas');
+}
+$('hjTipos').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b) return; hjTipoSel=+b.dataset.t; renderClaves()});
+$('hjGridClave').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const i=+b.dataset.q, ciclo=['_','A','B','C','D','*'], a=claveDe(hjTipoSel).split('');
+  a[i]=ciclo[(ciclo.indexOf(a[i])+1)%ciclo.length]; setClave(hjTipoSel,a.join('')); renderClaves();
+});
+$('hjClaveAplica').onclick=()=>{
+  const t=$('hjClaveTxt').value.toUpperCase().replace(/[^ABCD*]/g,'');
+  if(!t){alert('Escribe la clave con las letras A, B, C o D (y * si alguna pregunta se anula).');return}
+  if(t.length!==HX.NQ&&!confirm('Escribiste '+t.length+' respuestas y el examen tiene '+HX.NQ+'. ¿Aplicar de todos modos?')) return;
+  setClave(hjTipoSel,(t+'_'.repeat(HX.NQ)).slice(0,HX.NQ)); $('hjClaveTxt').value=''; renderClaves();
+};
+$('hjClaveBorra').onclick=()=>{if(!confirm('¿Borrar la clave del tipo '+hjTipoSel+'?')) return; setClave(hjTipoSel,'_'.repeat(HX.NQ)); renderClaves()};
+$('hjCopiaBtn').onclick=()=>{
+  const g=$('hjCopiaG').value, p=+$('hjCopiaP').value;
+  if(g===db.current&&p===curP()){alert('Elige otro grupo o Parcial como origen.');return}
+  const org=conGrupo(g,()=>Object.assign({},claves()),p);
+  if(!Object.keys(org).length){alert('Ese grupo y Parcial no tienen claves capturadas.');return}
+  if(!confirm('Se reemplazarán las claves de este grupo y Parcial con las de "'+g+'" (Parcial '+p+'). ¿Continuar?')) return;
+  const c=claves(); [1,2,3].forEach(t=>{if(org[t]) c[t]=org[t]}); save(); renderClaves();
+};
+
+// ---------- impresión ----------
+function opcionesGrupos(sel){return Object.keys(db.groups).map(n=>`<option value="${esc(n)}" ${n===sel?'selected':''}>${esc(n)}</option>`).join('')}
+function opcionesAlumnos(gn){
+  const st=(db.groups[gn]||{students:[]}).students;
+  return '<option value="*">Todo el grupo ('+st.length+' alumnos, con su nombre)</option><option value="sin">Sin nombre (el alumno escribe el suyo)</option>'+st.map((s,i)=>`<option value="${i}">${i+1}. ${esc(s)}</option>`).join('');
+}
+function renderImprimir(){
+  $('hjImpAl').innerHTML=opcionesAlumnos(db.current);
+  $('hjImpG').textContent=db.current+' · Parcial '+curP();
+  const gs=$('hjPdfG'), v=gs.value&&db.groups[gs.value]?gs.value:db.current;
+  gs.innerHTML=opcionesGrupos(v);
+  if(!$('hjPdfP').options.length) $('hjPdfP').innerHTML=[1,2,3].map(p=>`<option value="${p}">Parcial ${p}</option>`).join('');
+  if(!$('hjPdfP').dataset.t){$('hjPdfP').value=curP(); $('hjPdfP').dataset.t=1}
+  hjPdfInfo();
+  $('hjCopiaG').innerHTML=opcionesGrupos(db.current);
+  $('hjCopiaP').innerHTML=[1,2,3].map(p=>`<option value="${p}" ${p===curP()?'selected':''}>Parcial ${p}</option>`).join('');
+}
+function hjPdfInfo(){
+  const g=db.groups[$('hjPdfG').value]; const sin=$('hjPdfSin').checked;
+  $('hjPdfNw').classList.toggle('hide',!sin);
+  $('hjPdfCuenta').textContent=g?(sin?(+$('hjPdfN').value||0)+' hoja(s) sin nombre':g.students.length+' hoja(s), una por alumno'):'';
+}
+['hjPdfG','hjPdfSin','hjPdfN'].forEach(i=>$(i).addEventListener('input',hjPdfInfo));
+// Arma la lista de hojas. alum: '*' todo el grupo, 'sin' sin nombre (n copias), o índice de un alumno
+function hjArmar(gn,p,alum,n){
+  const g=db.groups[gn], A=ajustes(), hojas=[];
+  const mk=nombre=>({escuela:A.escuela,profesor:A.profesor,nombre,grupo:gn,parcial:p,code:hjCodigo(gn,p,nombre,0)});
+  if(alum==='sin'){for(let k=0;k<n;k++) hojas.push(mk(''))}
+  else if(alum==='*'){g.students.forEach(s=>hojas.push(mk(s)))}
+  else{const s=g.students[+alum]; if(s) hojas.push(mk(s))}
+  return hojas;
+}
+function cerrarVistaHojas(){$('hojasImp').classList.add('hide'); document.body.classList.remove('imp-hojas'); $('hiPages').innerHTML=''}
+$('hiClose').onclick=cerrarVistaHojas;
+$('hiPrint').onclick=()=>window.print();
+$('hjImpBtn').onclick=()=>{
+  const a=$('hjImpAl').value, n=Math.max(1,Math.min(200,Math.round(+$('hjImpN').value||0)));
+  if(a==='*'&&!G().students.length){alert('Este grupo no tiene alumnos. Agrégalos con "Crear o modificar grupo" o usa la opción "Sin nombre".');return}
+  const hojas=hjArmar(db.current,curP(),a,n);
+  save();
+  $('hiPages').innerHTML=hojas.map(h=>`<div class="hoja">${hojaSVG(h)}</div>`).join('');
+  $('hiInfo').textContent=hojas.length+' hoja(s) · Carta · escala 100 % · márgenes “Ninguno”';
+  $('hojasImp').classList.remove('hide'); document.body.classList.add('imp-hojas'); $('hojasImp').scrollTop=0;
+};
+$('hjImpAl').addEventListener('change',()=>{$('hjImpNw').classList.toggle('hide',$('hjImpAl').value!=='sin')});
+
+// ---------- PDF con todas las hojas de un grupo (se arma aquí mismo, sin internet) ----------
+function hjSvgAImg(svg){return new Promise((ok,mal)=>{
+  const u=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'})), im=new Image();
+  im.onload=()=>{URL.revokeObjectURL(u); ok(im)}; im.onerror=()=>{URL.revokeObjectURL(u); mal(new Error('svg'))}; im.src=u})}
+async function hjJpeg(h){
+  const svg=hojaSVG(h).replace('<svg ','<svg width="2550" height="3300" ');
+  const im=await hjSvgAImg(svg), c=document.createElement('canvas'); c.width=2550; c.height=3300;
+  const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,2550,3300); x.drawImage(im,0,0,2550,3300);
+  const b=await new Promise(r=>c.toBlob(r,'image/jpeg',0.92)); c.width=c.height=1;
+  return new Uint8Array(await b.arrayBuffer());
+}
+function hjPdfBlob(jpgs){ // PDF mínimo: una página Carta (612x792 pt) por JPEG
+  const enc=new TextEncoder(), parts=[], off=[]; let pos=0;
+  const put=d=>{const u=typeof d==='string'?enc.encode(d):d; parts.push(u); pos+=u.length};
+  const n=jpgs.length; put('%PDF-1.4\n');
+  const obj=(i,f)=>{off[i]=pos; put(i+' 0 obj\n'); f(); put('\nendobj\n')};
+  obj(1,()=>put('<< /Type /Catalog /Pages 2 0 R >>'));
+  obj(2,()=>put('<< /Type /Pages /Count '+n+' /Kids ['+jpgs.map((_,k)=>(5+k*3)+' 0 R').join(' ')+'] >>'));
+  jpgs.forEach((j,k)=>{
+    const im=3+k*3, ct=4+k*3, pg=5+k*3, cs='q 612 0 0 792 0 0 cm /I Do Q';
+    obj(im,()=>{put('<< /Type /XObject /Subtype /Image /Width 2550 /Height 3300 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+j.length+' >>\nstream\n'); put(j); put('\nendstream')});
+    obj(ct,()=>put('<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream'));
+    obj(pg,()=>put('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /XObject << /I '+im+' 0 R >> >> /Contents '+ct+' 0 R >>'));
+  });
+  const total=2+n*3, xr=pos; put('xref\n0 '+(total+1)+'\n0000000000 65535 f \n');
+  for(let i=1;i<=total;i++) put(String(off[i]).padStart(10,'0')+' 00000 n \n');
+  put('trailer\n<< /Size '+(total+1)+' /Root 1 0 R >>\nstartxref\n'+xr+'\n%%EOF');
+  return new Blob(parts,{type:'application/pdf'});
+}
+let hjPdfOcupado=false;
+$('hjPdfBtn').onclick=async()=>{
+  if(hjPdfOcupado) return;
+  const gn=$('hjPdfG').value, p=+$('hjPdfP').value, sin=$('hjPdfSin').checked, g=db.groups[gn];
+  if(!g) return;
+  const n=Math.max(1,Math.min(200,Math.round(+$('hjPdfN').value||0)));
+  if(!sin&&!g.students.length){alert('El grupo "'+gn+'" no tiene alumnos. Usa "Sin nombre" o agrégalos con "Crear o modificar grupo".');return}
+  const hojas=hjArmar(gn,p,sin?'sin':'*',n); save();
+  hjPdfOcupado=true; const bt=$('hjPdfBtn'), txt0=bt.textContent; bt.disabled=true;
+  try{
+    const jp=[];
+    for(let i=0;i<hojas.length;i++){bt.textContent='Preparando hoja '+(i+1)+' de '+hojas.length+'…'; jp.push(await hjJpeg(hojas[i]))}
+    const b=hjPdfBlob(jp), url=URL.createObjectURL(b), a=document.createElement('a');
+    a.href=url; a.download='hojas_respuestas_'+gn.replace(/\W+/g,'_')+'_P'+p+(sin?'_sin_nombre':'')+'.pdf'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    $('hjPdfCuenta').textContent='Listo: PDF de '+hojas.length+' hoja(s) descargado.';
+  }catch(e){alert('No se pudo generar el PDF: '+(e&&e.message||e))}
+  finally{hjPdfOcupado=false; bt.disabled=false; bt.textContent=txt0}
+};
+
+
+// ---------- Examen interno: calificaciones desde lecturas del celular (.csv) ----------
+function hjCalif(resp,clave){let ac=0; for(let i=0;i<HX.NQ;i++){if(clave[i]==='*'||(clave[i]!=='_'&&resp[i]===clave[i])) ac++} return ac}
+$('exLecImp').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return; const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const txt=String(rd.result).replace(/^﻿/,''), d=(txt.split('\n')[0].split(';').length>txt.split('\n')[0].split(',').length)?';':',';
+      const rows=parseCSV(txt,d); const cab=rows.shift().map(x=>x.trim().toLowerCase());
+      const ix=n=>cab.indexOf(n); if(ix('respuestas')<0||ix('hoja')<0) throw 0;
+      const H=hojasReg(); let ok=0,mal=[];
+      rows.forEach((r,n)=>{
+        const get=k=>ix(k)<0?'':String(r[ix(k)]||'').trim(), cod=+get('hoja')||0, resp=get('respuestas').toUpperCase().replace(/[^ABCD\-]/g,'');
+        const et='Fila '+(n+2)+(cod?' (hoja '+hxPad(cod)+')':'');
+        let g,p,s,t; const reg=cod>0?H[cod]:null;
+        if(reg&&reg.s){g=reg.g;p=reg.p;s=reg.s;t=+get('tipo')||reg.t||0}
+        else{g=get('grupo');p=+get('parcial');s=get('alumno');t=+get('tipo')}
+        if(resp.length!==HX.NQ){mal.push(et+': respuestas incompletas');return}
+        if(!g||!db.groups[g]||![1,2,3].includes(p)||!s){mal.push(et+': no se sabe de qué alumno es'+(cod&&!reg?' (esa hoja no está registrada en este equipo)':''));return}
+        if(![1,2,3].includes(t)){mal.push(et+': no se marcó el tipo de examen');return}
+        if(!db.groups[g].students.includes(s)){mal.push(et+': el alumno “'+s+'” no está en el grupo '+g);return}
+        const clave=claveDeG(g,p,t); if(clave.includes('_')){mal.push(et+': falta la clave completa del tipo '+t+' en '+g+', Parcial '+p);return}
+        const ac=hjCalif(resp.split('').map(x=>x==='-'?'':x),clave);
+        conGrupo(g,()=>{const e=examen(); if(!e.lect) e.lect={}; e.notas[s]=Math.round(ac*e.total/HX.NQ*100)/100; e.lect[s]={t,r:resp,ac,f:get('fecha')||hoy()}},p);
+        ok++;
+      });
+      save(); renderExamen();
+      alert('Se calificaron '+ok+' hoja(s).'+(mal.length?'\n\nNo se pudieron cargar '+mal.length+':\n'+mal.slice(0,12).join('\n')+(mal.length>12?'\n…':''):''));
+    }catch(x){alert('Ese archivo no es una lista de lecturas de hojas exportada por este sistema.')}
+    e.target.value='';
+  };
+  rd.readAsText(f);
+};
+
+
+
+// ---------- Examen interno: exportar lista de alumnos / importar calificaciones ----------
+const exNrm=s=>String(s==null?'':s).normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim().toUpperCase();
+$('exListaExp').onclick=()=>{
+  const g=G(), e=examen(); if(!g.students.length){alert('Este grupo no tiene alumnos.');return}
+  const cab=['grupo','parcial','alumno','puntos','calificacion'];
+  const filas=g.students.map(s=>{const n=notaEx(s); return [db.current,curP(),s,e.notas[s]??'',n===null?'':n.toFixed(1)]});
+  descargar('lista_examen_'+db.current.replace(/\W+/g,'_')+'_P'+curP()+'.csv','﻿'+[cab].concat(filas).map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv;charset=utf-8');
+};
+$('exListaImp').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return; const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const txt=String(rd.result).replace(/^﻿/,''), l1=txt.split(/\r?\n/)[0], d=(l1.split(';').length>l1.split(',').length)?';':(l1.split('\t').length>l1.split(',').length?'\t':',');
+      const rows=parseCSV(txt,d); const cab=rows.shift().map(x=>exNrm(x).toLowerCase());
+      const ia=cab.findIndex(x=>x==='alumno'||x==='nombre'), ip=cab.findIndex(x=>x==='puntos'||x==='puntos obtenidos'), ic=cab.findIndex(x=>x==='calificacion'||x==='calificacion (0-10)'||x==='calif');
+      if(ia<0||(ip<0&&ic<0)) throw 0;
+      const g=G(), ex=examen(), idx={}; g.students.forEach(s=>{idx[exNrm(s)]=s});
+      let ok=0,vacias=0,mal=[];
+      rows.forEach((r,n)=>{
+        const nom=String(r[ia]||'').trim(); if(!nom) return;
+        const s=idx[exNrm(nom)]; if(!s){mal.push('“'+nom+'”: no está en el grupo '+db.current);return}
+        const crudo=String((ip>=0?r[ip]:r[ic])||'').trim().replace(',','.'); if(crudo===''){vacias++;return}
+        let v=Number(crudo); if(!isFinite(v)||v<0){mal.push('“'+nom+'”: valor no válido (“'+crudo+'”)');return}
+        let pts=ip>=0?v:v*ex.total/10;
+        if(ip<0&&v>10){mal.push('“'+nom+'”: la calificación debe estar entre 0 y 10');return}
+        if(pts>ex.total){mal.push('“'+nom+'”: '+pts+' puntos pasa del valor total del examen ('+ex.total+')');return}
+        ex.notas[s]=Math.round(pts*100)/100; ok++;
+      });
+      save(); renderExamen();
+      alert('Se cargaron '+ok+' calificación(es) en '+db.current+', Parcial '+curP()+'.'+(vacias?'\n'+vacias+' alumno(s) sin valor se dejaron como estaban.':'')+(mal.length?'\n\nNo se cargaron '+mal.length+':\n'+mal.slice(0,12).join('\n')+(mal.length>12?'\n…':''):''));
+    }catch(x){alert('Ese archivo no tiene el formato esperado. Necesita una columna “alumno” y una columna “puntos” (o “calificacion”). Lo más fácil es exportar la lista y llenarla.')}
+    e.target.value='';
+  };
+  rd.readAsText(f);
+};
+
+
+function renderHojas(){renderClaves(); renderImprimir()}
+
+// ===== Puntito extra =====
+const PUNTITO=1; // puntos sobre 100 por cada botón
+// Sello diario: gris = neutro, OK (verde) suma, BAD (rojo) resta. Cada sello vale cfg().selVal puntos sobre 100 (1 punto = 0.1 de calificación).
+function selloCuenta(s){const g=G(); let ok=0,bad=0; Object.keys(g.records).forEach(f=>{const r=(g.records[f]||{})[s]; if(!r) return; if(r.sello==='OK') ok++; else if(r.sello==='BAD') bad++}); return {ok,bad}}
+function selloPts(s){const c=selloCuenta(s); return Math.round((c.ok-c.bad)*(+cfg().selVal||0)*100)/100}
+function ptos(s){const l=(G().puntitos||{})[s]||[]; return l.reduce((a,x)=>a+x.v,0)}
+function sonido(v){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext; const ctx=new AC();
+    const nota=(f,t0,d,tipo,vol)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type=tipo;o.frequency.value=f;
+      g.gain.setValueAtTime(vol,ctx.currentTime+t0);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t0+d);
+      o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+t0);o.stop(ctx.currentTime+t0+d)};
+    if(v>0){nota(523,0,.15,'sine',.3);nota(659,.13,.15,'sine',.3);nota(784,.26,.35,'sine',.3)}
+    else{nota(220,0,.25,'sawtooth',.25);nota(150,.22,.45,'sawtooth',.25)}
+  }catch(e){}
+}
+let fxT;
+function pantallaFx(s,v){
+  const f=$('fx'); f.className=(v>0?'mas':'menos')+' show';
+  f.querySelector('.big').textContent=v>0?'+'+PUNTITO:'−'+PUNTITO;
+  f.querySelector('.msg').textContent=(v>0?'¡Puntito extra para ':'Punto menos por mal comportamiento: ')+s;
+  sonido(v); clearTimeout(fxT); fxT=setTimeout(()=>f.classList.remove('show'),1600);
+}
+$('fx').onclick=()=>{$('fx').classList.remove('show');clearTimeout(fxT)};
+function darPunto(s,v){
+  const g=G(); g.puntitos=g.puntitos||{};
+  (g.puntitos[s]=g.puntitos[s]||[]).push({f:hoy(),h:new Date().toLocaleTimeString(),v:v*PUNTITO});
+  save(); renderExtra(); pantallaFx(s,v);
+}
+function renderExtra(){
+  const g=G();
+  if(!g.students.length){$('tablaExtra').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';return}
+  let h='<tr><th>#</th><th>Alumno</th><th>Balance</th><th>Premios</th><th>Descuentos</th><th></th><th></th><th></th></tr>';
+  g.students.forEach((s,i)=>{
+    const l=(g.puntitos||{})[s]||[], b=ptos(s);
+    const pl=l.filter(x=>x.v>0).length, mi=l.filter(x=>x.v<0).length;
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td><td class="bal ${b>0?'ok':(b<0?'warn':'')}">${b>0?'+':''}${b}</td><td>${pl}</td><td>${mi}</td>`+
+       `<td><button class="btnmas" data-px="${esc(s)}" data-v="1">＋1</button></td>`+
+       `<td><button class="btnmenos" data-px="${esc(s)}" data-v="-1">−1</button></td>`+
+       `<td><button class="sec" data-undo="${esc(s)}">Deshacer</button></td></tr>`;
+  });
+  $('tablaExtra').innerHTML=h;
+}
+$('tablaExtra').addEventListener('click',e=>{
+  const d=e.target.dataset||{};
+  if(d.px!==undefined) darPunto(d.px,+d.v);
+  else if(d.undo!==undefined){const l=(G().puntitos||{})[d.undo]; if(l&&l.length){l.pop(); save(); renderExtra()}}
+});
+
+function calFinal(p,s){
+  const c=cfg(); let sw=0,sum=0;
+  RUB.forEach(([k])=>{if(k==='exam') return; const w=+c.w[k]||0; if(p[k]!==null&&w>0){sw+=w;sum+=w*p[k]}});
+  if(!sw && p.exam===null) return null;
+  // Los demás rubros valen (100 - EXAM_PESO)%; el examen interno, EXAM_PESO%. Sin examen capturado, los demás valen 100%.
+  const otros=sw?sum/sw:null, ex=p.exam;
+  const b100=(otros!==null&&ex!==null)?otros*(1-EXAM_PESO/100)+ex*EXAM_PESO/100:(otros!==null?otros:ex);
+  const base=b100/10 + (s!==undefined?(ptos(s)+selloPts(s))/10:0); // 1 punto sobre 100 = 0.1 sobre 10
+  return Math.max(0,Math.min(10,base));
+}
+// Calificación (0-10) de un alumno en un Parcial dado (null si no tiene datos)
+// Extraordinario: segunda oportunidad de un Parcial reprobado (calificación redondeada menor a 6).
+// Si el alumno tiene extraordinario capturado y es mayor que su calificación, esa pasa a ser la del Parcial (con el máximo configurado).
+function extOrd(s){const e=G().extraord||{}, v=e[s]; if(v===undefined||v===''||isNaN(+v)) return null; return Math.max(0,Math.min(+cfg().extMax,+v))}
+function calParcialInfo(p,s){return conGrupo(db.current,()=>{
+  const ord=calFinal(puntajes(s),s), ex=extOrd(s); let fin=ord, uso=false;
+  if(ord!==null&&ord<6&&ex!==null&&ex>ord){fin=ex; uso=true}
+  return {ord,ex,fin,uso,aplica:ord!==null&&ord<6};
+},p)}
+function calDeParcial(p,s){return calParcialInfo(p,s).fin}
+// Final = promedio de los Parciales con datos
+function calFinalParciales(s){
+  const inf=[1,2,3].map(p=>calParcialInfo(p,s)), v=inf.map(i=>i.fin), ok=v.filter(x=>x!==null);
+  return {v, inf, fin: ok.length?ok.reduce((a,b)=>a+b,0)/ok.length:null, n:ok.length};
+}
+function renderFinal(){
+  const g=G(), tb=$('tablaFinal');
+  if(!g.students.length){tb.innerHTML='<tr><td>Primero agrega alumnos.</td></tr>';return}
+  let t='<tr><th>#</th><th>Alumno</th><th>Parcial 1</th><th>Parcial 2</th><th>Parcial 3</th><th>Calificación final</th><th>Estado</th></tr>';
+  let sum=0,n=0; const sp=[0,0,0], np=[0,0,0];
+  g.students.forEach((s,i)=>{
+    const r=calFinalParciales(s);
+    t+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td>`+r.v.map((x,j)=>{if(x!==null){sp[j]+=x;np[j]++} return `<td class="${x===null?'':(x>=6?'ok':'warn')}">${x===null?'—':x.toFixed(2)+(r.inf[j].uso?' <small title="Con extraordinario">(E)</small>':'')}</td>`}).join('');
+    if(r.fin===null) t+='<td class="fin">—</td><td>Sin datos</td></tr>';
+    else{
+      sum+=r.fin;n++; const ap=r.fin>=6;
+      t+=`<td class="fin ${ap?'ok':'warn'}">${r.fin.toFixed(2)}</td><td>${ap?'Aprueba':'En riesgo'}${r.n<3?' <span class="mut">(con '+r.n+' de 3 parciales)</span>':''}</td></tr>`;
+    }
+  });
+  if(n) t+=`<tr><td></td><td class="n">Promedio del grupo</td>${sp.map((x,j)=>`<td>${np[j]?(x/np[j]).toFixed(2):'—'}</td>`).join('')}<td class="fin">${(sum/n).toFixed(2)}</td><td></td></tr>`;
+  tb.innerHTML=t;
+}
+$('btnFinalCSV').onclick=()=>{
+  const g=G(); if(!g.students.length) return;
+  const cab=['alumno','parcial_1','parcial_2','parcial_3','calificacion_final'];
+  const f1=x=>x===null?'':x.toFixed(2);
+  const filas=g.students.map(s=>{const r=calFinalParciales(s); return [s].concat(r.v.map(f1),[f1(r.fin)])});
+  descargar('calificacion_final_'+db.current.replace(/\W+/g,'_')+'_'+hoy()+'.csv','\uFEFF'+metaCSV().concat([cab],filas).map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv;charset=utf-8');
+};
+function cajHTML(){
+  const c=cfg();
+  let h=RUB.map(([k,n])=>`<label class="cfgw">${n} %<input type="number" min="0" max="100" step="1" data-w="${k}" value="${k==='exam'?EXAM_PESO:c.w[k]}" ${k==='exam'?'disabled title="Fijo: 20 % de la calificación total"':''}></label>`).join('');
+  const tot=RUB.reduce((a,[k])=>a+(k==='exam'?0:(+c.w[k]||0)),0);
+  h+=`<label class="cfgw">Penalización cuadernillo (pts por día tarde)<input type="number" min="0" max="100" step="1" data-pen="1" value="${c.pen}"></label>`;
+  h+=`<label class="cfgw">Máximo en extraordinario<input type="number" min="0" max="10" step="0.5" data-extmax="1" value="${c.extMax}"></label>`;
+  h+=`<label class="cfgw">Valor de cada sello (puntos sobre 100)<input type="number" min="0" step="0.5" data-selval="1" value="${c.selVal}"></label>`;
+  h+=`<span class="mut">Sello (en Captura diaria): OK suma y BAD resta ese valor a la calificación del Parcial; gris no cambia nada. 1 punto = 0.1 de calificación.</span>`;
+  h+=`<span class="mut">Extraordinario: si un Parcial queda reprobado (menos de 6), captúrala en el botón EXAMEN EXTRAORDINARIO (o súbela por .csv); se usa si es mayor a la del Parcial. Aprobar es sacar 6.00 o más, sin redondeo.</span>`;
+  {const act=RUB.filter(([k])=>k!=='exam'&&(+c.w[k]||0)>0), sw=act.reduce((a,[k])=>a+(+c.w[k]),0);
+   h+=`<span class="mut" style="flex-basis:100%"><b>Peso real en la calificación del Parcial</b> (el examen interno vale ${EXAM_PESO} % y los demás se reparten el ${100-EXAM_PESO} % según los pesos de arriba): ${act.map(([k,n])=>esc(n)+' <b>'+((+c.w[k])/sw*(100-EXAM_PESO)).toFixed(1)+' %</b>').concat(['Examen interno <b>'+EXAM_PESO+' %</b>']).join(' · ')}. Si un alumno no tiene datos en un rubro, ese peso se reparte entre los demás.</span>`}
+  h+=`<span class="mut">Examen interno: ${EXAM_PESO}% fijo. Los demás rubros se reparten el ${100-EXAM_PESO}% restante según estos pesos relativos (suma: ${tot}).</span>`;
+  return h;
+}
+function renderCajCfg(){ $('cajGrupo').textContent=db.current; $('calAjCfg').innerHTML=cajHTML(); $('cajPond').checked=!!db.pondera; $('cajLimite').value=cuad().limite||''; }
+function renderCal(){
+  const g=G(), c=cfg();
+  $('calConfig').innerHTML='<span class="mut" style="flex-basis:100%">Todos los ajustes de calificaciones (pesos, penalización, extraordinario, sellos, ponderación, tipos de calificación y pestañas) están en un solo botón. Ponderación al mejor del grupo: <b>'+(db.pondera?'ACTIVADA':'desactivada')+'</b>.</span><button type="button" class="sec noprint" id="btnCalAj">⚖ Ajustes De Calificaciones</button>';
+  renderCajCfg();
+  $('calTitulo').textContent='Calificación aproximada (0 a 10) · Parcial '+curP()+(db.pondera?' · Ponderada al mejor del grupo':'');
+  renderFinal();
+  if(!g.students.length){$('tablaCal').innerHTML='<tr><td>Primero agrega alumnos.</td></tr>';return}
+  let t='<tr><th>#</th><th>Alumno</th>'+RUB.map(([,n])=>`<th>${n}</th>`).join('')+'<th>Puntitos extra</th><th>Sellos (puntos)</th><th>Calificación</th><th>Extraordinario</th><th>Calif. del Parcial</th><th>Estado</th></tr>';
+  let sum=0,n=0;
+  g.students.forEach((s,i)=>{
+    const p=puntajes(s), f=calFinal(p,s), px=ptos(s);
+    t+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td>`+RUB.map(([k])=>`<td>${p[k]===null?'—':(p[k]/10).toFixed(2)}</td>`).join('')+`<td class="${px>0?'ok':(px<0?'warn':'')}">${px>0?'+':''}${px}</td>`;
+    {const sp=selloPts(s), sc=selloCuenta(s); t+=`<td class="${sp>0?'ok':(sp<0?'warn':'')}" title="${sc.ok} OK · ${sc.bad} BAD">${sp>0?'+':''}${sp}</td>`}
+    if(f===null){t+='<td class="fin">—</td><td>—</td><td>—</td><td>Sin datos</td></tr>'}
+    else{
+      const ci=calParcialInfo(curP(),s), ff=ci.fin; sum+=ff;n++;
+      const ap=ff>=6, ev=(G().extraord||{})[s];
+      const celdaEx=(ci.aplica&&ev!==undefined&&ev!=='')?esc(ev):'—';
+      t+=`<td class="fin ${f>=6?'ok':'warn'}">${f.toFixed(2)}</td><td>${celdaEx}</td><td class="fin ${ap?'ok':'warn'}">${ff.toFixed(2)}${ci.uso?' <small>(E)</small>':''}</td><td>${ap?(ci.uso?'Aprueba (extraordinario)':'Aprueba'):(ci.aplica&&ci.ex!==null&&!ci.uso?'En riesgo (el extraordinario no supera la calificación)':'En riesgo')}</td></tr>`;
+    }
+  });
+  if(n) t+=`<tr><td></td><td class="n">Promedio del grupo</td>${RUB.map(()=>'<td></td>').join('')}<td></td><td></td><td></td><td></td><td class="fin">${(sum/n).toFixed(2)}</td><td></td></tr>`;
+  $('tablaCal').innerHTML=t;
+  renderExt();
+}
+$('calConfig').addEventListener('click',e=>{if(e.target.id==='btnCalAj') $('btnEditTabs').click()});
+$('cajPond').onchange=e=>{db.pondera=e.target.checked; refrescaTodo()};
+$('cajLimite').onchange=e=>{cuad().limite=e.target.value; save(); if($('cuadLimite')) $('cuadLimite').value=e.target.value; renderCuad(); renderCal()};
+$('cajCopiar').onclick=()=>{
+  if(!confirm('¿Copiar los pesos, la penalización, el máximo del extraordinario y el valor del sello del grupo '+db.current+' a TODOS los grupos?')) return;
+  const c=cfg(); Object.keys(db.groups).forEach(n=>conGrupo(n,()=>{const d=cfg(); Object.assign(d.w,c.w); d.pen=c.pen; d.extMax=c.extMax; d.selVal=c.selVal}));
+  save(); renderCal();
+};
+$('calAjCfg').addEventListener('change',e=>{
+  const t=e.target, c=cfg();
+  if(t.dataset.w) c.w[t.dataset.w]=Math.max(0,+t.value||0);
+  if(t.dataset.pen) c.pen=Math.max(0,+t.value||0);
+  if(t.dataset.selval) c.selVal=Math.max(0,+t.value||0);
+  if(t.dataset.extmax) c.extMax=Math.max(0,Math.min(10,+t.value||0));
+  save(); renderCal();
+});
+$('calConfig').addEventListener('change',e=>{
+  const t=e.target, c=cfg();
+  if(t.dataset.w) c.w[t.dataset.w]=Math.max(0,+t.value||0);
+  if(t.dataset.pen) c.pen=Math.max(0,+t.value||0);
+  if(t.dataset.selval) c.selVal=Math.max(0,+t.value||0);
+  if(t.dataset.extmax) c.extMax=Math.max(0,Math.min(10,+t.value||0));
+  save(); renderCal();
+});
+// ---- Examen extraordinario (panel dentro de Calificación) ----
+function extGet(p,s){return conGrupo(db.current,()=>{const e=G().extraord||{}; return e[s]},p)}
+function extSet(p,s,v){conGrupo(db.current,()=>{const g=G(); if(!g.extraord) g.extraord={}; if(v===null) delete g.extraord[s]; else g.extraord[s]=Math.max(0,Math.min(10,v))},p)}
+function renderExt(){
+  if($('panelExt').classList.contains('hide')) return;
+  const g=G(); $('extGrupo').textContent='Grupo '+db.current;
+  if(!g.students.length){$('tablaExt').innerHTML='<tr><td>Primero agrega alumnos.</td></tr>';return}
+  let t='<tr><th>#</th><th>Alumno</th>'+[1,2,3].map(p=>`<th>Parcial ${p}</th><th>Extraord. ${p}</th>`).join('')+'<th>Calificación final</th></tr>';
+  g.students.forEach((s,i)=>{
+    t+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td>`;
+    [1,2,3].forEach(p=>{
+      const ci=calParcialInfo(p,s), ev=extGet(p,s);
+      if(ci.ord===null) t+='<td>—</td><td>—</td>';
+      else t+=`<td class="fin ${ci.ord>=6?'ok':'warn'}">${ci.ord.toFixed(2)}</td><td>${ci.aplica?`<input type="number" min="0" max="10" step="0.01" style="width:78px" data-xp="${p}" data-xs="${esc(s)}" value="${ev===undefined?'':esc(ev)}">${ci.uso?' <small>(E)</small>':''}`:'—'}</td>`;
+    });
+    const cf=calFinalParciales(s); t+=`<td class="fin ${cf.fin!==null&&cf.fin>=6?'ok':'warn'}">${cf.fin===null?'—':cf.fin.toFixed(2)}</td></tr>`;
+  });
+  $('tablaExt').innerHTML=t;
+}
+$('btnExtOrd').onclick=()=>{$('panelExt').classList.toggle('hide'); renderExt()};
+$('tablaExt').addEventListener('change',e=>{
+  const t=e.target; if(t.dataset.xp===undefined) return;
+  const raw=t.value.trim().replace(',','.');
+  if(raw==='') extSet(+t.dataset.xp,t.dataset.xs,null);
+  else{const v=Number(raw); if(!isFinite(v)||v<0||v>10){alert('La calificación del extraordinario debe estar entre 0 y 10.'); renderExt(); return} extSet(+t.dataset.xp,t.dataset.xs,v)}
+  save(); renderCal();
+});
+$('extBorra').onclick=()=>{
+  if(!confirm('¿Borrar todos los extraordinarios capturados del grupo '+db.current+' (los 3 Parciales)?')) return;
+  [1,2,3].forEach(p=>conGrupo(db.current,()=>{G().extraord={}},p)); save(); renderCal();
+};
+$('extExp').onclick=()=>{
+  const g=G(); if(!g.students.length) return;
+  const cab=['alumno']; [1,2,3].forEach(p=>{cab.push('parcial_'+p,'extraordinario_parcial_'+p)});
+  const filas=g.students.map(s=>{const r=[s]; [1,2,3].forEach(p=>{const ci=calParcialInfo(p,s), ev=extGet(p,s); r.push(ci.ord===null?'':ci.ord.toFixed(2),ev===undefined?'':ev)}); return r});
+  descargar('extraordinarios_'+db.current.replace(/\W+/g,'_')+'_'+hoy()+'.csv','\uFEFF'+[cab].concat(filas).map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv;charset=utf-8');
+};
+$('extImp').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return; const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const txt=String(rd.result).replace(/^\uFEFF/,''), l1=txt.split(/\r?\n/)[0], d=(l1.split(';').length>l1.split(',').length)?';':(l1.split('\t').length>l1.split(',').length?'\t':',');
+      const rows=parseCSV(txt,d); const cab=rows.shift().map(x=>exNrm(x).toLowerCase());
+      const ia=cab.findIndex(x=>x==='alumno'||x==='nombre');
+      const cols=[]; cab.forEach((x,i)=>{ if(x.includes('extra')){const m=x.match(/[123]/); cols.push({i,p:m?+m[0]:curP()})} });
+      if(ia<0||!cols.length) throw 0;
+      const g=G(), idx={}; g.students.forEach(s=>{idx[exNrm(s)]=s});
+      let ok=0,sinEfecto=0; const mal=[];
+      rows.forEach(r=>{
+        const nom=String(r[ia]||'').trim(); if(!nom) return;
+        const s=idx[exNrm(nom)]; if(!s){mal.push('“'+nom+'”: no está en el grupo '+db.current);return}
+        cols.forEach(c=>{
+          const crudo=String(r[c.i]||'').trim().replace(',','.'); if(crudo==='') return;
+          const v=Number(crudo); if(!isFinite(v)||v<0||v>10){mal.push('“'+nom+'” Parcial '+c.p+': valor no válido (“'+crudo+'”), debe ser de 0 a 10');return}
+          extSet(c.p,s,v); ok++; if(!calParcialInfo(c.p,s).aplica) sinEfecto++;
+        });
+      });
+      save(); renderCal();
+      alert('Se cargaron '+ok+' calificación(es) de extraordinario en '+db.current+'.'+(sinEfecto?'\n'+sinEfecto+' de ellas son de Parciales aprobados (o sin datos): quedan guardadas pero no cambian la calificación.':'')+(mal.length?'\n\nNo se cargaron '+mal.length+':\n'+mal.slice(0,12).join('\n')+(mal.length>12?'\n…':''):''));
+    }catch(x){alert('Ese archivo no tiene el formato esperado. Necesita una columna “alumno” y columnas “extraordinario_parcial_1”, “_2” o “_3”. Lo más fácil es exportar la lista y llenarla.')}
+    e.target.value='';
+  };
+  rd.readAsText(f);
+};
+$('btnCalCSV').title='Calificaciones del Parcial activo';
+$('btnCalCSV').onclick=()=>{
+  const g=G(); if(!g.students.length) return;
+  const cab=['alumno'].concat(RUB.map(r=>r[1]),['puntitos_extra','sellos_puntos','calificacion','extraordinario','calificacion_del_parcial']);
+  const filas=g.students.map(s=>{const p=puntajes(s), f=calFinal(p,s), ci=calParcialInfo(curP(),s), ev=(G().extraord||{})[s];
+    return [s].concat(RUB.map(([k])=>p[k]===null?'':(p[k]/10).toFixed(1)),[ptos(s),selloPts(s)],[f===null?'':f.toFixed(2),ev===undefined?'':ev,f===null?'':ci.fin.toFixed(2)])});
+  descargar('calificaciones_parcial'+curP()+'_'+db.current.replace(/\W+/g,'_')+'_'+hoy()+'.csv','\uFEFF'+metaCSV().concat([cab],filas).map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv;charset=utf-8');
+};
+
+$('grupoSel').onchange=e=>{db.current=e.target.value; save(); renderTodo()};
+
+function descargar(nombre, contenido, tipo){
+  const b=new Blob([contenido],{type:tipo});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=nombre;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function csvCell(v){v=String(v??''); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function filasCSV(nombreGrupo){
+  let out=[];
+  for(let pp=1;pp<=NPARC;pp++) out=out.concat(filasCSVParcial(nombreGrupo,pp));
+  return out;
+}
+function filasCSVParcial(nombreGrupo,pp){
+  const g=vistaGrupo(db.groups[nombreGrupo],pp), out=[];
+  const cu=g.cuad||{limite:CUAD_LIM,entregas:{}};
+  Object.keys(g.records).sort().forEach(f=>{
+    g.students.forEach(s=>{
+      const r=g.records[f][s]; if(!r) return;
+      out.push([nombreGrupo,f,s,ETQ.asist[r.asist||''],ETQ.punt[r.punt||''],ETQ.comp[r.comp||''],ETQ.part[r.part??''],ETQ.tarea[r.tarea||''],ETQ.trab[r.trab||''],r.nota||'',cu.limite||'',cu.entregas[s]||'',(()=>{const e=(cu.eval||{})[s]; if(!e) return ''; const p=cu.pesos||{}; const w=k=>(p[k]!==undefined?+p[k]:CUAD_CRIT.find(c=>c[0]===k)[2]); const tot=CUAD_CRIT.reduce((a,[k])=>a+w(k),0); return tot?(CUAD_CRIT.reduce((a,[k])=>a+(e[k]?w(k):0),0)/tot*10).toFixed(1):''})(),r.just||'',pp,ajustes().profesor,ajustes().escuela,r.sello||'']);
+    });
+  });
+  return out;
+}
+function exportarCSV(grupos,nombre){
+  const cab=['grupo','fecha','alumno','asistencia','puntualidad','comportamiento','participacion','tarea','trabajo','observacion','cuadernillo_limite','cuadernillo_entrega','cuadernillo_revision_0a10','justificacion','parcial','profesor','escuela','sello'];
+  let filas=[]; grupos.forEach(n=>filas=filas.concat(filasCSV(n)));
+  if(!filas.length){alert('No hay registros para exportar.');return}
+  const txt='\uFEFF'+[cab].concat(filas).map(r=>r.map(csvCell).join(',')).join('\n');  // CSV de registro: columnas profesor/escuela al final (compatible con la importación)
+  descargar(nombre,txt,'text/csv;charset=utf-8');
+}
+$('btnCSVGrupo').onclick=()=>exportarCSV([db.current],'registro_'+db.current.replace(/\W+/g,'_')+'_'+hoy()+'.csv');
+$('btnCSVTodos').onclick=()=>exportarCSV(Object.keys(db.groups),'registro_todos_'+hoy()+'.csv');
+// ===== Importar CSV (mismo formato que la exportación) =====
+function parseCSV(t,d){
+  t=t.replace(/^\uFEFF/,'');
+  const rows=[]; let row=[], f='', q=false;
+  for(let i=0;i<t.length;i++){
+    const ch=t[i];
+    if(q){
+      if(ch==='"'){ if(t[i+1]==='"'){f+='"';i++} else q=false } else f+=ch;
+    }else if(ch==='"') q=true;
+    else if(ch===d){row.push(f);f=''}
+    else if(ch==='\n'||ch==='\r'){ if(ch==='\r'&&t[i+1]==='\n') i++; row.push(f);f='';rows.push(row);row=[] }
+    else f+=ch;
+  }
+  if(f!==''||row.length){row.push(f);rows.push(row)}
+  return rows.filter(r=>r.some(x=>String(x).trim()!==''));
+}
+const REV={}; CAMPOS.forEach(c=>{REV[c.k]={}; c.o.forEach(([v,l])=>{REV[c.k][l.toLowerCase()]=v})});
+Object.assign(REV.comp,{excelente:'OK',bueno:'OK',regular:'',malo:'BAD'});
+Object.assign(REV.part,{alta:'OK',media:'',baja:'BAD',nula:'BAD'});
+['tarea','trab'].forEach(k=>Object.assign(REV[k],{'entregó':'OK','entrego':'OK',incompleta:'',incompleto:'','no entregó':'BAD','no entrego':'BAD','no hubo':''}));
+const RE_FECHA=/^\d{4}-\d{2}-\d{2}$/;
+function importarCSV(txt){
+  const primera=txt.replace(/^\uFEFF/,'').split(/\r?\n/)[0]||'';
+  const d=(primera.split(';').length>primera.split(',').length)?';':',';
+  const rows=parseCSV(txt,d);
+  if(rows.length<2){alert('El archivo está vacío o no tiene registros.');return}
+  const H=rows[0].map(x=>String(x).trim().toLowerCase());
+  const ix=n=>H.indexOf(n);
+  if(['grupo','fecha','alumno'].some(n=>ix(n)<0)){alert('El archivo no tiene el formato de este sistema (faltan las columnas grupo, fecha o alumno).');return}
+  const col=(r,n)=>{const i=ix(n); return i<0?'':String(r[i]===undefined?'':r[i]).trim()};
+  const items=[]; let malas=0, desconocidos=0;
+  rows.slice(1).forEach(r=>{
+    const g=col(r,'grupo'), f=col(r,'fecha'), s=col(r,'alumno');
+    if(!g||!s||!RE_FECHA.test(f)||g==='__proto__'){malas++;return}
+    const rec={};
+    [['asist','asistencia'],['punt','puntualidad'],['comp','comportamiento'],['part','participacion'],['tarea','tarea'],['trab','trabajo']].forEach(([k,cn])=>{
+      const v=col(r,cn); if(v===''){rec[k]='';return}
+      const x=REV[k][v.toLowerCase()];
+      if(x===undefined){desconocidos++;rec[k]=''} else rec[k]=x;
+    });
+    rec.nota=col(r,'observacion'); rec.just=col(r,'justificacion'); {const sl=col(r,'sello').toUpperCase(); rec.sello=(sl==='OK'||sl==='BAD')?sl:''}
+    const lim=col(r,'cuadernillo_limite'), ent=col(r,'cuadernillo_entrega'), rv=parseFloat(col(r,'cuadernillo_revision_0a10').replace(',','.'));
+    const pc=parseInt(col(r,'parcial'),10); items.push({g,f,s,rec,p:(pc>=1&&pc<=NPARC)?pc:(pDeFecha(f)||curP()),lim:RE_FECHA.test(lim)?lim:'',ent:RE_FECHA.test(ent)?ent:'',rev:isNaN(rv)?null:Math.min(10,Math.max(0,rv))});
+  });
+  if(!items.length){alert('No se encontraron registros válidos en el archivo.');return}
+  // Resumen previo (sin modificar nada)
+  const gNuevos=new Set(), aNuevos=new Set(); let sobre=0;
+  items.forEach(it=>{
+    const g=db.groups[it.g];
+    if(!g){gNuevos.add(it.g); aNuevos.add(it.g+'|'+it.s); return}
+    if(!g.students.includes(it.s)) aNuevos.add(it.g+'|'+it.s);
+    const gv=vistaGrupo(g,it.p); if(gv.records[it.f]&&gv.records[it.f][it.s]) sobre++;
+  });
+  const grupos=new Set(items.map(i=>i.g)), fechas=new Set(items.map(i=>i.f));
+  const msg='Se importarán '+items.length+' registro(s) de '+grupos.size+' grupo(s) y '+fechas.size+' fecha(s) (Parciales: '+[...new Set(items.map(i=>i.p))].sort().join(', ')+').\n'
+    +'• Grupos nuevos: '+gNuevos.size+(gNuevos.size?' ('+[...gNuevos].join(', ')+')':'')+'\n'
+    +'• Alumnos nuevos: '+aNuevos.size+'\n'
+    +'• Registros existentes que se reemplazarán: '+sobre+'\n'
+    +(malas?'• Filas ignoradas por datos inválidos: '+malas+'\n':'')
+    +(desconocidos?'• Valores no reconocidos (quedan vacíos): '+desconocidos+'\n':'')
+    +'\nTe recomiendo descargar un respaldo (.json) antes de continuar. ¿Importar ahora?';
+  if(!confirm(msg)) return;
+  items.forEach(it=>{
+    let g=db.groups[it.g]; if(!g) g=db.groups[it.g]={students:[],records:{}};
+    if(!g.students.includes(it.s)) g.students.push(it.s);
+    const gv=vistaGrupo(g,it.p);
+    (gv.records[it.f]=gv.records[it.f]||{})[it.s]=it.rec;
+    conGrupo(it.g,()=>{
+      const c=cuad();
+      if(it.lim) c.limite=it.lim;
+      if(it.ent) c.entregas[it.s]=it.ent;
+      if(it.rev!==null&&!c.eval[it.s]) c.notaImp[it.s]=it.rev;
+    },it.p);
+  });
+  save(); refrescarVista();
+  alert('Importación terminada: '+items.length+' registro(s).');
+}
+$('fileImportCSV').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{try{importarCSV(String(rd.result))}catch(x){alert('No se pudo leer el archivo: '+x.message)} e.target.value=''};
+  rd.readAsText(f,'UTF-8');
+};
+$('btnRespaldo').onclick=()=>{
+  const bajar=()=>descargar('respaldo_registro_'+hoy()+'.json',JSON.stringify(db),'application/json');
+  if(!SRV){bajar();return}
+  db.ts=Date.now();
+  fetch('/api/respaldo',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(db)})
+    .then(r=>{if(!r.ok) throw 0; return r.json()})
+    .then(j=>alert('Respaldo guardado en la carpeta CALIFICATED\\respaldos:\n'+j.archivo))
+    .catch(()=>{alert('No se pudo guardar en la carpeta. Se descargará el archivo en su lugar.'); bajar()});
+};
+$('fileRestaurar').onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const d=sanear(JSON.parse(rd.result));
+      if(!d) throw 0;
+      if(!confirm('Esto reemplaza los datos actuales por los del respaldo. ¿Continuar?')) return;
+      const previo=db;
+      try{db=d; save(); renderTodo()}
+      catch(x2){db=previo; save(); renderTodo(); alert('El respaldo tiene un formato que no se pudo cargar. Se conservaron tus datos actuales.')}
+    }catch(x){alert('Archivo de respaldo no válido.')}
+  };
+  rd.readAsText(f);
+};
+
+const TABS=[['captura','Captura Diaria',1],['horario','🕗 Horario',1],['cuad','Cuadernillo'],['extrae','🎭 Actividad Extraescolar'],['examen','📝 Examen Interno'],['hojas','📄 Hojas De Respuestas'],['extra','⭐ Puntito Extra'],['datosal','📇 Datos De Alumnos'],['reportes','🚩 Reportes'],['cal','Calificación',1],['datos','Exportar / Respaldo',1]];
+const SECS=['captura','horario','cuad','extrae','examen','hojas','extra','cal','datos','datosal','reportes','custom'];
+let tabActual='captura', customActual=null;
+function tabNombre(t){return tabsCfg().nombres[t[0]]||t[1]}
+const TABS_FINAL=['reportes','cal','horario'];
+function renderTabs(){
+  const tc=tabsCfg(); let h='';
+  const btn=t=>{if(tc.ocultas.includes(t[0])&&!t[2]) return ''; return `<button data-tab="${t[0]}" class="${tabActual===t[0]?'on':''}">${esc(tabNombre(t))}</button>`};
+  TABS.filter(t=>!TABS_FINAL.includes(t[0])&&t[0]!=='alumnos'&&t[0]!=='datos'&&t[0]!=='datosal'&&t[0]!=='hojas'&&t[0]!=='reportes').forEach(t=>{h+=btn(t)});
+  customs().forEach(c=>{h+=`<button data-tab="custom" data-cid="${c.id}" class="${tabActual==='custom'&&customActual===c.id?'on':''}">${esc(c.nombre)}</button>`});
+  TABS_FINAL.forEach(k=>{h+=btn(TABS.find(t=>t[0]===k))});
+  $('tabsBar').innerHTML=h;
+}
+function datosAl(){const g=G(); if(!g.datosAl) g.datosAl={}; return g.datosAl}
+function renderDatosAl(){
+  const g=G(), d=datosAl(), q=($('daBuscar').value||'').toLowerCase();
+  if(!g.students.length){$('tablaDatosAl').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';$('daCuenta').textContent='';return}
+  let h='<tr><th>#</th><th>Nombre</th><th>Teléfono</th><th>Localidad</th><th>Nombre de la mamá</th></tr>', n=0;
+  g.students.forEach((s,i)=>{
+    const r=d[s]||{};
+    if(q&&!(s+' '+(r.loc||'')+' '+(r.mama||'')+' '+(r.tel||'')).toLowerCase().includes(q)) return;
+    n++;
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td><td><input type="text" inputmode="tel" data-da="tel" data-s="${esc(s)}" value="${esc(r.tel||'')}" style="min-width:130px"></td><td><input type="text" data-da="loc" data-s="${esc(s)}" value="${esc(r.loc||'')}"></td><td><input type="text" data-da="mama" data-s="${esc(s)}" value="${esc(r.mama||'')}" style="min-width:200px"></td></tr>`;
+  });
+  $('tablaDatosAl').innerHTML=h;
+  const cap=g.students.filter(s=>{const r=d[s]||{};return r.tel||r.loc||r.mama}).length;
+  $('daCuenta').textContent='Con datos: '+cap+'/'+g.students.length+(q?' · Mostrando '+n:'');
+}
+$('tablaDatosAl').addEventListener('input',e=>{
+  const k=e.target.dataset.da; if(!k) return;
+  const d=datosAl(), s=e.target.dataset.s; (d[s]=d[s]||{})[k]=e.target.value; save();
+});
+$('daBuscar').oninput=renderDatosAl;
+$('btnDaCSV').onclick=()=>{
+  const g=G(); if(!g.students.length) return;
+  const d=datosAl();
+  const filas=g.students.map(s=>{const r=d[s]||{}; return [s,r.tel||'',r.loc||'',r.mama||'']});
+  descargar('datos_alumnos_'+db.current.replace(/\W+/g,'_')+'_'+hoy()+'.csv','\uFEFF'+metaCSV().concat([['alumno','telefono','localidad','nombre_mama']],filas).map(r=>r.map(csvCell).join(',')).join('\n'),'text/csv;charset=utf-8');
+};
+function renderCustom(){
+  const g=G(), c=customs().find(x=>x.id===customActual); if(!c) return;
+  $('customTitulo').textContent=c.nombre;
+  g.custom=g.custom||{}; const d=g.custom[c.id]=g.custom[c.id]||{};
+  if(!g.students.length){$('tablaCustom').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';$('customProm').textContent='';return}
+  let h='<tr><th>#</th><th>Alumno</th><th>Calificación (0-10)</th></tr>';
+  g.students.forEach((s,i)=>{h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td><td><input type="number" min="0" max="10" step="0.5" data-cs="${esc(s)}" value="${d[s]??''}" style="width:90px"></td></tr>`});
+  $('tablaCustom').innerHTML=h; promCustom();
+}
+function promCustom(){
+  const d=(G().custom||{})[customActual]||{}, v=G().students.map(s=>d[s]).filter(x=>x!==undefined&&x!==''&&!isNaN(+x)).map(x=>Math.min(10,Math.max(0,+x)));
+  $('customProm').textContent=v.length?('Capturados: '+v.length+'/'+G().students.length+' · Promedio: '+(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)):'';
+}
+$('tablaCustom').addEventListener('input',e=>{
+  const s=e.target.dataset.cs; if(s===undefined) return;
+  const g=G(); g.custom=g.custom||{}; (g.custom[customActual]=g.custom[customActual]||{})[s]=e.target.value; save(); promCustom();
+});
+function mostrarTab(t,cid){
+  tabActual=t; if(t==='custom') customActual=cid; renderParciales();
+  SECS.forEach(x=>$('tab-'+x).classList.toggle('hide',x!==t));
+  $('parcialTag').classList.toggle('hide',t==='horario');
+  if(t==='horario') renderHorario();
+  renderTabs();
+  if(t==='extrae') renderExtrae();
+  if(t==='examen') renderExamen();
+  if(t==='hojas') renderHojas();
+  if(t==='extra') renderExtra();
+  if(t==='cal') renderCal();
+  if(t==='cuad') renderCuad();
+  if(t==='custom') renderCustom();
+  if(t==='datosal') renderDatosAl();
+  if(t==='reportes') renderReportes();
+}
+$('tabsBar').addEventListener('click',e=>{const b=e.target.closest('button'); if(b) mostrarTab(b.dataset.tab,b.dataset.cid)});
+
+// ===== Editor de pestañas y tipos de calificación =====
+function renderEditTabs(){
+  const tc=tabsCfg();
+  $('tabsLista').innerHTML=TABS.filter(t=>t[0]!=='alumnos'&&t[0]!=='datos'&&t[0]!=='datosal'&&t[0]!=='hojas').map(t=>`<div class="row" style="margin-bottom:6px">${t[2]?'🔒':`<input type="checkbox" data-vis="${t[0]}" ${tc.ocultas.includes(t[0])?'':'checked'} title="Mostrar">`}<input type="text" data-ren="${t[0]}" value="${esc(tabNombre(t))}" style="flex:1;min-width:160px">${TAB_RUBRO[t[0]]?'<span class="mut">cuenta en la calificación</span>':''}</div>`).join('');
+  $('customLista').innerHTML=customs().length?customs().map(c=>`<div class="row" style="margin-bottom:6px"><input type="text" data-cn="${c.id}" value="${esc(c.nombre)}" style="flex:1;min-width:160px"><label class="cfgw">Peso %<input type="number" min="0" max="100" data-cp="${c.id}" value="${c.peso}"></label><button class="danger" data-cdel="${c.id}">Eliminar</button></div>`).join(''):'<span class="mut">Aún no hay tipos propios.</span>';
+}
+function refrescaTodo(){
+  rebuildRUB(); save(); renderEditTabs();
+  if(tabActual==='custom'&&!customs().find(c=>c.id===customActual)) tabActual='captura';
+  if(tabsCfg().ocultas.includes(tabActual)) tabActual='captura';
+  mostrarTab(tabActual,customActual);
+}
+$('btnHojas').onclick=()=>{mostrarTab('hojas'); window.scrollTo({top:0,behavior:'smooth'})};
+$('btnDatosAl').onclick=()=>{$('dlgGrupo').close(); mostrarTab('datosal'); window.scrollTo({top:0,behavior:'smooth'})};
+$('btnDatos').onclick=()=>{mostrarTab('datos'); window.scrollTo({top:0,behavior:'smooth'})};
+$('btnEditTabs').onclick=()=>{renderEditTabs(); renderCajCfg(); $('dlgTabs').showModal()};
+$('btnTabsCerrar').onclick=()=>$('dlgTabs').close();
+$('tabsLista').addEventListener('change',e=>{
+  const tc=tabsCfg(), t=e.target;
+  if(t.dataset.vis){const i=tc.ocultas.indexOf(t.dataset.vis); if(t.checked){if(i>=0)tc.ocultas.splice(i,1)}else if(i<0)tc.ocultas.push(t.dataset.vis); refrescaTodo()}
+  if(t.dataset.ren){const orig=TABS.find(x=>x[0]===t.dataset.ren)[1]; const v=t.value.trim(); if(v&&v!==orig) tc.nombres[t.dataset.ren]=v; else delete tc.nombres[t.dataset.ren]; refrescaTodo()}
+});
+$('customLista').addEventListener('change',e=>{
+  const t=e.target, id=t.dataset.cn||t.dataset.cp; if(!id) return;
+  const c=customs().find(x=>x.id===id); if(!c) return;
+  if(t.dataset.cn){c.nombre=t.value.trim()||c.nombre}
+  if(t.dataset.cp){c.peso=Math.max(0,+t.value||0); Object.values(db.groups).forEach(g=>{if(g.config) g.config.w['x_'+id]=c.peso})}
+  refrescaTodo();
+});
+$('customLista').addEventListener('click',e=>{
+  const id=e.target.dataset.cdel; if(!id) return;
+  const c=customs().find(x=>x.id===id);
+  if(!confirm('¿Eliminar "'+c.nombre+'" y todas las calificaciones capturadas en ese rubro? No se puede deshacer.')) return;
+  db.customs=customs().filter(x=>x.id!==id);
+  Object.values(db.groups).forEach(g=>{[g].concat(Object.values(g.parciales||{})).forEach(pg=>{if(pg.custom) delete pg.custom[id]}); if(g.config) delete g.config.w['x_'+id]});
+  refrescaTodo();
+});
+$('btnAddCustom').onclick=()=>{
+  const n=$('newCustomNombre').value.trim(); if(!n){alert('Escribe un nombre.');return}
+  const id=Date.now().toString(36);
+  customs().push({id,nombre:n,peso:Math.max(0,+$('newCustomPeso').value||0)});
+  $('newCustomNombre').value=''; refrescaTodo();
+};
+$('btnTabsReset').onclick=()=>{if(!confirm('¿Mostrar todas las pestañas y quitar los nombres personalizados? (Tus tipos propios no se borran)')) return; db.tabs={ocultas:[],nombres:{}}; refrescaTodo()};
+
+// ===== Personalización (título y color) =====
+const AJ_DEF={titulo:'Sistema de Calificaciones CECYTED 12 Monreal',color:'#1f6feb',profesor:'',escuela:''};
+const AJ_COLORES=['#1f6feb','#1a7f37','#8b1e3f','#6f42c1','#e8590c','#3b4a5a','#f5c400','#cf222e'];
+function ajustes(){return Object.assign({},AJ_DEF,db.ajustes||{})}
+function tintaSobre(hex){const n=parseInt(hex.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255; return (0.299*r+0.587*g+0.114*b)>160?'#1c2733':'#fff'}
+function aplicarAjustes(){
+  const a=ajustes(); document.title=a.titulo+' · CALIFICATED PC V9';
+  document.querySelector('header h1').textContent='📋 '+a.titulo;
+  const st=document.documentElement.style; st.setProperty('--acc',a.color); st.setProperty('--accink',tintaSobre(a.color));
+}
+let perColorSel=AJ_DEF.color;
+function marcarSwatch(){
+  $('perColor').value=perColorSel;
+  $('perSwatches').innerHTML=AJ_COLORES.map(c=>`<button type="button" data-c="${c}" title="${c}" style="background:${c};width:36px;height:36px;padding:0;border-radius:50%;border:${c===perColorSel?'3px solid #1c2733':'2px solid #fff'};box-shadow:0 0 0 1px var(--line)"></button>`).join('');
+}
+$('btnPersonalizar').onclick=()=>{const a=ajustes(); $('perTitulo').value=a.titulo; $('perProf').value=a.profesor; $('perEsc').value=a.escuela; perColorSel=a.color; marcarSwatch(); $('dlgPersonalizar').showModal()};
+$('perSwatches').addEventListener('click',e=>{const c=e.target.dataset&&e.target.dataset.c; if(c){perColorSel=c; marcarSwatch()}});
+$('perColor').oninput=e=>{perColorSel=e.target.value; marcarSwatch()};
+$('btnPerGuardar').onclick=()=>{db.ajustes={titulo:($('perTitulo').value||'').trim()||AJ_DEF.titulo,color:perColorSel,profesor:($('perProf').value||'').trim(),escuela:($('perEsc').value||'').trim()}; save(); renderParciales(); aplicarAjustes(); $('dlgPersonalizar').close()};
+$('btnPerCancelar').onclick=()=>$('dlgPersonalizar').close();
+$('btnPerReset').onclick=()=>{const a=ajustes(); db.ajustes={profesor:a.profesor,escuela:a.escuela}; save(); renderParciales(); aplicarAjustes(); $('dlgPersonalizar').close()};
+
+// ===== Reportes de alumnos =====
+function reportes(){const g=G(); if(!g.reportes) g.reportes={}; return g.reportes}
+const repDraft={};
+function renderReportes(){
+  const g=G(), R=reportes(), q=($('repBuscar').value||'').toLowerCase();
+  if(!g.students.length){$('tablaReportes').innerHTML='<tr><td>Primero agrega alumnos con el botón "Crear o modificar grupo".</td></tr>';$('repCuenta').textContent='';return}
+  let h='<tr><th>#</th><th>Alumno</th><th>Reporte</th><th>Reportes registrados</th></tr>', n=0;
+  g.students.forEach((s,i)=>{
+    const l=R[s]||[];
+    if(q&&!(s+' '+l.map(x=>x.t).join(' ')).toLowerCase().includes(q)) return;
+    n++;
+    h+=`<tr><td>${i+1}</td><td class="n">${esc(s)}</td>`
+      +`<td style="min-width:320px"><div class="row" style="flex-wrap:nowrap"><input type="text" data-rin="${i}" value="${esc(repDraft[db.current+'|'+s]||'')}" placeholder="Escribe el reporte…" style="flex:1;min-width:200px"><button data-radd="${i}">Agregar</button></div></td>`
+      +`<td style="white-space:normal;min-width:260px">${l.length?l.map((x,j)=>`<div style="padding:2px 0"><span class="pill">${esc(x.f)}</span> ${esc(x.t)} <button class="danger" data-rdel="${i}:${j}" style="padding:0 6px;font-size:12px" title="Eliminar reporte">✕</button></div>`).join(''):'<span class="mut">—</span>'}</td></tr>`;
+  });
+  $('tablaReportes').innerHTML=h;
+  const tot=g.students.reduce((a,s)=>a+(R[s]||[]).length,0);
+  $('repCuenta').textContent='Reportes en el grupo: '+tot+(q?' · Mostrando '+n+' alumno(s)':'');
+}
+function agregarReporte(i){
+  const g=G(), s=g.students[i], inp=$('tablaReportes').querySelector('[data-rin="'+i+'"]');
+  const t=(inp.value||'').trim(); if(!t){inp.focus();return}
+  (reportes()[s]=reportes()[s]||[]).push({f:hoy(),t});
+  delete repDraft[db.current+'|'+s]; save(); renderReportes();
+}
+$('tablaReportes').addEventListener('input',e=>{
+  const i=e.target.dataset&&e.target.dataset.rin; if(i===undefined) return;
+  repDraft[db.current+'|'+G().students[+i]]=e.target.value;
+});
+$('tablaReportes').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.rin!==undefined){e.preventDefault(); agregarReporte(+e.target.dataset.rin)}
+});
+$('tablaReportes').addEventListener('click',e=>{
+  const d=e.target.dataset||{};
+  if(d.radd!==undefined) agregarReporte(+d.radd);
+  else if(d.rdel!==undefined){
+    const [i,j]=d.rdel.split(':').map(Number), s=G().students[i], l=reportes()[s]||[];
+    if(!confirm('¿Eliminar este reporte?')) return;
+    l.splice(j,1); save(); renderReportes();
+  }
+});
+$('repBuscar').oninput=renderReportes;
+
+// ===== Editar alumnos: detalle por grupo y alumno =====
+function conGrupo(n,fn,p){const prev=db.current, prevP=db.parcial; db.current=n; if(p) db.parcial=p; try{return fn()}finally{db.current=prev; if(p){if(prevP===undefined) delete db.parcial; else db.parcial=prevP}}}
+function renderEA(keepAl,grupo){
+  const gSel=$('eaGrupo');
+  const cur=(grupo&&db.groups[grupo])?grupo:((gSel.value&&db.groups[gSel.value])?gSel.value:db.current);
+  gSel.innerHTML=Object.keys(db.groups).map(x=>`<option value="${esc(x)}" ${x===cur?'selected':''}>${esc(x)}</option>`).join('');
+  const prev=keepAl?$('eaAlumno').value:'';
+  $('eaAlumno').innerHTML='<option value="">— Selecciona un alumno —</option>'+db.groups[cur].students.map((a,i)=>`<option value="${esc(a)}" ${a===prev?'selected':''}>${i+1}. ${esc(a)}</option>`).join('');
+  eaDetalle();
+}
+function eaDetalle(){
+  const gr=$('eaGrupo').value, s=$('eaAlumno').value, box=$('eaDetalle');
+  if(!s){box.innerHTML='<p class="mut">Elige un grupo y un alumno para ver todos sus detalles.</p>';return}
+  box.innerHTML=conGrupo(gr,()=>{
+    const g=G(), cu=cuad(), c=cfg(), p=puntajes(s), fin=calFinal(p,s), px=ptos(s), da=datosAl()[s]||{};
+    let dias=0,as=0,fa=0,ju=0,re=0,cs=0,cn=0,ps=0,pn=0,te=0,tn=0,be=0,bn=0; const obs=[],jus=[];
+    Object.keys(g.records).sort().forEach(d=>{
+      const r=(g.records[d]||{})[s]; if(!r) return;
+      if(r.asist){dias++; if(r.asist==='P')as++; if(r.asist==='F')fa++; if(r.asist==='J')ju++; if(r.punt==='R')re++}
+      if(r.comp==='OK')cs++; else if(r.comp==='BAD')cn++;
+      if(r.part==='OK')ps++; else if(r.part==='BAD')pn++;
+      if(r.tarea==='OK')te++; else if(r.tarea==='BAD')tn++;
+      if(r.trab==='OK')be++; else if(r.trab==='BAD')bn++;
+      if(r.nota) obs.push([d,r.nota]);
+      if(r.just&&(r.asist==='F'||r.asist==='J')) jus.push([d,r.asist==='F'?'Falta':'Justificada',r.just]);
+    });
+    const fila=(a,b)=>`<tr><th style="width:45%">${a}</th><td>${b}</td></tr>`;
+    const nf=v=>v===null?'—':(v/10).toFixed(1);
+    let h=`<h3 style="margin:0">${esc(s)}</h3><div class="mut">${esc(ajustes().escuela)} · Prof. ${esc(ajustes().profesor)}</div><div class="mut"><b>Parcial ${curP()}</b> (el que tienes activo; cámbialo arriba) · Grupo: ${esc(gr)} · Lugar en lista: ${g.students.indexOf(s)+1} de ${g.students.length}</div>`;
+    h+='<h4>📇 Datos personales</h4><table>'
+      +fila('Teléfono',`<input type="text" inputmode="tel" data-ea="tel" value="${esc(da.tel||'')}" style="width:100%">`)
+      +fila('Localidad',`<input type="text" data-ea="loc" value="${esc(da.loc||'')}" style="width:100%">`)
+      +fila('Nombre de la mamá',`<input type="text" data-ea="mama" value="${esc(da.mama||'')}" style="width:100%">`)+'</table>';
+    {const cf=calFinalParciales(s); h+='<h4>🏁 Calificación por Parcial</h4><table><tr><th>Parcial</th><th>Calificación</th></tr>'+cf.v.map((x,j)=>`<tr><td>Parcial ${j+1}</td><td>${x===null?'—':x.toFixed(2)}</td></tr>`).join('')+`<tr><td><b>Final (promedio)</b></td><td class="fin ${cf.fin!==null&&cf.fin>=6?'ok':'warn'}">${cf.fin===null?'Sin datos':cf.fin.toFixed(2)}</td></tr></table>`}
+    h+='<h4>🎯 Calificación del Parcial '+curP()+'</h4><table><tr><th>Rubro</th><th>Peso</th><th>Nota (0-10)</th></tr>'
+      +RUB.map(([k,n])=>`<tr><td>${esc(n)}</td><td>${k==='exam'?EXAM_PESO:(+c.w[k]||0)} %</td><td>${nf(p[k])}</td></tr>`).join('')
+      +`<tr><td>Puntitos extra</td><td></td><td class="${px>0?'ok':(px<0?'warn':'')}">${px>0?'+':''}${px} (${px>0?'+':''}${(px/10).toFixed(1)})</td></tr>`
+      +`<tr><td><b>Calificación final</b></td><td></td><td class="fin ${fin!==null&&fin>=6?'ok':'warn'}">${fin===null?'Sin datos':fin.toFixed(2)+' · '+(fin>=6?'Aprueba':'En riesgo')}</td></tr></table>`;
+    h+='<h4>🗓 Asistencia y conducta</h4><table>'
+      +fila('Días registrados',dias)+fila('Asistencias',as)+fila('Faltas',fa)+fila('Justificadas',ju)+fila('Retardos',re)
+      +fila('Comportamiento',cs+' OK · '+cn+' BAD')+fila('Participación',ps+' OK · '+pn+' BAD')
+      +fila('Tareas',te+' OK · '+tn+' BAD')+fila('Trabajos en clase',be+' OK · '+bn+' BAD')+'</table>';
+    const ev=cu.eval[s], nc=notaCuad(s);
+    h+='<h4>📓 Cuadernillo</h4><table>'
+      +fila('Fecha límite',cu.limite||'—')+fila('Fecha de entrega',cu.entregas[s]||'—')+fila('Estado',estadoCuad(cu.entregas[s]||'',cu.limite))
+      +fila('Revisión (0-10)',nc===null?'Sin evaluar':nc.toFixed(1))
+      +(ev?fila('Criterios',CUAD_CRIT.map(([k,n])=>(ev[k]?'✔ ':'✘ ')+n).join('<br>')):'')+'</table>';
+    const sc=selloCuenta(s);
+    h+='<h4>🔖 Sellos</h4><table>'+fila('Sellos OK',sc.ok)+fila('Sellos BAD',sc.bad)+fila('Efecto en la calificación',(selloPts(s)>0?'+':'')+selloPts(s)/10+' puntos (de 10)')+'</table>';
+    const ex=examen(), ne=notaEx(s);
+    h+='<h4>📝 Examen interno</h4><table>'+fila('Valor total',ex.total)+fila('Puntos obtenidos',(ex.notas[s]===undefined||ex.notas[s]==='')?'—':esc(ex.notas[s]))+fila('Calificación (0-10)',ne===null?'—':ne.toFixed(1))+'</table>';
+    const xt=extrae(), xr=xt.reg[s]||{};
+    h+='<h4>🎭 Actividad extraescolar</h4><table>'+fila('Actividad',esc(xt.nombre||'—'))+fila('Fecha',xt.fecha||'—')+fila('Calificación (0-10)',(xr.e===undefined||xr.e==='')?'—':esc(xr.e))+fila('Observación',esc(xr.n||'—'))+'</table>';
+    if(customs().length){
+      h+='<h4>📌 Otros rubros</h4><table>'+customs().map(cc=>{const v=((g.custom||{})[cc.id]||{})[s]; return fila(esc(cc.nombre),(v===undefined||v==='')?'—':esc(v))}).join('')+'</table>';
+    }
+    const pl=(g.puntitos||{})[s]||[];
+    h+='<h4>⭐ Puntitos extra</h4>'+(pl.length?'<table><tr><th>Fecha</th><th>Hora</th><th>Valor</th></tr>'+pl.map(x=>`<tr><td>${esc(x.f)}</td><td>${esc(x.h)}</td><td class="${x.v>0?'ok':'warn'}">${x.v>0?'+':''}${x.v}</td></tr>`).join('')+'</table>':'<span class="mut">Sin puntitos registrados.</span>');
+    const rl=(g.reportes||{})[s]||[];
+    h+='<h4>🚩 Reportes</h4>'+(rl.length?'<table><tr><th style="width:130px">Fecha</th><th>Reporte</th></tr>'+rl.map(x=>`<tr><td>${esc(x.f)}</td><td>${esc(x.t)}</td></tr>`).join('')+'</table>':'<span class="mut">Sin reportes.</span>');
+    h+='<h4>📝 Justificaciones y observaciones</h4>'+((jus.length||obs.length)?'<table><tr><th>Fecha</th><th>Tipo</th><th>Detalle</th></tr>'+jus.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${esc(x[2])}</td></tr>`).join('')+obs.map(x=>`<tr><td>${x[0]}</td><td>Observación</td><td>${esc(x[1])}</td></tr>`).join('')+'</table>':'<span class="mut">Sin justificaciones ni observaciones.</span>');
+    return h;
+  });
+}
+$('btnEditAlumnos').onclick=()=>{renderEA(false,db.current); $('dlgEditAl').showModal()};
+$('eaGrupo').onchange=()=>renderEA(false);
+$('eaAlumno').onchange=eaDetalle;
+$('eaDetalle').addEventListener('input',e=>{
+  const k=e.target.dataset&&e.target.dataset.ea; if(!k) return;
+  const gr=$('eaGrupo').value, s=$('eaAlumno').value;
+  conGrupo(gr,()=>{const d=datosAl(); (d[s]=d[s]||{})[k]=e.target.value; save()});
+});
+$('btnEaCerrar').onclick=()=>$('dlgEditAl').close();
+$('dlgEditAl').addEventListener('close',()=>mostrarTab(tabActual,customActual));
+
+// ===== Crear o modificar grupo =====
+const lineasAl=t=>[...new Set(String(t||'').split('\n').map(x=>x.trim()).filter(x=>x&&x!=='__proto__'))];
+function grVista(v){
+  ['menu','crear','mod','del'].forEach(x=>$('gr_'+x).classList.toggle('hide',x!==v));
+  $('btnGrAtras').classList.toggle('hide',v==='menu');
+  $('grTitulo').textContent={menu:'🗂 Crear o modificar grupo',crear:'➕ Crear nuevo grupo',mod:'✏️ Modificar grupo',del:'🗑 Eliminar grupo'}[v];
+  if(v==='crear'){$('crNombre').value='';$('crManual').value='';$('crLista').value='';crCuenta();$('crNombre').focus()}
+  if(v==='mod'){
+    $('moGrupo').innerHTML=Object.keys(db.groups).map(x=>`<option value="${esc(x)}" ${x===db.current?'selected':''}>${esc(x)}</option>`).join('');
+    moCargar($('moGrupo').value);
+  }
+  if(v==='del'){$('elGrupo').innerHTML=Object.keys(db.groups).map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}
+}
+function refrescarVista(){renderTodo(); mostrarTab(tabActual,customActual)}
+$('btnGrupos').onclick=()=>{grVista('menu'); $('dlgGrupo').showModal()};
+$('btnGrAtras').onclick=()=>grVista('menu');
+$('btnGrCerrar').onclick=()=>$('dlgGrupo').close();
+$('gr_menu').addEventListener('click',e=>{const v=e.target.dataset&&e.target.dataset.gr; if(v) grVista(v)});
+
+// --- Crear ---
+function crCuenta(){$('crCuenta').textContent=lineasAl($('crLista').value).length+' alumno(s) en la lista'}
+function crAgregar(){
+  const v=$('crManual').value.trim(); if(!v) return;
+  const ta=$('crLista'); ta.value=(ta.value.trim()?ta.value.replace(/\s+$/,'')+'\n':'')+v;
+  $('crManual').value=''; $('crManual').focus(); crCuenta();
+}
+$('btnCrAdd').onclick=crAgregar;
+$('crManual').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault(); crAgregar()}});
+$('crLista').addEventListener('input',crCuenta);
+$('btnCrCrear').onclick=()=>{
+  const n=$('crNombre').value.trim();
+  if(!n){alert('Escribe el nombre del grupo.');return}
+  if(n==='__proto__'){alert('Ese nombre no está permitido.');return}
+  if(Object.prototype.hasOwnProperty.call(db.groups,n)){alert('Ya existe un grupo con ese nombre.');return}
+  db.groups[n]={students:lineasAl($('crLista').value),records:{}};
+  db.current=n; save(); $('dlgGrupo').close(); refrescarVista();
+};
+
+// --- Modificar ---
+let moLista=[];
+function moCargar(n){
+  const g=db.groups[n]; if(!g) return;
+  moLista=g.students.map(s=>({o:s,n:s}));
+  $('moNombre').value=n;
+  $('moParcialTxt').textContent='(del Parcial '+curP()+')'; conGrupo(n,()=>{$('moLimite').value=cuad().limite||''; $('moExam').value=examen().total});
+  moRender();
+}
+function moRender(){
+  $('moAlumnos').innerHTML=moLista.length?moLista.map((a,i)=>`<div class="row" style="margin-bottom:4px;flex-wrap:nowrap"><span class="mut" style="min-width:26px">${i+1}</span><input type="text" data-mi="${i}" value="${esc(a.n)}" style="flex:1"><button class="danger" data-mdel="${i}" title="Quitar alumno">✕</button></div>`).join(''):'<span class="mut">Este grupo no tiene alumnos.</span>';
+  $('moCuenta').textContent='('+moLista.length+')';
+}
+$('moGrupo').onchange=()=>moCargar($('moGrupo').value);
+$('moAlumnos').addEventListener('input',e=>{const i=e.target.dataset&&e.target.dataset.mi; if(i!==undefined) moLista[+i].n=e.target.value});
+$('moAlumnos').addEventListener('click',e=>{const i=e.target.dataset&&e.target.dataset.mdel; if(i!==undefined){moLista.splice(+i,1); moRender()}});
+function moAgregar(){
+  const v=$('moManual').value.trim(); if(!v) return;
+  if(moLista.some(a=>a.n.trim()===v)){alert('Ese alumno ya está en la lista.');return}
+  moLista.push({o:null,n:v}); $('moManual').value=''; moRender(); $('moManual').focus();
+}
+$('btnMoAdd').onclick=moAgregar;
+$('moManual').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault(); moAgregar()}});
+$('btnMoPegar').onclick=()=>{
+  lineasAl($('moPegar').value).forEach(v=>{if(!moLista.some(a=>a.n.trim()===v)) moLista.push({o:null,n:v})});
+  $('moPegar').value=''; moRender();
+};
+function migrarAlumnos(g,map,quitados){
+  const rk=o=>{if(!o||typeof o!=='object') return o; const out={}; Object.keys(o).forEach(k=>{if(quitados.has(k)) return; out[(k in map)?map[k]:k]=o[k]}); return out};
+  // el grupo (Parcial 1 + datos compartidos) y los Parciales 2 y 3
+  [g].concat(Object.values(g.parciales||{})).forEach(pg=>{
+    Object.keys(pg.records||{}).forEach(f=>{pg.records[f]=rk(pg.records[f])});
+    if(pg.cuad){pg.cuad.entregas=rk(pg.cuad.entregas); pg.cuad.eval=rk(pg.cuad.eval); if(pg.cuad.notaImp) pg.cuad.notaImp=rk(pg.cuad.notaImp)}
+    if(pg.examen){pg.examen.notas=rk(pg.examen.notas); if(pg.examen.lect) pg.examen.lect=rk(pg.examen.lect)}
+    if(pg.extrae) pg.extrae.reg=rk(pg.extrae.reg);
+    ['puntitos','datosAl','reportes','extraord'].forEach(k=>{if(pg[k]) pg[k]=rk(pg[k])});
+    if(pg.custom) Object.keys(pg.custom).forEach(id=>{pg.custom[id]=rk(pg.custom[id])});
+  });
+}
+$('btnMoGuardar').onclick=()=>{
+  const orig=$('moGrupo').value, g=db.groups[orig]; if(!g) return;
+  const nuevo=$('moNombre').value.trim();
+  if(!nuevo){alert('El grupo necesita un nombre.');return}
+  if(nuevo==='__proto__'){alert('Ese nombre no está permitido.');return}
+  if(nuevo!==orig&&Object.prototype.hasOwnProperty.call(db.groups,nuevo)){alert('Ya existe un grupo con ese nombre.');return}
+  const nombres=moLista.map(a=>a.n.trim());
+  if(nombres.some(x=>!x||x==='__proto__')){alert('Hay alumnos sin nombre (o con un nombre no permitido). Escribe el nombre o quítalos con ✕.');return}
+  if(new Set(nombres).size!==nombres.length){alert('Hay nombres de alumnos repetidos.');return}
+  const conservados=new Set(moLista.filter(a=>a.o!==null).map(a=>a.o));
+  const quitadosL=g.students.filter(x=>!conservados.has(x));
+  if(quitadosL.length&&!confirm('Vas a quitar '+quitadosL.length+' alumno(s) y se borrarán todos sus registros:\n\n'+quitadosL.join('\n')+'\n\n¿Continuar?')) return;
+  conGrupo(orig,()=>{cuad().limite=$('moLimite').value; examen().total=Math.max(1,+$('moExam').value||10)});
+  const map=Object.create(null); moLista.forEach(a=>{if(a.o!==null&&a.o!==a.n.trim()) map[a.o]=a.n.trim()});
+  migrarAlumnos(g,map,new Set(quitadosL));
+  Object.values(hojasReg()).forEach(h=>{if(h.g===orig&&h.s){if(quitadosL.includes(h.s)) h.s=''; else if(h.s in map) h.s=map[h.s]}});
+  g.students=nombres;
+  if(nuevo!==orig){
+    const ng={}; Object.keys(db.groups).forEach(k=>{ng[k===orig?nuevo:k]=db.groups[k]}); db.groups=ng;
+    if(db.current===orig) db.current=nuevo;
+    Object.values(hojasReg()).forEach(h=>{if(h.g===orig) h.g=nuevo});
+  }
+  save(); $('dlgGrupo').close(); refrescarVista();
+};
+
+// --- Eliminar ---
+$('btnElRespaldo').onclick=()=>$('btnRespaldo').onclick();
+$('btnElEliminar').onclick=()=>{
+  const n=$('elGrupo').value;
+  if(Object.keys(db.groups).length===1){alert('Debe quedar al menos un grupo.');return}
+  if(!n||!db.groups[n]) return;
+  if(!confirm('¿Estás seguro de que quieres eliminar el grupo "'+n+'"?')) return;
+  if(!confirm('¿De veras? Se borrarán el grupo "'+n+'", sus alumnos y todos sus registros.')) return;
+  if(!confirm('⚠ ADVERTENCIA: perderás toda la información de "'+n+'" si no has hecho un respaldo. Esta acción no se puede deshacer.\n\n¿Eliminar definitivamente?')) return;
+  delete db.groups[n]; if(db.current===n) db.current=Object.keys(db.groups)[0];
+  save(); $('dlgGrupo').close(); refrescarVista();
+};
+
+function pcfg(p){if(!db.pcfg) db.pcfg={}; return db.pcfg[p]||(db.pcfg[p]={ini:'',fin:''})}
+function fmtF(f){if(!f) return ''; const a=f.split('-'); return a[2]+'/'+a[1]+'/'+a[0]}
+function rangoP(p){const c=pcfg(p); return (c.ini&&c.fin)?fmtF(c.ini)+' al '+fmtF(c.fin):''}
+function pDeFecha(f){for(let p=1;p<=NPARC;p++){const c=pcfg(p); if(c.ini&&c.fin&&f>=c.ini&&f<=c.fin) return p} return 0}
+// Mantiene la fecha de captura dentro de la duración del Parcial activo. Devuelve true si tuvo que moverla.
+function ajustaFecha(){
+  const c=pcfg(curP()), el=$('fecha'); el.min=c.ini||''; el.max=c.fin||'';
+  if(!(c.ini&&c.fin)) return false;
+  let f=el.value||hoy(), o=f;
+  if(f<c.ini) f=c.ini; if(f>c.fin) f=c.fin;
+  el.value=f; return f!==o;
+}
+let perfilListo=false;
+function chequePerfil(){
+  perfilListo=true;
+  const a=ajustes(), d=$('dlgPerfil');
+  if(a.profesor&&a.escuela){if(d.open) d.close(); return}
+  $('pfProf').value=a.profesor; $('pfEsc').value=a.escuela;
+  if(!d.open) d.showModal();
+}
+$('dlgPerfil').addEventListener('cancel',e=>e.preventDefault());
+$('btnPfGuardar').onclick=()=>{
+  const p=$('pfProf').value.trim(), s=$('pfEsc').value.trim();
+  if(!p||!s){alert('Captura el nombre del profesor(a) y el de la escuela.');return}
+  db.ajustes=Object.assign({},db.ajustes||{},{profesor:p,escuela:s});
+  save(); $('dlgPerfil').close(); renderParciales();
+};
+// Encabezado de documentos: líneas de datos para los CSV
+function metaCSV(){
+  const a=ajustes();
+  return [['Escuela',a.escuela],['Profesor(a)',a.profesor],['Grupo',db.current],['Parcial',curP()+(rangoP(curP())?' ('+rangoP(curP())+')':'')],['Fecha de emisión',hoy()],[]];
+}
+// ===== HORARIO + RELOJ =====
+const HR_DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes'];
+const HR_INI=8*60, HR_FIN=15*60+10, HR_DUR=50;
+function horario(){
+  if(!db.horario) db.horario={};
+  const h=db.horario;
+  if(!h.celdas) h.celdas={};
+  if(!h.rIni) h.rIni='10:00';
+  if(h.rDur===undefined) h.rDur=30;
+  if(h.aviso===undefined) h.aviso=true;
+  if(h.sonido===undefined) h.sonido=true;
+  return h;
+}
+function m2t(m){return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+function t2m(s){const a=String(s||'0:0').split(':'); return (+a[0]||0)*60+(+a[1]||0)}
+// Bloques de 50 min entre 8:00 y 15:10, con un receso (por defecto a las 10:30, 30 min)
+function slotsHorario(){
+  const h=horario(), rI=t2m(h.rIni), rD=Math.max(0,+h.rDur||0), out=[];
+  let t=HR_INI, rDone=!(rD>0);
+  while(t<HR_FIN){
+    if(!rDone&&t>=rI){out.push({r:1,a:t,b:Math.min(t+rD,HR_FIN)}); t+=rD; rDone=true; continue}
+    let e=t+HR_DUR; if(!rDone&&e>rI) e=rI; if(e>HR_FIN) e=HR_FIN;
+    if(e<=t) break;
+    out.push({a:t,b:e}); t=e;
+  }
+  return out;
+}
+function claveHr(d,s){return d+'|'+m2t(s.a)}
+function renderHorario(){
+  const h=horario();
+  $('hrRecIni').value=h.rIni; $('hrRecDur').value=h.rDur; $('hrAviso').checked=!!h.aviso; $('hrSonido').checked=!!h.sonido;
+  $('hrGrupos').innerHTML=Object.keys(db.groups).map(g=>`<option value="${esc(g)}">`).join('');
+  let r='<tr><th>Hora</th>'+HR_DIAS.map(d=>`<th>${d}</th>`).join('')+'</tr>';
+  slotsHorario().forEach(s=>{
+    r+=`<tr data-a="${s.a}" data-b="${s.b}"><th>${m2t(s.a)} – ${m2t(s.b)}</th>`;
+    if(s.r){r+='<td class="rec" colspan="5">☕ RECESO</td></tr>'; return}
+    for(let d=1;d<=5;d++){
+      const k=claveHr(d,s), c=h.celdas[k]||{};
+      r+=`<td><input type="text" data-hk="${k}" data-f="m" placeholder="Materia" value="${esc(c.m||'')}"><input type="text" list="hrGrupos" data-hk="${k}" data-f="g" placeholder="Grupo" value="${esc(c.g||'')}"></td>`;
+    }
+    r+='</tr>';
+  });
+  $('tablaHorario').innerHTML=r; marcarAhora();
+}
+function marcarAhora(){
+  const tb=$('tablaHorario'); if(!tb) return;
+  const n=new Date(), m=n.getHours()*60+n.getMinutes(), ok=n.getDay()>=1&&n.getDay()<=5;
+  tb.querySelectorAll('tr[data-a]').forEach(tr=>tr.classList.toggle('ahora',ok&&m>=+tr.dataset.a&&m<+tr.dataset.b));
+}
+let hrSaveT=null;
+$('tablaHorario').addEventListener('input',e=>{
+  const k=e.target.dataset.hk; if(!k) return;
+  const h=horario(), c=h.celdas[k]||(h.celdas[k]={});
+  c[e.target.dataset.f]=e.target.value.trim();
+  if(!c.m&&!c.g) delete h.celdas[k];
+  clearTimeout(hrSaveT); hrSaveT=setTimeout(save,600);
+});
+$('hrRecIni').onchange=()=>{horario().rIni=$('hrRecIni').value||'10:00'; save(); renderHorario()};
+$('hrRecDur').onchange=()=>{horario().rDur=Math.max(0,Math.min(90,+$('hrRecDur').value||0)); save(); renderHorario()};
+$('hrAviso').onchange=()=>{horario().aviso=$('hrAviso').checked; save(); if($('hrAviso').checked&&window.Notification&&Notification.permission==='default'){try{Notification.requestPermission()}catch(e){}}};
+$('hrSonido').onchange=()=>{horario().sonido=$('hrSonido').checked; save()};
+$('btnHrLimpiar').onclick=()=>{if(confirm('¿Vaciar todo el horario (materias y grupos)?')){horario().celdas={}; save(); renderHorario()}};
+function pitar(){
+  try{const C=new (window.AudioContext||window.webkitAudioContext)();
+    [0,.28,.56].forEach(d=>{const o=C.createOscillator(),g=C.createGain(); o.connect(g); g.connect(C.destination); o.frequency.value=880; g.gain.value=.15; o.start(C.currentTime+d); o.stop(C.currentTime+d+.2)});
+    setTimeout(()=>C.close(),1500)}catch(e){}
+}
+let avTimer=null, avGrupo='';
+function mostrarAviso(tit,main,sub,grupo){
+  $('avTit').textContent=tit; $('avMain').textContent=main; $('avSub').textContent=sub;
+  avGrupo=''; const gk=grupo&&Object.keys(db.groups).find(g=>g.toLowerCase()===grupo.toLowerCase());
+  if(gk) avGrupo=gk; $('btnAvAbrir').classList.toggle('hide',!gk); if(gk) $('btnAvAbrir').textContent='Abrir Captura Del Grupo '+gk;
+  $('avisoHora').classList.remove('hide');
+  clearTimeout(avTimer); avTimer=setTimeout(()=>$('avisoHora').classList.add('hide'),120000);
+  if(horario().sonido) pitar();
+  try{if(window.Notification&&Notification.permission==='granted') new Notification(tit,{body:main+' · '+sub})}catch(e){}
+}
+$('btnAvCerrar').onclick=()=>$('avisoHora').classList.add('hide');
+$('btnAvAbrir').onclick=()=>{$('avisoHora').classList.add('hide'); if(avGrupo&&db.groups[avGrupo]){db.current=avGrupo; save(); renderTodo(); mostrarTab('captura')}};
+// Descripción de la clase que sigue
+function infoClase(s,d){
+  const c=(horario().celdas[claveHr(d,s)])||{};
+  return {main:c.m||'Hora libre', grupo:c.g||'', rango:m2t(s.a)+' – '+m2t(s.b)};
+}
+function avisoCambio(prev,cur,fin,d){
+  // prev/cur: bloque (o null); fin: true si terminó la jornada
+  const sl=slotsHorario();
+  if(fin){mostrarAviso('⏰ Se cumplió la hora','Fin de la jornada','Terminaron las clases de hoy. ¡Buen trabajo!'); return}
+  if(cur.r){
+    const sig=sl.find(x=>!x.r&&x.a>=cur.b), i=sig&&infoClase(sig,d);
+    mostrarAviso('⏰ Se cumplió la hora','☕ Receso',(m2t(cur.a)+' – '+m2t(cur.b))+(i?' · Después: '+i.main+(i.grupo?' · '+i.grupo:''):''));
+    return;
+  }
+  const i=infoClase(cur,d), ant=prev&&!prev.r?infoClase(prev,d):null;
+  mostrarAviso(prev?'⏰ Se cumplió la hora · Sigue:':'🔔 Inicia la jornada · Primera clase:', i.main, (i.grupo?'Grupo '+i.grupo+' · ':'')+i.rango+(ant&&ant.main!=='Hora libre'?'   (terminó: '+ant.main+(ant.grupo?' · '+ant.grupo:'')+')':''), i.grupo);
+}
+let hrEstado=null; // {dia, id}
+function tickReloj(){
+  const n=new Date();
+  $('reloj').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
+  const dow=n.getDay(), m=n.getHours()*60+n.getMinutes();
+  if(dow<1||dow>5){hrEstado=null; return}
+  const sl=slotsHorario(), s=sl.find(x=>m>=x.a&&m<x.b);
+  const id=s?('s'+s.a):(m<HR_INI?'antes':'despues'), dia=hoy();
+  if(!hrEstado||hrEstado.dia!==dia){hrEstado={dia,id,s}; marcarAhora(); return}
+  if(hrEstado.id!==id){
+    const prev=hrEstado.s; hrEstado={dia,id,s};
+    marcarAhora();
+    if(horario().aviso){
+      if(id==='despues') avisoCambio(prev,null,true,dow);
+      else if(s) avisoCambio(prev,s,false,dow);
+    }
+  }
+}
+setInterval(tickReloj,1000); tickReloj();
+
+function renderParciales(){
+  const p=curP();
+  {const a=ajustes();
+   $('verProf').textContent=[a.escuela,a.profesor?'Prof. '+a.profesor:''].filter(Boolean).join(' · ');
+   $('docHead').innerHTML='<div style="font-size:20px;font-weight:700">'+esc(a.escuela||'')+'</div><div>Profesor(a): '+esc(a.profesor||'')+' · Grupo: '+esc(db.current)+' · Parcial '+p+(rangoP(p)?' ('+rangoP(p)+')':'')+' · '+fmtF(hoy())+'</div>';}
+  $('parcialBar').innerHTML=[1,2,3].map(n=>`<button type="button" data-p="${n}" class="${n===p?'on':''}" title="${rangoP(n)?'Del '+rangoP(n):'Sin duración definida'}">Parcial ${n}</button>`).join('')+'';
+  if(ajustaFecha()) creaAuto=false;
+  $('parcialTag').innerHTML='📌 Parcial '+p+(rangoP(p)?' <span class="mut">('+rangoP(p)+')</span>':' <span class="warn">· define su duración con el botón "📅 Editar parciales" (abajo)</span>')+' › Grupo: '+esc(db.current)+' › <span class="mut">actividades a evaluar (pestañas)</span>';
+}
+$('parcialBar').addEventListener('click',e=>{
+  const n=+(e.target.dataset&&e.target.dataset.p); if(!n||n===curP()) return;
+  db.parcial=n; creaAuto=false;
+  {const c=pcfg(n); if(c.ini&&c.fin){const h=hoy(); $('fecha').value=h<c.ini?c.ini:(h>c.fin?c.fin:h)}}
+  save(); refrescarVista();
+});
+function abrirDurP(){
+  $('parcialesLista').innerHTML=[1,2,3].map(p=>{const c=pcfg(p); return `<div class="row" style="margin-bottom:10px"><b style="min-width:80px">Parcial ${p}</b><label class="cfgw">Inicia<input type="date" data-pi="${p}" value="${c.ini||''}" style="width:150px"></label><label class="cfgw">Termina<input type="date" data-pf="${p}" value="${c.fin||''}" style="width:150px"></label><span class="mut" id="durTxt${p}"></span></div>`}).join('');
+  durTxt(); $('dlgParciales').showModal();
+}
+function durTxt(){
+  [1,2,3].forEach(p=>{
+    const i=$('parcialesLista').querySelector('[data-pi="'+p+'"]').value, f=$('parcialesLista').querySelector('[data-pf="'+p+'"]').value;
+    $('durTxt'+p).textContent=(i&&f&&f>=i)?(Math.round((new Date(f+'T00:00:00')-new Date(i+'T00:00:00'))/86400000)+1)+' días':'';
+  });
+}
+$('parcialesLista').addEventListener('input',durTxt);
+$('btnEditParciales').onclick=abrirDurP;
+$('btnParCancelar').onclick=()=>$('dlgParciales').close();
+$('btnParGuardar').onclick=()=>{
+  const L=$('parcialesLista'), r=[];
+  for(let p=1;p<=NPARC;p++){
+    const i=L.querySelector('[data-pi="'+p+'"]').value, f=L.querySelector('[data-pf="'+p+'"]').value;
+    if((i&&!f)||(!i&&f)){alert('Parcial '+p+': captura la fecha de inicio y la de término (o deja ambas vacías).');return}
+    if(i&&f&&f<i){alert('Parcial '+p+': la fecha de término es anterior a la de inicio.');return}
+    r.push({ini:i,fin:f});
+  }
+  for(let a=0;a<NPARC;a++)for(let b=a+1;b<NPARC;b++){
+    if(r[a].ini&&r[b].ini&&r[a].ini<=r[b].fin&&r[b].ini<=r[a].fin){alert('Los Parciales '+(a+1)+' y '+(b+1)+' se empalman en fechas.');return}
+  }
+  db.pcfg={}; r.forEach((x,k)=>{db.pcfg[k+1]=x});
+  save(); $('dlgParciales').close(); creaAuto=false; refrescarVista();
+};
+// ---- Pantalla MENÚ: botones grandes con los grupos; al elegir uno abre la Captura diaria de hoy ----
+function menuRender(){
+  const h=hoy(), p=pDeFecha(h);
+  $('menuInfo').textContent='Hoy '+fmtF(h)+(p?' · Parcial '+p:'');
+  $('menuGrid').innerHTML=Object.keys(db.groups).map(n=>`<button type="button" data-mg="${esc(n)}" class="${n===db.current?'act':''}">${esc(n)}<small>${db.groups[n].students.length} alumno(s)</small></button>`).join('');
+}
+function menuAbrir(){menuRender(); $('menuPantalla').classList.remove('hide'); $('menuPantalla').scrollTop=0}
+function menuCerrar(){$('menuPantalla').classList.add('hide')}
+$('btnMenu').onclick=menuAbrir; $('menuCerrar').onclick=menuCerrar;
+$('menuGrid').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-mg]'); if(!b) return;
+  const n=b.dataset.mg; if(!Object.prototype.hasOwnProperty.call(db.groups,n)) return;
+  const h=hoy(), p=pDeFecha(h);
+  db.current=n; if(p) db.parcial=p;
+  $('fecha').value=h; creaAuto=true; forzarDia=null; tabActual='captura';
+  save(); menuCerrar(); refrescarVista(); window.scrollTo(0,0);
+  if($('fecha').value!==h) alert('Hoy ('+fmtF(h)+') queda fuera de la duración del Parcial '+curP()+' ('+rangoP(curP())+'). Se abrió la fecha más cercana dentro de ese Parcial. Revisa las fechas en "Editar parciales".');
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('menuPantalla').classList.contains('hide')) menuCerrar()});
+
+// ---- Menú: botones de herramientas (los mismos del pie de página) ----
+$('menuAcc').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-acc]'); if(!b) return;
+  const t=$(b.dataset.acc); if(!t) return;
+  menuCerrar(); t.click();
+});
+// ===== PENDIENTES · BLOCK DE NOTAS · ALARMA =====
+// db.pend = [{id,t,reg(ms),fec('AAAA-MM-DD'),hr('HH:MM'),alarma,hecho,avisado,posp(ms)}]
+let pnEdit=null, alActual=null, alTimer=null, alCola=[];
+function pnLista(){if(!Array.isArray(db.pend)) db.pend=[]; return db.pend}
+function pnDue(n){
+  if(n.posp) return n.posp;
+  if(!n.fec) return null;
+  const a=n.fec.split('-').map(Number), h=(n.hr||'08:00').split(':').map(Number);
+  return new Date(a[0],a[1]-1,a[2],h[0]||0,h[1]||0,0).getTime();
+}
+function pnFmtReg(ms){const d=new Date(ms),p=x=>String(x).padStart(2,'0');return p(d.getDate())+'/'+p(d.getMonth()+1)+'/'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes())}
+function pnFmtEj(n){const d=pnDue(n); if(!d) return 'Sin fecha'; const o=new Date(d),p=x=>String(x).padStart(2,'0'); return p(o.getDate())+'/'+p(o.getMonth()+1)+'/'+o.getFullYear()+(n.hr||n.posp?' '+p(o.getHours())+':'+p(o.getMinutes()):'')}
+function pnVencido(n){const d=pnDue(n); return !n.hecho&&d!==null&&d<=Date.now()}
+function pnBadge(){
+  const l=pnLista().filter(n=>!n.hecho), v=l.filter(pnVencido).length, b=$('pendBadge');
+  b.textContent=v||l.length; b.className='pbadge'+(l.length?'':' cero')+(v?' venc':'');
+}
+function pnRender(){
+  const f=$('pnFiltro').value;
+  let l=pnLista().slice().filter(n=>f==='todos'||(f==='hecho')===!!n.hecho);
+  l.sort((a,b)=>(a.hecho-b.hecho)||((pnDue(a)??9e15)-(pnDue(b)??9e15)));
+  $('pnLista').innerHTML=l.length?l.map(n=>`<div class="pn ${n.hecho?'hecho':(pnVencido(n)?'venc':'')}"><div class="pt">${esc(n.t)}</div>
+    <div class="pm"><span>📝 Registro: <b>${pnFmtReg(n.reg)}</b></span><span>📅 Ejecución: <b>${pnFmtEj(n)}</b></span><span>${n.alarma?'🔔 Con alarma':'🔕 Sin alarma'}</span>${pnVencido(n)?'<span style="color:#c62828;font-weight:800">¡VENCIDO!</span>':''}</div>
+    <div class="row"><button data-pa="hecho" data-id="${n.id}" class="${n.hecho?'sec':''}">${n.hecho?'↩ Reabrir':'✔ Hecho'}</button><button class="sec" data-pa="edit" data-id="${n.id}">✏ Editar</button><button class="danger" data-pa="del" data-id="${n.id}">✕ Borrar</button></div></div>`).join(''):'<span class="mut">No hay notas en esta vista.</span>';
+  pnBadge();
+}
+function pnLimpiarForm(){pnEdit=null; $('pnTexto').value=''; $('pnFecha').value=hoy(); $('pnHora').value=''; $('pnAlarma').checked=true; $('pnGuardar').textContent='➕ Agregar'; $('pnCancelar').classList.add('hide'); $('pnInfo').textContent=''}
+function pnAbrir(){pnLimpiarForm(); pnRender(); if(!$('dlgPend').open) $('dlgPend').showModal()}
+$('btnPend').onclick=pnAbrir;
+$('pnCerrar').onclick=()=>$('dlgPend').close();
+$('pnFiltro').onchange=pnRender;
+$('pnCancelar').onclick=pnLimpiarForm;
+$('pnGuardar').onclick=()=>{
+  const t=$('pnTexto').value.trim(); if(!t){$('pnInfo').textContent='Escribe la nota primero.'; return}
+  const fec=$('pnFecha').value, hr=$('pnHora').value, al=$('pnAlarma').checked;
+  if(al&&!fec){$('pnInfo').textContent='Para la alarma necesitas fecha de ejecución.'; return}
+  if(pnEdit){
+    const n=pnLista().find(x=>x.id===pnEdit); if(n){n.t=t;n.fec=fec;n.hr=hr;n.alarma=al;n.avisado=false;n.posp=0}
+  }else pnLista().push({id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),t,reg:Date.now(),fec,hr,alarma:al,hecho:false,avisado:false,posp:0});
+  save(); pnLimpiarForm(); pnRender(); alChequear();
+  if(al&&'Notification' in window&&Notification.permission==='default'){try{Notification.requestPermission()}catch(x){}}
+};
+$('pnLista').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-pa]'); if(!b) return;
+  const n=pnLista().find(x=>x.id===b.dataset.id); if(!n) return;
+  if(b.dataset.pa==='hecho'){n.hecho=!n.hecho; if(!n.hecho){n.avisado=false;n.posp=0} save()}
+  else if(b.dataset.pa==='del'){if(!confirm('¿Borrar esta nota?')) return; db.pend=pnLista().filter(x=>x.id!==n.id); save()}
+  else if(b.dataset.pa==='edit'){pnEdit=n.id; $('pnTexto').value=n.t; $('pnFecha').value=n.fec||''; $('pnHora').value=n.hr||''; $('pnAlarma').checked=!!n.alarma; $('pnGuardar').textContent='💾 Guardar Cambios'; $('pnCancelar').classList.remove('hide'); $('pnTexto').focus(); return}
+  pnRender();
+});
+$('pnLimpiar').onclick=()=>{const k=pnLista().filter(n=>n.hecho).length; if(!k){alert('No hay notas hechas.');return} if(!confirm('¿Borrar '+k+' nota(s) hecha(s)?')) return; db.pend=pnLista().filter(n=>!n.hecho); save(); pnRender()};
+$('pnPermiso').onclick=()=>{
+  if(!('Notification' in window)){alert('Este navegador no permite avisos del sistema. La alarma sonará y saldrá en pantalla de todos modos.');return}
+  Notification.requestPermission().then(p=>alert(p==='granted'?'Listo: también recibirás avisos del sistema.':'No se concedió el permiso. La alarma seguirá saliendo en pantalla y con sonido.'));
+};
+// ---- Alarma ----
+function alSonido(){
+  try{
+    const C=new (window.AudioContext||window.webkitAudioContext)(); let t=C.currentTime;
+    for(let i=0;i<4;i++){const o=C.createOscillator(),g=C.createGain(); o.type='square'; o.frequency.value=i%2?880:1175; g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.25,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+.2); o.connect(g); g.connect(C.destination); o.start(t); o.stop(t+.22); t+=.25}
+    setTimeout(()=>{try{C.close()}catch(x){}},1500);
+  }catch(x){}
+}
+function alMostrar(n){
+  alActual=n;
+  $('alFecha').textContent='Programado: '+pnFmtEj(n)+' · registrado '+pnFmtReg(n.reg);
+  $('alTexto').textContent=n.t;
+  $('alRest').textContent=alCola.length?('Y '+alCola.length+' pendiente(s) más por atender'):'';
+  if(!$('dlgAlarma').open) $('dlgAlarma').showModal();
+  alSonido(); clearInterval(alTimer); alTimer=setInterval(alSonido,3000);
+  const t0=document.title; document.title='⏰ PENDIENTE · '+n.t.slice(0,30);
+  $('dlgAlarma').dataset.t0=t0;
+  if('Notification' in window&&Notification.permission==='granted'){try{new Notification('⏰ CALIFICATED · Pendiente',{body:n.t})}catch(x){}}
+}
+function alCerrar(){
+  clearInterval(alTimer); alTimer=null;
+  if($('dlgAlarma').dataset.t0) document.title=$('dlgAlarma').dataset.t0;
+  if($('dlgAlarma').open) $('dlgAlarma').close();
+  alActual=null;
+  if(alCola.length) alMostrar(alCola.shift());
+  pnBadge(); if($('dlgPend').open) pnRender();
+}
+$('alHecho').onclick=()=>{if(alActual){alActual.hecho=true;alActual.avisado=true; save()} alCerrar()};
+$('alPosp').onclick=()=>{if(alActual){alActual.posp=Date.now()+10*60000; alActual.avisado=false; save()} alCerrar()};
+$('alOk').onclick=()=>{if(alActual){alActual.avisado=true; save()} alCerrar()};
+$('dlgAlarma').addEventListener('cancel',e=>e.preventDefault()); // solo se cierra con los botones
+function alChequear(){
+  pnBadge();
+  const now=Date.now();
+  pnLista().forEach(n=>{
+    if(n.hecho||!n.alarma||n.avisado) return;
+    const d=pnDue(n); if(d===null||d>now) return;
+    if((alActual&&alActual.id===n.id)||alCola.some(x=>x.id===n.id)) return;
+    if(alActual) alCola.push(n); else alMostrar(n);
+  });
+}
+setInterval(alChequear,10000);
+pnBadge(); setTimeout(alChequear,1500);
+
+// ===== GRUPO MUESTRA: grupo de ejemplo con 5 alumnos y datos en todas las secciones =====
+const MU_NOM='GRUPO MUESTRA';
+function muYmd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function muSuma(f,n){const d=new Date(f+'T00:00:00'); d.setDate(d.getDate()+n); return muYmd(d)}
+function muDias(ini,fin){ // últimos 8 días hábiles del Parcial que ya pasaron (o son hoy)
+  const out=[], h=hoy(); if(!ini||!fin) return out;
+  for(let d=new Date(ini+'T00:00:00');;d.setDate(d.getDate()+1)){const f=muYmd(d); if(f>fin||f>h) break; if(d.getDay()%6) out.push(f)}
+  return out.slice(-8);
+}
+// Perfiles (8 días que se repiten). Asistencia: A=a tiempo R=retardo F=falta J=justificada · Marcas: O=OK B=BAD -=sin marca
+const MU_PERF=[
+ {n:'HERNANDEZ RUIZ MARIA FERNANDA',a:'AAAAAAAA',c:'OOOOOOOO',p:'OOO-OOOO',t:'OOOOOOOO',b:'OOOOOOOO',s:'--O--O--',tel:'618 100 2301',loc:'Durango, Dgo.',mama:'Rosa Ruiz de Hernández'},
+ {n:'MARTINEZ SOTO JOSE LUIS',a:'AAARAAAA',c:'OOOOO-OO',p:'O-OBO-OO',t:'OO-OOBOO',b:'OOOO-OOO',s:'O-----O-',tel:'618 100 2302',loc:'Durango, Dgo.',mama:'Patricia Soto Reyes'},
+ {n:'RAMIREZ VEGA DIANA LAURA',a:'AARAAAAA',c:'OO-OOO-O',p:'-OB-OO-B',t:'OBO-BOO-',b:'O-OOBOO-',s:'--------',tel:'675 100 2303',loc:'Santiago Papasquiaro, Dgo.',mama:'Laura Vega Ríos'},
+ {n:'TORRES CAMPOS CARLOS ALBERTO',a:'AFAJAAFA',c:'B-O-B-OB',p:'B--B-O--',t:'B-BO-B-B',b:'BOB--B-O',s:'--B---B-',tel:'618 100 2304',loc:'Durango, Dgo.',mama:'Elena Campos Mora'},
+ {n:'LOPEZ GARCIA SOFIA ISABEL',a:'RAARAAAR',c:'OOOO-OOO',p:'BO-B-OB-',t:'OOO-OOOO',b:'OO-OOOO-',s:'O---O---',tel:'871 100 2305',loc:'Gómez Palacio, Dgo.',mama:'Isabel García Núñez'}
+];
+const MU_OBS={0:'EJEMPLO de observación: participó muy bien en la práctica de laboratorio.',3:'EJEMPLO: llegó sin bata; se le pidió traerla la próxima clase.'};
+function muRecords(dias,off){
+  const rec={};
+  dias.forEach((f,i)=>{
+    rec[f]={};
+    MU_PERF.forEach((P,k)=>{
+      const j=(i+off+k)%8, a=P.a[j], m=ch=>({O:'OK',B:'BAD'})[ch]||'';
+      const r={asist:'',punt:'',comp:'',part:'',tarea:'',trab:''};
+      if(a==='A'){r.asist='P';r.punt='T'} else if(a==='R'){r.asist='P';r.punt='R'}
+      else if(a==='F'){r.asist='F';r.just='Sin aviso'} else {r.asist='J';r.just='Cita médica (EJEMPLO)'}
+      if(a==='A'||a==='R'){r.comp=m(P.c[j]);r.part=m(P.p[j]);r.tarea=m(P.t[j]);r.trab=m(P.b[j]); const sl=m(P.s[j]); if(sl) r.sello=sl}
+      if(i===dias.length-1&&MU_OBS[k]) r.nota=MU_OBS[k];
+      rec[f][P.n]=r;
+    });
+  });
+  return rec;
+}
+function muParcial(p,ini,fin,off){
+  const dias=muDias(ini,fin); if(!dias.length) return null;
+  const S=MU_PERF.map(x=>x.n), last=dias[dias.length-1], P={};
+  P.records=muRecords(dias,off);
+  const pasado=fin<hoy();
+  const lim=pasado?last:muSuma(last,7);
+  const ent={}, ev={}, all={baco:1,present:1,contenido:1,completo:1,carpeta:1,portada:1,correcto:1};
+  const sub=(o,l)=>{const r={};Object.keys(all).forEach(k=>{if(!l.includes(k)) r[k]=true});return r};
+  ent[S[0]]=muSuma(lim,-2); ev[S[0]]=sub(0,[]);
+  ent[S[1]]=lim; ev[S[1]]=sub(0,['portada']);
+  if(pasado){ent[S[2]]=muSuma(lim,3); ev[S[2]]=sub(0,['completo','portada','correcto'])}
+  ent[S[4]]=muSuma(lim,-1); ev[S[4]]=sub(0,['completo','correcto']);
+  P.cuad={limite:lim,entregas:ent,eval:ev};
+  P.examen={total:20,notas:p===1?{[S[0]]:19,[S[1]]:16,[S[2]]:13,[S[3]]:8,[S[4]]:15}:{[S[0]]:18,[S[1]]:17,[S[2]]:12,[S[3]]:10,[S[4]]:14}};
+  P.extrae={nombre:p===1?'Visita al museo de ciencias (EJEMPLO)':'Feria de ciencias de la escuela (EJEMPLO)',fecha:dias[Math.min(2,dias.length-1)],
+    reg:{[S[0]]:{e:10,n:'Entregó reporte completo'},[S[1]]:{e:9,n:''},[S[2]]:{e:8,n:'Reporte sin conclusiones'},[S[4]]:{e:10,n:'Participó en el stand'}}};
+  P.puntitos={[S[0]]:[{f:dias[1]||last,h:'10:15:00',v:1},{f:dias[2]||last,h:'11:02:00',v:1},{f:last,h:'09:40:00',v:1}],[S[1]]:[{f:last,h:'12:20:00',v:1}],[S[3]]:[{f:last,h:'13:05:00',v:-1}],[S[4]]:[{f:dias[0],h:'08:30:00',v:1}]};
+  P.custom={muestra:{[S[0]]:'10',[S[1]]:'9',[S[2]]:'8',[S[3]]:'6',[S[4]]:'9'}};
+  return P;
+}
+function muConfigParciales(){
+  // Si aún no hay duración de Parciales, se proponen unos de ejemplo alrededor de hoy (se pueden cambiar en "Editar parciales")
+  const sin=[1,2,3].every(p=>{const c=(db.pcfg||{})[p]; return !(c&&c.ini&&c.fin)});
+  if(!sin) return;
+  const d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-((d.getDay()+6)%7)); const mon=muYmd(d);
+  db.pcfg={1:{ini:muSuma(mon,-63),fin:muSuma(mon,-24)},2:{ini:muSuma(mon,-21),fin:muSuma(mon,25)},3:{ini:muSuma(mon,28),fin:muSuma(mon,67)}};
+}
+function muCrear(){
+  muConfigParciales();
+  const S=MU_PERF.map(x=>x.n), g={students:S.slice(),datosAl:{},reportes:{}};
+  MU_PERF.forEach(P=>{g.datosAl[P.n]={tel:P.tel,loc:P.loc,mama:P.mama}});
+  g.reportes[S[3]]=[{f:hoy(),t:'EJEMPLO: platicó durante la práctica y no terminó la actividad.'}];
+  g.reportes[S[4]]=[{f:hoy(),t:'EJEMPLO: llegó tarde en dos ocasiones esta semana.'}];
+  g.reportes[S[2]]=[{f:hoy(),t:'EJEMPLO: se habló con la alumna para mejorar la entrega de tareas.'}];
+  const pc=p=>(db.pcfg||{})[p]||{};
+  const P1=muParcial(1,pc(1).ini,pc(1).fin,0), P2=muParcial(2,pc(2).ini,pc(2).fin,3), P3=muParcial(3,pc(3).ini,pc(3).fin,5);
+  if(P1) Object.assign(g,P1);
+  else {g.records={}}
+  if(P2||P3){g.parciales={}; if(P2) g.parciales[2]=P2; if(P3) g.parciales[3]=P3}
+  return g;
+}
+function muExtras(){
+  // Tipo de calificación propio de ejemplo (solo si el profesor aún no tiene ninguno)
+  if(!customs().length){db.customs=[{id:'muestra',nombre:'Proyecto integrador (EJEMPLO)',peso:10}]; rebuildRUB()}
+  // Horario de ejemplo (solo si está vacío)
+  const h=horario();
+  if(!Object.keys(h.celdas).length){
+    const sl=slotsHorario().filter(x=>!x.r);
+    [1,3,5].forEach(d=>{[0,1].forEach(i=>{if(sl[i]) h.celdas[claveHr(d,sl[i])]={m:'Química I',g:MU_NOM}})});
+    [2,4].forEach(d=>{if(sl[1]) h.celdas[claveHr(d,sl[1])]={m:'Laboratorio',g:MU_NOM}});
+  }
+  // Pendientes de ejemplo
+  const l=pnLista();
+  if(!l.some(n=>String(n.id).startsWith('ej'))){
+    l.push({id:'ej1',t:'EJEMPLO: capturar las calificaciones del Parcial en el sistema.',reg:Date.now(),fec:muSuma(hoy(),3),hr:'10:00',alarma:true,hecho:false,avisado:false,posp:0});
+    l.push({id:'ej2',t:'EJEMPLO: imprimir las listas de asistencia (esta nota no tiene alarma).',reg:Date.now(),fec:muSuma(hoy(),7),hr:'',alarma:false,hecho:false,avisado:false,posp:0});
+  }
+}
+function muCargar(){
+  db.groups[MU_NOM]=muCrear(); muExtras();
+  // extraordinario de ejemplo para quien reprueba el Parcial
+  [1,2,3].forEach(p=>{
+    const g=db.groups[MU_NOM], st=(p===1?g:(g.parciales||{})[p]); if(!st) return;
+    conGrupo(MU_NOM,()=>{const r=calParcialInfo(p,MU_PERF[3].n); if(r&&r.fin!==null&&r.fin<6){st.extraord=st.extraord||{}; st.extraord[MU_PERF[3].n]=7}},p);
+  });
+}
+function muAbrir(){
+  const h=hoy(), p=pDeFecha(h)||1;
+  db.current=MU_NOM; db.parcial=p; $('fecha').value=h; creaAuto=true; forzarDia=null; tabActual='captura';
+  save(); refrescarVista(); window.scrollTo(0,0);
+}
+$('menuAcc').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-mu]'); if(!b) return;
+  if(b.dataset.mu==='cargar'){
+    if(db.groups[MU_NOM]&&!confirm('El '+MU_NOM+' ya existe. ¿Restablecerlo a sus datos de ejemplo originales? (Los cambios que le hayas hecho se pierden; tus otros grupos no se tocan.)')) return;
+    muCargar(); menuCerrar(); muAbrir();
+    alert('Listo: se cargó el '+MU_NOM+' con 5 alumnos y datos de ejemplo en todas las secciones. Todo lo marcado como EJEMPLO es solo para practicar.');
+  }else{
+    if(!db.groups[MU_NOM]){alert('No existe el '+MU_NOM+'.'); return}
+    if(Object.keys(db.groups).length<2){alert('Es el único grupo que tienes. Crea primero tu grupo real con "Crear o modificar grupo" y luego quítalo.'); return}
+    if(!confirm('¿Quitar el '+MU_NOM+' y sus datos de ejemplo?')) return;
+    delete db.groups[MU_NOM]; db.pend=pnLista().filter(n=>!String(n.id).startsWith('ej'));
+    if(db.current===MU_NOM) db.current=Object.keys(db.groups)[0];
+    save(); menuCerrar(); refrescarVista();
+  }
+});
+if(FRESH){ // primera vez que se abre el sistema: se entrega con el grupo de ejemplo ya listo
+  db.groups={}; muCargar(); db.current=MU_NOM; db.parcial=pDeFecha(hoy())||1;
+}
+function renderTodo(){rebuildRUB();renderParciales();renderTabs();aplicarAjustes();renderGrupos();renderCaptura();renderCuad(); if(perfilListo) chequePerfil()}
+$('fecha').value=hoy();
+renderTodo();
+
+// ===== Conexión con la carpeta CALIFICATED (servidor local) =====
+function srvAviso(ok){
+  const e=$('verSrv'); if(!e) return;
+  e.textContent=ok?'✔ Respaldo automático activo en la carpeta CALIFICATED':'⚠ Sin conexión con la carpeta: cierra esta pestaña y abre de nuevo el programa CALIFICATED de la carpeta CALIFICATED';
+  e.style.fontWeight=ok?'':'700';
+}
+function srvGuardar(){
+  if(!SRV) return;
+  clearTimeout(srvT);
+  srvT=setTimeout(()=>{
+    srvT=null;
+    fetch('/api/datos',{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(db)})
+      .then(r=>{if(!r.ok) throw 0; srvAviso(true)}).catch(()=>srvAviso(false));
+  },400);
+}
+function srvInit(){
+  if(!/^https?:$/.test(location.protocol)){chequePerfil(); return}
+  fetch('/api/estado').then(r=>r.json()).then(e=>{
+    if(!e||e.app!=='calificated') throw 0;
+    SRV=true; srvAviso(true);
+    return fetch('/api/datos').then(r=>r.ok?r.json():null).then(d=>{
+      if((d=sanear(d))&&(d.ts||0)>(db.ts||0)){
+        db=d; try{localStorage.setItem(KEY,JSON.stringify(db))}catch(x){}
+        renderTodo(); mostrarTab(tabActual,customActual);
+      }else srvGuardar();
+    });
+  }).catch(()=>{}).then(chequePerfil);
+  setInterval(()=>{if(SRV) fetch('/api/ping').then(r=>{if(!r.ok) throw 0; srvAviso(true)}).catch(()=>srvAviso(false))},4000);
+  window.addEventListener('pageshow',()=>{if(SRV) fetch('/api/ping').catch(()=>{})});
+  window.addEventListener('pagehide',()=>{
+    if(!SRV) return;
+    if(srvT){clearTimeout(srvT); srvT=null; try{navigator.sendBeacon('/api/datos',new Blob([JSON.stringify(db)],{type:'text/plain'}))}catch(x){}}
+    navigator.sendBeacon('/api/cierre','');
+  });
+}
+srvInit();
+</script>
+<script>if('serviceWorker' in navigator&&location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+</body>
+</html>
